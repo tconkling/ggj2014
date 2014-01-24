@@ -1,0 +1,20 @@
+{
+  "importDir": "",
+  "exports": [
+    {
+      "textureBorder": 1,
+      "name": "flump",
+      "quality": "best",
+      "format": "JSONZip",
+      "scale": 0.5,
+      "maxAtlasSize": 2048,
+      "optimize": "Speed",
+      "additionalScaleFactors": [
+        2
+      ],
+      "description": "'flump' (JSONZip, 50%, @2x)",
+      "scaleFactorsString": "2"
+    }
+  ],
+  "exportDir": "../rsrc"
+}

@@ -1,0 +1,182 @@
+<?xml version="1.0" standalone="yes"?>
+<project name="ggj" default="swc" basedir="." xmlns:artifact="urn:maven-artifact-ant">
+  <property name="asrc.dir" location="src/main/as"/>
+  <property name="ios.dir" location="mobile-client"/>
+  <property name="ios-src.dir" location="${ios.dir}/src/main/as"/>
+  <property name="web.dir" location="web-client"/>
+  <property name="web-src.dir" location="${web.dir}/src/main/as"/>
+  <property name="lib-ane.dir" location="${ios.dir}/lib-ane"/>
+  <property name="rsrc.dir" location="rsrc"/>
+  <property name="icons.dir" location="${ios.dir}/system"/>
+  <property name="deploy.dir" location="dist"/>
+  <property name="swc.name" value="${ant.project.name}.swc"/>
+  <property name="ios-swf.name" value="${ant.project.name}-ios.swf"/>
+  <property name="ios-ipa.name" value="${ant.project.name}-ios.ipa"/>
+  <property name="web-swf.name" value="${ant.project.name}-web.swf"/>
+  <property name="swf.version" value="20"/>
+
+  <!-- AIR Native Extensions -->
+  <fileset id="ane-libs.fileset" dir="${lib-ane.dir}">
+    <include name="**/*.swc"/>
+  </fileset>
+
+  <property name="ooo-build.vers" value="2.5"/>
+  <ant antfile="etc/bootstrap.xml"/>
+  <import file="${user.home}/.m2/ooo-build/${ooo-build.vers}/ooo-build.xml"/>
+
+  <target name="-prepare" depends="-init-ooo">
+    <!-- AS3 ant utils -->
+    <maventaskdef groupId="com.threerings.ant" artifactId="actionscript" version="1.8"/>
+
+    <mkdir dir="${deploy.dir}"/>
+    <!-- we can't use <mavendep> here because we need to exclude our pom depends -->
+    <artifact:dependencies filesetId="pom.fileset" cacheDependencyRefs="true" type="swc"
+      dependencyRefsBuildFile="${deploy.dir}/pom.dependencies">
+      <pom file="pom.xml"/>
+    </artifact:dependencies>
+
+    <!-- Combine all our maven and non-maven libs, and convert them to a path -->
+    <union id="core-aslibs">
+      <resources refid="pom.fileset"/>
+    </union>
+    <pathconvert pathsep="," property="swclib.path" refid="core-aslibs"/>
+
+    <!-- Converts a fileset into a string of relative filenames to pass to adt. -->
+    <macrodef name="get-adt-resource-list">
+      <attribute name="property"/>
+      <attribute name="dir"/>
+      <element name="fileset-elements" optional="true"/>
+      <sequential>
+        <fileset id="@{property}.fileset" dir="@{dir}">
+          <fileset-elements/>
+        </fileset>
+        <pathconvert pathsep=" " property="@{property}" refid="@{property}.fileset">
+          <map from="@{dir}/" to=""/>
+        </pathconvert>
+      </sequential>
+    </macrodef>
+  </target>
+
+  <target name="clean" description="Removes all generated files and directories">
+    <delete dir="${deploy.dir}" verbose="true"/>
+  </target>
+
+  <target name="swc" depends="-prepare" description="Builds the library (.swc file)">
+    <compc srcdir="${asrc.dir}" libpath="${swclib.path}" dest="${deploy.dir}/${swc.name}" debug="false">
+      <arg value="-swf-version=${swf.version}"/>
+    </compc>
+  </target>
+
+  <target name="web-client" depends="swc" description="Builds the web client">
+    <!-- Web client needs all the core libs plus the core swc -->
+    <union id="web-aslibs">
+      <resources refid="core-aslibs"/>
+      <fileset file="${deploy.dir}/${swc.name}"/>
+    </union>
+    <pathconvert pathsep="," property="weblib.path" refid="web-aslibs"/>
+
+    <mxmlc srcdir="${web-src.dir}" libpath="${weblib.path}"
+      dest="${deploy.dir}/${web-swf.name}"
+      main="ggj/GGJWebPreloader.as"
+      debug="false">
+      <arg value="-swf-version=${swf.version}"/>
+      <arg value="-frame=two,ggj.GGJWeb"/>
+    </mxmlc>
+
+    <!-- Get the md5 hash of our swf, and stick it in our index.html. Also save the MD5
+      to disk for the deploy script (annoyingly, the checksum task doesn't let us save the
+      checksum to a property *and* a file.) -->
+    <checksum file="${deploy.dir}/${web-swf.name}" property="swf.hash"/>
+    <echo message="${swf.hash}" file="${deploy.dir}/${web-swf.name}.MD5"/>
+    <copy file="${web.dir}/src/main/web/index.html.tmpl" tofile="${deploy.dir}/index.html" overwrite="true"/>
+    <replace file="${deploy.dir}/index.html">
+      <replacefilter token="{{ swf_name }}" value="ggj-web.swf-${swf.hash}"/>
+      <replacefilter token="{{ swf_width }}" value="${config.swf_width}"/>
+      <replacefilter token="{{ swf_height }}" value="${config.swf_height}"/>
+      <replacefilter token="{{ flashvars }}" value="{}"/>
+    </replace>
+  </target>
+
+  <target name="ios-client" depends="swc" description="Builds the iOS client swf">
+    <!-- Mobile client needs all the core libs plus the core swc -->
+    <union id="ios-aslibs">
+      <resources refid="core-aslibs"/>
+      <fileset file="${deploy.dir}/${swc.name}"/>
+    </union>
+    <pathconvert pathsep="," property="ioslib.path" refid="ios-aslibs"/>
+
+    <!-- ANE libs need external linkage -->
+    <pathconvert pathsep="," property="iosextlib.path" refid="ane-libs.fileset"/>
+
+    <amxmlc srcdir="${ios-src.dir}"
+            main="GGJMobilePreloader.as"
+            libpath="${ioslib.path}"
+            dest="${deploy.dir}/${ios-swf.name}"
+            debug="false">
+            <arg line="-compiler.external-library-path+=${iosextlib.path}"/>
+            <arg value="-frame=two,ggj.GGJMobile"/>
+    </amxmlc>
+  </target>
+
+  <target name="package-ios" depends="ios-client" description="Packages the iOS client ipa">
+
+    <!-- ( ipa-test | ipa-debug | ipa-app-store | ipa-ad-hoc | ipa-test-interpreter |
+      ipa-debug-interpreter | ipa-test-interpreter-simulator | ipa-debug-interpreter-simulator ) -->
+    <property name="ios.target" value="ipa-ad-hoc"/>
+    <property name="cert-password" value="SET ME!"/>
+
+    <get-adt-resource-list property="core-resources.path" dir="${rsrc.dir}">
+      <fileset-elements>
+        <include name="**/**"/>
+        <exclude name="**/.DS_Store"/>
+      </fileset-elements>
+    </get-adt-resource-list>
+
+    <get-adt-resource-list property="ios-resources.path" dir="${ios.dir}/rsrc">
+      <fileset-elements>
+        <include name="**/**"/>
+        <exclude name="**/.DS_Store"/>
+      </fileset-elements>
+    </get-adt-resource-list>
+
+    <sequential>
+      <requireair/>
+      <java jar="${airsdk.dir}/lib/adt.jar" fork="true" failonerror="true">
+        <arg value="-package"/>
+        <arg value="-target"/>
+        <arg value="${ios.target}"/>
+        <arg value="-storetype"/>
+        <arg value="pkcs12"/>
+        <arg value="-keystore"/>
+        <arg value="${ios.dir}/iOSCert.p12"/>
+        <arg value="-storepass"/>
+        <arg value="${cert-password}"/>
+        <arg value="-provisioning-profile"/>
+        <arg value="${ios.dir}/GGJAdHoc.mobileprovision"/>
+        <arg value="${deploy.dir}/${ios-ipa.name}"/> <!-- output name -->
+        <arg value="${ios.dir}/airdesc.xml"/> <!-- app descriptor -->
+
+        <!-- Core resources -->
+        <arg value="-C"/>
+        <arg value="${rsrc.dir}"/>
+        <arg line="${core-resources.path}"/>
+
+        <!-- iOS resources -->
+        <arg value="-C"/>
+        <arg value="${ios.dir}/rsrc"/>
+        <arg line="${ios-resources.path}"/>
+
+        <!-- our swf -->
+        <arg value="-C"/>
+        <arg value="${deploy.dir}"/>
+        <arg value="${ios-swf.name}"/>
+
+        <arg value="-extdir"/> <!-- location of ANE libs -->
+        <arg value="${lib-ane.dir}"/>
+      </java>
+    </sequential>
+  </target>
+
+  <target name="distall" depends="web-client, package-ios"/>
+
+</project>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://ns.adobe.com/air/application/4.0">
+  <id>com.timconkling.ggj2014</id>
+  <!-- Bundle Identifier. Required. -->
+  <filename>GGJ2014</filename>
+  <!-- Used as the filename for the application. Required. -->
+  <name>GGJ2014</name>
+  <!-- The name that is displayed below the app icon. -->
+  <versionNumber>0.1.0</versionNumber>
+  <!-- We recommend omitting the supportedProfiles element, -->
+  <!-- which in turn permits your application to be deployed to all -->
+  <!-- devices supported by AIR. If you wish to restrict deployment -->
+  <!-- (i.e., to only mobile devices) then add this element and list -->
+  <!-- only the profiles which your application does support. -->
+  <!-- <supportedProfiles>mobileDevice</supportedProfiles> -->
+  <!-- A string value (such as "v1", "2.5", or "Alpha 1") that represents the version of the application, as it should be shown to users. Optional. -->
+  <!-- <versionLabel></versionLabel> -->
+  <!-- Description, displayed in the AIR application installer.
+    May have multiple values for each language. See samples or xsd schema file. Optional. -->
+  <!-- <description></description> -->
+  <!-- Copyright information. Optional -->
+  <!-- <copyright></copyright> -->
+  <!-- Settings for the application's initial window. Required. -->
+  <initialWindow>
+    <!-- The main SWF or HTML file of the application. Required. -->
+    <!-- Note: In Flash Builder, the SWF reference is set automatically. -->
+    <content>ggj2014-ios.swf</content>
+    <!-- The initial aspect ratio ("portrait" or "landscape"). Optional. -->
+    <aspectRatio>landscape</aspectRatio>
+    <!-- Whether the app will begin auto-orienting on launch. Optional. Default false -->
+    <autoOrients>false</autoOrients>
+    <!-- Whether the app launches in full screen. Optional. Mobile only. Default false -->
+    <!-- (On iOS, this decides if the StatusBar is visible or not.) -->
+    <fullScreen>true</fullScreen>
+    <!-- Either auto, cpu, gpu, or direct. Default auto -->
+    <renderMode>direct</renderMode>
+    <!-- Whether direct mode allocates storage for depth and stencil buffers. Default false -->
+    <!-- <depthAndStencil></depthAndStencil> -->
+    <!-- Whether or not to pan when a soft keyboard is raised or lowered (either "pan" or "none").  Optional.  Defaults "pan." -->
+    <!-- <softKeyboardBehavior></softKeyboardBehavior> -->
+    <systemChrome>none</systemChrome>
+    <visible>true</visible>
+  </initialWindow>
+  <!-- Languages supported by application Only these languages can be specified -->
+  <!-- en de cs es fr it ja ko nl pl pt ru sv tr zh</supportedLanguages> -->
+  <!-- The icon the system uses for the application. Optional. -->
+  <!-- Place the icons in a 'source path' (e.g. in the 'src' directory). -->
+  <!-- iPhone: 57x57, iPhone HD: 114x114, iPad: 72x72, iPad HD: 144x144 -->
+  <icon>
+    <image114x114>AppIcons/114x114-icon114.png</image114x114>
+    <image57x57>AppIcons/57x57-icon57.png</image57x57>
+    <image144x144>AppIcons/144x144-icon144.png</image144x144>
+    <image72x72>AppIcons/72x72-icon72.png</image72x72>
+  </icon>
+  <!-- iOS specific capabilities -->
+  <iPhone>
+    <!-- A list of plist key/value pairs to be added to the application Info.plist -->
+    <!-- UIDeviceFamily: 1 - iPhone/iPod Touch; 2 - iPad; both: universal app -->
+    <InfoAdditions><![CDATA[<key>UIDeviceFamily</key>
+            <array>
+                <string>1</string>
+                <string>2</string>
+            </array>
+            <key>UIPrerenderedIcon</key>
+            <true/>]]></InfoAdditions>
+    <!-- aps-environment MUST be "production" for release AND ad-hoc builds.
+          Use "development" for development builds only. -->
+    <Entitlements><![CDATA[<key>aps-environment</key>
+             <string>production</string>]]></Entitlements>
+    <!-- Display Resolution for the app ("standard" or "high"). Optional. Default "standard" -->
+    <requestedDisplayResolution>high</requestedDisplayResolution>
+  </iPhone>
+  <!-- Android specific capabilities -->
+  <android>
+    <manifestAdditions><![CDATA[<manifest android:installLocation="auto">
+                 <uses-permission android:name="android.permission.INTERNET"/>
+                 <uses-configuration android:reqFiveWayNav="true"/>
+                 <supports-screens android:normalScreens="true"/>
+                 <uses-feature android:required="true" android:name="android.hardware.touchscreen.multitouch"/>
+                 <application android:enabled="true">
+                     <activity android:excludeFromRecents="false">
+                         <intent-filter>
+                             <action android:name="android.intent.action.MAIN"/>
+                             <category android:name="android.intent.category.LAUNCHER"/>
+                         </intent-filter>
+                     </activity>
+                 </application>
+             </manifest>]]></manifestAdditions>
+  </android>
+  <extensions>
+    <extensionID>pl.mllr.extensions.nativeUtils</extensionID>
+  </extensions>
+  <supportedProfiles>desktop extendedDesktop mobileDevice extendedMobileDevice</supportedProfiles>
+</application>
+
