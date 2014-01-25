@@ -11,7 +11,8 @@ import flashbang.core.AppMode;
 import flashbang.core.GameObjectBase;
 import flashbang.input.KeyboardState;
 
-import ggj.game.control.ControlTestObject;
+import ggj.GGJ;
+
 import ggj.game.control.PlayerControl;
 import ggj.game.object.Actor;
 import ggj.game.object.BattleBoard;
@@ -51,6 +52,7 @@ public class BattleMode extends AppMode
     }
 
     override protected function update (dt :Number) :void {
+        dt = GGJ.FRAMERATE;
         super.update(dt);
         //_ctx.board.view.updateView();
     }
