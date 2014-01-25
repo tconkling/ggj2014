@@ -7,7 +7,7 @@ import re
 from microtome.core.tome_ref import TomeRef
 import microtome.util
 
-from ggj2014.enums import TileType
+from ggj.game.desc.enums import TileType
 
 from aciv.game.desc.BoardDesc import BoardDesc
 from aciv.game.desc.TileDesc import TileDesc
