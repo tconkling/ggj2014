@@ -1,5 +1,5 @@
 #
-# aciv
+# ggj2014
 
 import argparse
 import os
@@ -8,10 +8,11 @@ import xml.etree.ElementTree as etree
 
 import microtome.xml_support as xml_support
 
-import aciv.game_desc as game_desc
+import ggj.game_desc as game_desc
 from tools.board_generator import BoardGenerator
 
-def genboard(csv_file, output_file, name, width, height):
+
+def genboard (csv_file, output_file, name, width, height):
     # generate our board
     board = BoardGenerator(os.path.abspath(csv_file), name, width, height).board
 
@@ -23,7 +24,8 @@ def genboard(csv_file, output_file, name, width, height):
     # write to disk
     etree.ElementTree(root).write(output_file)
 
-def main():
+
+def main ():
     ap = argparse.ArgumentParser()
     # optional args
     ap.add_argument("--width", help="board width")
@@ -34,4 +36,5 @@ def main():
     ap.add_argument("output_file")
     args = ap.parse_args()
 
-    genboard(args.csv_file, args.output_file, args.name or "board", args.width or 0, args.height or 0)
+    genboard(args.csv_file, args.output_file, args.name or "board", args.width or 0,
+             args.height or 0)

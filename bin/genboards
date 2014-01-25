@@ -1,0 +1,24 @@
+#!/usr/bin/env python
+
+import os
+import re
+
+import bootstrap
+
+def strip_extension(name):
+    idx = name.rfind(".")
+    return name[:idx] if idx >= 0 else name
+
+import tools.genboard as gen
+
+is_csv = re.compile(r'.*\.csv$')
+in_dir = os.path.join(bootstrap.project_root, "assets-source")
+out_dir = os.path.join(bootstrap.project_root, "rsrc/tome")
+for (path, dirs, files) in os.walk(in_dir):
+    for filename in [filename for filename in files if is_csv.match(filename)]:
+        in_name = os.path.join(path, filename)
+        board_name = strip_extension(filename)
+        out_name = os.path.join(out_dir, board_name + ".xml")
+        print "processing %s..." % in_name
+        gen.genboard(in_name, out_name, board_name, 0, 0)
+

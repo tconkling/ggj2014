@@ -1,7 +1,8 @@
 #
-# aciv
+# ggj2014
 
 import csv
+
 
 class Grid(object):
     '''Parses a csv file into a grid. Each cell in the grid is a list of strings, corresponding to
@@ -60,24 +61,3 @@ class Grid(object):
         if x < 0 or x >= self.width or y < 0 or y >= self.height:
             raise Exception("bad coordinate")
         return self.rows[y][x]
-
-
-if __name__ == "__main__":
-    grid = Grid(''',,,,,,,,,,,,,,,,,,,,
-,,,,,,3,T,,,,,,T,3,,,,,,
-,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,%,,,
-,,,,,,,,,,,,,,,,1,1,1,,
-,,,,,,,,,,,,,,,,,,,,
-,,,,,,2,,,,3,,,,2,,,,,,
-,X1|%,,,,,2,%,,3,T,3,,%,2,,,,,X2|%,
-,,,,,,2,,,,3,,,,2,,,,,,
-,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,
-,,1,1,1,,,,,,,,,,,,,,,,
-,,,%,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,
-,,,,,,3,T,,,,,,T,3,,,,,,
-,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,''')

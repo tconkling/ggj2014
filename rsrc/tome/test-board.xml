@@ -1,0 +1,35 @@
+<microtome>
+  <test-board height="12" tomeType="BoardDesc" width="16">
+    <tiles>
+      <tile tomeType="TileDesc" type="STONE" x="10" y="1" />
+      <tile tomeType="TileDesc" type="STONE" x="11" y="1" />
+      <tile tomeType="TileDesc" type="STONE" x="12" y="1" />
+      <tile tomeType="TileDesc" type="STONE" x="13" y="1" />
+      <tile tomeType="TileDesc" type="STONE" x="14" y="1" />
+      <tile tomeType="TileDesc" type="STONE" x="15" y="1" />
+      <tile tomeType="TileDesc" type="STONE" x="2" y="5" />
+      <tile tomeType="TileDesc" type="STONE" x="3" y="5" />
+      <tile tomeType="TileDesc" type="STONE" x="4" y="5" />
+      <tile tomeType="TileDesc" type="STONE" x="5" y="5" />
+      <tile tomeType="TileDesc" type="STONE" x="6" y="5" />
+      <tile tomeType="TileDesc" type="STONE" x="9" y="8" />
+      <tile tomeType="TileDesc" type="STONE" x="10" y="8" />
+      <tile tomeType="TileDesc" type="STONE" x="11" y="8" />
+      <tile tomeType="TileDesc" type="STONE" x="12" y="8" />
+      <tile tomeType="TileDesc" type="STONE" x="13" y="8" />
+      <tile tomeType="TileDesc" type="STONE" x="0" y="11" />
+      <tile tomeType="TileDesc" type="STONE" x="1" y="11" />
+      <tile tomeType="TileDesc" type="STONE" x="2" y="11" />
+      <tile tomeType="TileDesc" type="STONE" x="3" y="11" />
+      <tile tomeType="TileDesc" type="STONE" x="4" y="11" />
+      <tile tomeType="TileDesc" type="STONE" x="5" y="11" />
+      <tile tomeType="TileDesc" type="STONE" x="6" y="11" />
+      <tile tomeType="TileDesc" type="STONE" x="10" y="11" />
+      <tile tomeType="TileDesc" type="STONE" x="11" y="11" />
+      <tile tomeType="TileDesc" type="STONE" x="12" y="11" />
+      <tile tomeType="TileDesc" type="STONE" x="13" y="11" />
+      <tile tomeType="TileDesc" type="STONE" x="14" y="11" />
+      <tile tomeType="TileDesc" type="STONE" x="15" y="11" />
+    </tiles>
+  </test-board>
+</microtome>
