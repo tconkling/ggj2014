@@ -5,10 +5,14 @@ package ggj.game {
 
 import aspire.util.Log;
 
+import flash.ui.Keyboard;
+
 import flashbang.core.AppMode;
 import flashbang.core.GameObjectBase;
+import flashbang.input.KeyboardState;
 
 import ggj.game.control.ControlTestObject;
+import ggj.game.control.PlayerControl;
 import ggj.game.object.Actor;
 import ggj.game.object.BattleBoard;
 
@@ -28,7 +32,9 @@ public class BattleMode extends AppMode
     override protected function setup () :void {
         addObject(_ctx);
 
-        addObject(new ControlTestObject());
+        // input
+        _keyboardState = new KeyboardState();
+        this.keyboardInput.registerListener(_keyboardState);
 
         // layers
         _modeSprite.addChild(_ctx.boardLayer);
@@ -38,7 +44,10 @@ public class BattleMode extends AppMode
         _ctx.board = new BattleBoard();
         addObject(_ctx.board);
 
-        addObject(new Actor());
+        // actors
+        var p1 :PlayerControl = new PlayerControl(Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP,
+            Keyboard.R, _keyboardState);
+        addObject(new Actor(p1));
     }
 
     override protected function update (dt :Number) :void {
@@ -47,6 +56,7 @@ public class BattleMode extends AppMode
     }
 
     protected var _ctx :BattleCtx;
+    protected var _keyboardState :KeyboardState;
 
     protected static const log :Log = Log.getLog(BattleMode);
 }

@@ -12,9 +12,12 @@ public class PlayerControl {
         _state = state;
     }
 
-    public function get direction () :ControlDirection {
-        return _state.isKeyDown(_left) ? ControlDirection.LEFT :
-            (_state.isKeyDown(_right) ? ControlDirection.RIGHT : ControlDirection.NONE);
+    public function get left () :Boolean {
+        return _state.isKeyDown(_left);
+    }
+
+    public function get right () :Boolean {
+        return _state.isKeyDown(_right);
     }
 
     public function get jumping () :Boolean {
