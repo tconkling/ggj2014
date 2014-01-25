@@ -3,7 +3,6 @@ package ggj.game.object {
 import aspire.geom.Vector2;
 import aspire.util.MathUtil;
 
-import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import flashbang.core.Updatable;
@@ -33,7 +32,7 @@ public class Actor extends BattleObject implements Updatable
     public function update (dt :Number) :void {
         _lastBounds.copyFrom(_bounds);
 
-        // update state from input
+        // horizontal movement
         _v.x = 0;
         if (_input.right) {
             _v.x = 5;
@@ -41,34 +40,56 @@ public class Actor extends BattleObject implements Updatable
             _v.x = -5;
         }
 
-        // gravity
-        _v.y = MathUtil.clamp(_v.y + (GRAVITY * dt), MIN_V, MAX_V);
+        // jumping
+        if (_input.jump && this.canJump) {
+            _v.y += JUMP_IMPULSE;
+        } else {
+            // gravity
+            _v.y += (GRAVITY * dt);
+        }
+
+        // clamp
+        _v.y = MathUtil.clamp(_v.y, MIN_V, MAX_V);
 
         _bounds.x += (_v.x * dt);
         _bounds.y += (_v.y * dt);
 
-        // collide
-        var collisions :Point = _ctx.board.getCollisions(_bounds, _lastBounds);
-        if (collisions.x != _bounds.x) {
-            // we had a horizontal collision. reset our horizontal velocity.
-            _bounds.x = collisions.x;
-            _v.x = 0;
-        }
-        if (collisions.y != _bounds.y) {
-            // vertical collision
-            _bounds.y = collisions.y;
+        // collisions
+        _onGround = false;
+        var vCollision :Number = _ctx.board.getCollisions(_bounds, _lastBounds, true);
+        if (!isNaN(vCollision)) {
+            if (_bounds.y > _lastBounds.y) {
+                // we're on the ground
+                _onGround = true;
+            }
+
+            // vertical collision. reset vertical velocity.
+            _bounds.y = vCollision;
             _v.y = 0;
+        }
+
+        var hCollision :Number = _ctx.board.getCollisions(_bounds, _lastBounds, false);
+        if (!isNaN(hCollision)) {
+            _bounds.x = hCollision;
+            _v.x = 0;
         }
     }
 
+    protected function get canJump () :Boolean {
+        return _onGround;
+    }
+
     protected var _input :PlayerControl;
+    protected var _view :ActorView;
+
+    // physics
     protected var _bounds :Rectangle = new Rectangle();
     protected var _lastBounds :Rectangle = new Rectangle();
     protected var _v :Vector2 = new Vector2();
+    protected var _onGround :Boolean;
 
-    protected var _view :ActorView;
-
-    protected static const GRAVITY :Number = 10;
+    protected static const JUMP_IMPULSE :Number = -6;
+    protected static const GRAVITY :Number = 20;
     protected static const MAX_V :Number = 10;
     protected static const MIN_V :Number = -10;
 }

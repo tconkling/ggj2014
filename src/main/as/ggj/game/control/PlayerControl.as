@@ -20,11 +20,11 @@ public class PlayerControl {
         return _state.isKeyDown(_right);
     }
 
-    public function get jumping () :Boolean {
+    public function get jump () :Boolean {
         return _state.isKeyDown(_jump);
     }
 
-    public function get powering () :Boolean {
+    public function get power () :Boolean {
         return _state.isKeyDown(_power);
     }
 

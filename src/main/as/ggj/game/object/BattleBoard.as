@@ -30,6 +30,9 @@ public class BattleBoard extends BattleObject
             4, 6,
             5, 6,
 
+            0, 5,
+            5, 5,
+
             3, 3,
             4, 3,
             5, 3,
@@ -48,10 +51,7 @@ public class BattleBoard extends BattleObject
         addObject(_view, _ctx.boardLayer);
     }
 
-    public function getCollisions (bounds :Rectangle, lastBounds :Rectangle, out :Point = null) :Point {
-        out = (out || new Point());
-        out.setTo(bounds.x, bounds.y);
-
+    public function getCollisions (bounds :Rectangle, lastBounds :Rectangle, vertical :Boolean) :Number {
         var xMin :int = Math.ceil(bounds.left);
         var xMax :int = Math.floor(bounds.right);
         var yMin :int = Math.ceil(bounds.top);
@@ -66,53 +66,54 @@ public class BattleBoard extends BattleObject
         var yy :int;
         var tile :Tile;
 
-        if (bounds.left < lastBounds.left) {
-            // moving left
-            xx = xMin;
-            for (yy = yMin; yy <= yMax; ++yy) {
-                tile = getTile(xx, yy);
-                if (tile.type != null) {
-                    out.x = xx + 1;
-                    break;
+        if (!vertical) {
+            // CHECK HORIZONTAL
+            if (bounds.left < lastBounds.left) {
+                // moving left
+                xx = xMin;
+                for (yy = yMin; yy <= yMax; ++yy) {
+                    tile = getTile(xx, yy);
+                    if (tile.type != null) {
+                        return xx + 1;
+                    }
+                }
+
+            } else if (bounds.right > lastBounds.right) {
+                // moving right
+                xx = xMax;
+                for (yy = yMin; yy <= yMax; ++yy) {
+                    tile = getTile(xx, yy);
+                    if (tile.type != null) {
+                        return xx - bounds.width - 0.01;
+                    }
                 }
             }
 
-        } else if (bounds.right > lastBounds.right) {
-            // moving right
-            xx = xMax;
-            for (yy = yMin; yy <= yMax; ++yy) {
-                tile = getTile(xx, yy);
-                if (tile.type != null) {
-                    out.x = xx - bounds.width;
-                    break;
+        } else {
+            /// CHECK VERTICAL
+            if (bounds.top < lastBounds.top) {
+                // moving up
+                yy = yMin;
+                for (xx = xMin; xx <= xMax; ++xx) {
+                    tile = getTile(xx, yy);
+                    if (tile.type != null) {
+                        return yy + 1;
+                    }
+                }
+
+            } else if (bounds.bottom > lastBounds.bottom) {
+                // moving down
+                yy = yMax;
+                for (xx = xMin; xx <= xMax; ++xx) {
+                    tile = getTile(xx, yy);
+                    if (tile.type != null) {
+                        return yy - bounds.height - 0.01;
+                    }
                 }
             }
         }
 
-        if (bounds.top < lastBounds.top) {
-            // moving up
-            yy = yMin;
-            for (xx = xMin; xx <= xMax; ++xx) {
-                tile = getTile(xx, yy);
-                if (tile.type != null) {
-                    out.y = yy + 1;
-                    break;
-                }
-            }
-
-        } else if (bounds.bottom > lastBounds.bottom) {
-            // moving down
-            yy = yMax;
-            for (xx = xMin; xx <= xMax; ++xx) {
-                tile = getTile(xx, yy);
-                if (tile.type != null) {
-                    out.y = yy - bounds.height;
-                    break;
-                }
-            }
-        }
-
-        return out;
+        return NaN;
     }
 
     public function get view () :BattleBoardView {
