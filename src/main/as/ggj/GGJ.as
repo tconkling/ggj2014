@@ -8,10 +8,8 @@ import ggj.rsrc.GGJResources;
 public class GGJ
 {
     /// Constants
-    public static const MIN_FRAMERATE :Number = 1 / 30;
+    public static const FRAMERATE :Number = 1 / 60;
     public static const TILE_SIZE_PX :Number = 64;
-    public static const GRID_WIDTH :int = 16;
-    public static const GRID_HEIGHT :int = 12;
 
     /// Singletons
     public static function get resourceParams () :GGJResources { return _resourceParams; }
