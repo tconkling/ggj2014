@@ -13,12 +13,12 @@ import flash.utils.getDefinitionByName;
 
 /**
  * <p>The following compiler argument is required to make this work:</p>
- * <pre>-frame=two,ggj.GGJWeb</pre>
+ * <pre>-frame=two,ggj.GGJApp</pre>
  */
 [SWF(width="960", height="640", frameRate="60", backgroundColor="#FFFFFF")]
-public class GGJWebPreloader extends MovieClip
+public class GGJPreloader extends MovieClip
 {
-    public function GGJWebPreloader() {
+    public function GGJPreloader() {
         // the document class must be a MovieClip so that everything else can load on the 2nd frame
         stop();
 
@@ -50,7 +50,7 @@ public class GGJWebPreloader extends MovieClip
         _splashScreen.parent.removeChild(_splashScreen);
         removeChildren();
 
-        var appClass :Class = getDefinitionByName("ggj.GGJWeb") as Class;
+        var appClass :Class = getDefinitionByName("ggj.GGJApp") as Class;
         addChild(new appClass(_splashScreen));
     }
 
