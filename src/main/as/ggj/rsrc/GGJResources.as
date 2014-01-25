@@ -3,12 +3,17 @@
 
 package ggj.rsrc {
 
-import ggj.GGJ;
-
 import aspire.util.FileUtil;
+
+import flash.filesystem.File;
+
+import ggj.GGJ;
 
 public class GGJResources
 {
+    public function GGJResources () {
+        _root = File.applicationDirectory;
+    }
     // gamedata
     public function get tome () :Object {
         return { type: "microtome", name: "tome",
@@ -58,7 +63,7 @@ public class GGJResources
     }
 
     protected function url (path :String) :String {
-        throw new Error("abstract");
+        return _root.resolvePath(path).url;
     }
 
     protected static function withScale (filename :String) :String {
@@ -68,6 +73,8 @@ public class GGJResources
         }
         return filename;
     }
+
+    protected var _root :File;
 
     protected static const GAMEDATA_NAME :String = "game.xml";
 }
