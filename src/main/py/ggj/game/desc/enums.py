@@ -6,3 +6,4 @@ from flufl.enum import Enum
 
 class TileType(Enum):
     STONE = 0
+    SPIKE = 1

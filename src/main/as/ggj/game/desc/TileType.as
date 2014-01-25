@@ -5,6 +5,7 @@ import aspire.util.Enum;
 public final class TileType extends Enum
 {
     public static const STONE :TileType = new TileType("STONE", "game/img_tile_stone");
+    public static const SPIKE :TileType = new TileType("SPIKE", "game/img_tile_skull");
     finishedEnumerating(TileType);
 
     public static function values () :Array {

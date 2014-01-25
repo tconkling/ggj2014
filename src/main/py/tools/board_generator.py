@@ -13,7 +13,8 @@ from tools.csv_grid import Grid
 LOG = logging.getLogger(__name__)
 
 TILE_TYPES = {
-    '=': TileType.STONE
+    '=': TileType.STONE,
+    '^': TileType.SPIKE,
 }
 
 

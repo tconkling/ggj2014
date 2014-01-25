@@ -12,6 +12,7 @@
       <tile tomeType="TileDesc" type="STONE" x="4" y="5" />
       <tile tomeType="TileDesc" type="STONE" x="5" y="5" />
       <tile tomeType="TileDesc" type="STONE" x="6" y="5" />
+      <tile tomeType="TileDesc" type="SPIKE" x="7" y="8" />
       <tile tomeType="TileDesc" type="STONE" x="9" y="8" />
       <tile tomeType="TileDesc" type="STONE" x="10" y="8" />
       <tile tomeType="TileDesc" type="STONE" x="11" y="8" />
@@ -27,6 +28,9 @@
       <tile tomeType="TileDesc" type="STONE" x="4" y="11" />
       <tile tomeType="TileDesc" type="STONE" x="5" y="11" />
       <tile tomeType="TileDesc" type="STONE" x="6" y="11" />
+      <tile tomeType="TileDesc" type="SPIKE" x="7" y="11" />
+      <tile tomeType="TileDesc" type="SPIKE" x="8" y="11" />
+      <tile tomeType="TileDesc" type="SPIKE" x="9" y="11" />
       <tile tomeType="TileDesc" type="STONE" x="10" y="11" />
       <tile tomeType="TileDesc" type="STONE" x="11" y="11" />
       <tile tomeType="TileDesc" type="STONE" x="12" y="11" />
