@@ -9,6 +9,7 @@ import flashbang.core.AppMode;
 import flashbang.core.GameObjectBase;
 
 import ggj.game.control.ControlTestObject;
+import ggj.game.object.Actor;
 import ggj.game.object.BattleBoard;
 
 public class BattleMode extends AppMode
@@ -36,6 +37,8 @@ public class BattleMode extends AppMode
         // setup the board
         _ctx.board = new BattleBoard();
         addObject(_ctx.board);
+
+        addObject(new Actor());
     }
 
     override protected function update (dt :Number) :void {
