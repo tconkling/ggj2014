@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>ggj-core</name>
+	<name>ggj</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -12,12 +12,13 @@
 		</buildCommand>
 		<buildCommand>
 			<name>com.powerflasher.fdt.core.FlashBuilder</name>
+			<name>com.adobe.flexbuilder.project.apollobuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>com.adobe.flexbuilder.project.aslibnature</nature>
+		<nature>com.adobe.flexbuilder.project.apollonature</nature>
 		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
 		<nature>com.powerflasher.fdt.core.FlashNature</nature>
 	</natures>

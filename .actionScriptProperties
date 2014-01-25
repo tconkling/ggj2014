@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="ggj/GGJMain.as" projectUUID="4d371bb2-b616-4edf-a03c-39f32e623be7" version="11">
-  <compiler additionalCompilerArguments="-locale en_US -swf-version=20" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="dist" removeUnusedRSL="true" sourceFolderPath="src/main/as" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" useFlashSDK="true" verifyDigests="true" warn="true">
+<actionScriptProperties analytics="false" mainApplicationPath="ggj/GGJApp.as" projectUUID="4d371bb2-b616-4edf-a03c-39f32e623be7" version="10">
+  <compiler additionalCompilerArguments="-locale en_US -swf-version=20" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="dist" removeUnusedRSL="true" sourceFolderPath="src/main/as" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="4" path="">
@@ -38,15 +38,14 @@
       <libraryPathEntry kind="3" linkType="1" path="/Starling/bin-debug/Starling.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="/flashbang/dist/flashbang.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="/react/dist/react.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/microtome/bin-debug/microtome.swc" useDefaultLinkType="false"/>
     </libraryPath>
-    <sourceAttachmentPath>
-    </sourceAttachmentPath>
+    <sourceAttachmentPath/>
   </compiler>
   <applications>
-    <application path="ggj/GGJMain.as"/>
+    <application path="ggj/GGJApp.as"/>
   </applications>
   <modules/>
-  <workers/>
   <buildCSSFiles/>
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
 </actionScriptProperties>
