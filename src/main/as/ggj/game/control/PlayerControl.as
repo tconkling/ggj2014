@@ -3,10 +3,12 @@ package ggj.game.control {
 import flashbang.input.KeyboardState;
 
 public class PlayerControl {
-    public function PlayerControl (left :uint, right :uint, jump :uint, state :KeyboardState) {
+    public function PlayerControl (left :uint, right :uint, jump :uint, power :uint,
+            state :KeyboardState) {
         _left = left;
         _right = right;
         _jump = jump;
+        _power = power;
         _state = state;
     }
 
@@ -19,9 +21,14 @@ public class PlayerControl {
         return _state.isKeyDown(_jump);
     }
 
+    public function get powering () :Boolean {
+        return _state.isKeyDown(_power);
+    }
+
     protected var _left :uint;
     protected var _right :uint;
     protected var _jump :uint;
+    protected var _power :uint;
     protected var _state :KeyboardState;
 }
 }
