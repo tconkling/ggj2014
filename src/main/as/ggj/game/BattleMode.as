@@ -55,7 +55,7 @@ public class BattleMode extends AppMode
     }
 
     override protected function update (dt :Number) :void {
-        dt = GGJ.FRAMERATE;
+        //dt = Math.max(dt, GGJ.MIN_FRAMERATE);
         super.update(dt);
         //_ctx.board.view.updateView();
     }
