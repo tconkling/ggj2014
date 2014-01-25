@@ -11,6 +11,8 @@ import flashbang.core.AppMode;
 import flashbang.objects.SpriteObject;
 import flashbang.resource.MovieResource;
 
+import ggj.game.control.ControlTestObject;
+
 import starling.display.Sprite;
 
 public class BattleMode extends AppMode
@@ -33,6 +35,8 @@ public class BattleMode extends AppMode
         disp.x = Flashbang.stageWidth * 0.5;
         disp.y = Flashbang.stageHeight * 0.5;
         addObject(new SpriteObject(disp), _modeSprite);
+
+        addObject(new ControlTestObject());
     }
 
     protected var _ctx :BattleCtx;
