@@ -13,7 +13,11 @@ public class GGJResources
 {
     public function GGJResources () {
         _root = File.applicationDirectory;
+        for each (var dir :* in _root.getDirectoryListing()) {
+            trace(dir);
+        }
     }
+
     // gamedata
     public function get tome () :Object {
         return { type: "microtome", name: "tome",
