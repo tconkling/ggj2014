@@ -1,0 +1,20 @@
+#!/bin/bash
+
+SWF="out/production/ggj2014/ggj2014.swf"
+MD5=`cat $SWF | md5`
+WEB_DIR="../rgby.roguenet.org"
+
+cat $WEB_DIR/index.html | sed "s/[^ \"]*\.swf/ggj2014-$MD5.swf/" > $WEB_DIR/tmp
+mv $WEB_DIR/tmp $WEB_DIR/index.html
+
+
+for swf in $WEB_DIR/*swf; do
+    if [ "$swf" != "$WEB_DIR/playerProductInstall.swf" ]; then
+        svn rm $swf;
+    fi
+done
+
+cp $SWF $WEB_DIR/ggj2014-$MD5.swf
+svn add $WEB_DIR/ggj2014-$MD5.swf
+
+exit 0
