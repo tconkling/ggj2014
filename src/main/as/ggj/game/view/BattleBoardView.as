@@ -24,6 +24,7 @@ import ggj.grid.ScrollTask;
 import react.Promise;
 
 import starling.display.DisplayObject;
+import starling.display.Image;
 import starling.display.Sprite;
 
 public class BattleBoardView extends BoardView
@@ -116,7 +117,11 @@ public class BattleBoardView extends BoardView
         var tileSprite :Sprite = _tiles.cellAt(tile.x, tile.y);
         tileSprite.removeChildren(0, -1, true);
         if (tile.type != null) {
-            tileSprite.addChild(_tileImageResources[tile.type.ordinal()].create());
+            var resource :Image = _tileImageResources[tile.type.ordinal()].create();
+            // force the tile size to match our configured size.
+            resource.width = _tileSizePx.x;
+            resource.height = _tileSizePx.y;
+            tileSprite.addChild(resource);
         }
         tilesUpdated();
     }
