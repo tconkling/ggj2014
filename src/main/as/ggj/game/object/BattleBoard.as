@@ -33,12 +33,7 @@ public class BattleBoard extends BattleObject
         addObject(_view, _ctx.boardLayer);
     }
 
-    public function getCollisions (bounds :Rectangle, lastBounds :Rectangle, vertical :Boolean) :Number {
-        if ((!vertical && bounds.left == lastBounds.left && bounds.right == lastBounds.right) ||
-            (vertical && bounds.top == lastBounds.top && bounds.bottom == lastBounds.bottom)) {
-            return NaN;
-        }
-
+    public function getCollisions (bounds :Rectangle, lastBounds :Rectangle, vertical :Boolean, out :Collision = null) :Collision {
         var rightAligned :Boolean = (bounds.right == Math.floor(bounds.right));
         var xMin :int = Math.floor(bounds.left);
         var xMax :int = (rightAligned ? Math.floor(bounds.right - 1) : Math.floor(bounds.right));
@@ -63,7 +58,7 @@ public class BattleBoard extends BattleObject
                 for (yy = yMin; yy <= yMax; ++yy) {
                     tile = getTile(xx, yy);
                     if (tile.type != null) {
-                        return xx + 1;
+                        return (out || new Collision()).set(xx + 1, tile);
                     }
                 }
 
@@ -73,7 +68,7 @@ public class BattleBoard extends BattleObject
                 for (yy = yMin; yy <= yMax; ++yy) {
                     tile = getTile(xx, yy);
                     if (tile.type != null) {
-                        return xx - bounds.width;
+                        return (out || new Collision).set(xx - bounds.width, tile);
                     }
                 }
             }
@@ -86,7 +81,7 @@ public class BattleBoard extends BattleObject
                 for (xx = xMin; xx <= xMax; ++xx) {
                     tile = getTile(xx, yy);
                     if (tile.type != null) {
-                        return yy + 1;
+                        return (out || new Collision).set(yy + 1, tile);
                     }
                 }
 
@@ -96,13 +91,13 @@ public class BattleBoard extends BattleObject
                 for (xx = xMin; xx <= xMax; ++xx) {
                     tile = getTile(xx, yy);
                     if (tile.type != null) {
-                        return yy - bounds.height;
+                        return (out || new Collision()).set(yy - bounds.height, tile);
                     }
                 }
             }
         }
 
-        return NaN;
+        return null;
     }
 
     public function get view () :BattleBoardView {

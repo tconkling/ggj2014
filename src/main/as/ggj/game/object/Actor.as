@@ -53,8 +53,8 @@ public class Actor extends BattleObject implements Updatable
         // vertical collisions
         if (_bounds.top != _lastBounds.top || _bounds.bottom != _lastBounds.bottom) {
             _onGround = false;
-            var vCollision :Number = _ctx.board.getCollisions(_bounds, _lastBounds, true);
-            if (!isNaN(vCollision)) {
+            var vCollision :Collision = _ctx.board.getCollisions(_bounds, _lastBounds, true, COLLISION);
+            if (vCollision != null) {
                 if (_bounds.y > _lastBounds.y) {
                     // we're on the ground
                     _onGround = true;
@@ -64,7 +64,7 @@ public class Actor extends BattleObject implements Updatable
                 }
 
                 // vertical collision. reset vertical velocity.
-                _bounds.y = vCollision;
+                _bounds.y = vCollision.location;
                 _v.y = 0;
             }
         }
@@ -80,9 +80,9 @@ public class Actor extends BattleObject implements Updatable
         }
         _bounds.x += (_v.x * dt);
         if (_bounds.left != _lastBounds.left || _bounds.right != _lastBounds.right) {
-            var hCollision :Number = _ctx.board.getCollisions(_bounds, _lastBounds, false);
-            if (!isNaN(hCollision)) {
-                _bounds.x = hCollision;
+            var hCollision :Collision = _ctx.board.getCollisions(_bounds, _lastBounds, false, COLLISION);
+            if (hCollision != null) {
+                _bounds.x = hCollision.location;
                 _v.x = 0;
             }
         }
@@ -106,5 +106,7 @@ public class Actor extends BattleObject implements Updatable
     protected static const GRAVITY :Number = 20;
     protected static const MAX_V :Number = 10;
     protected static const MIN_V :Number = -10;
+
+    protected static const COLLISION :Collision = new Collision();
 }
 }
