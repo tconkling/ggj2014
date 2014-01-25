@@ -13,9 +13,6 @@ public class GGJResources
 {
     public function GGJResources (rootDir :File) {
         _root = rootDir;
-        for each (var dir :* in _root.getDirectoryListing()) {
-            trace(dir);
-        }
     }
 
     // gamedata

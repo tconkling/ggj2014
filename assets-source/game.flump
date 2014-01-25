@@ -6,14 +6,12 @@
       "name": "flump",
       "quality": "best",
       "format": "JSONZip",
-      "scale": 0.5,
+      "scale": 1,
       "maxAtlasSize": 2048,
       "optimize": "Speed",
-      "additionalScaleFactors": [
-        2
-      ],
-      "description": "'flump' (JSONZip, 50%, @2x)",
-      "scaleFactorsString": "2"
+      "additionalScaleFactors": [],
+      "description": "'flump' (JSONZip, 100%)",
+      "scaleFactorsString": ""
     }
   ],
   "exportDir": "../rsrc"

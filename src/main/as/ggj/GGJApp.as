@@ -92,8 +92,8 @@ public class GGJApp extends FlashbangApp
         const fbConfig :FlashbangConfig = new FlashbangConfig();
         fbConfig.windowWidth = this.stage.stageWidth;
         fbConfig.windowHeight = this.stage.stageHeight;
-        fbConfig.stageWidth = fbConfig.windowWidth * 0.5;
-        fbConfig.stageHeight = fbConfig.windowHeight * 0.5;
+        fbConfig.stageWidth = fbConfig.windowWidth;
+        fbConfig.stageHeight = fbConfig.windowHeight;
         return fbConfig;
     }
 
