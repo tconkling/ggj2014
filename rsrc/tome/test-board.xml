@@ -17,6 +17,9 @@
       <tile tomeType="TileDesc" type="STONE" x="11" y="8" />
       <tile tomeType="TileDesc" type="STONE" x="12" y="8" />
       <tile tomeType="TileDesc" type="STONE" x="13" y="8" />
+      <tile tomeType="TileDesc" type="STONE" x="0" y="9" />
+      <tile tomeType="TileDesc" type="STONE" x="0" y="10" />
+      <tile tomeType="TileDesc" type="STONE" x="6" y="10" />
       <tile tomeType="TileDesc" type="STONE" x="0" y="11" />
       <tile tomeType="TileDesc" type="STONE" x="1" y="11" />
       <tile tomeType="TileDesc" type="STONE" x="2" y="11" />

@@ -10,7 +10,6 @@ import flashbang.core.Flashbang;
 import ggj.GGJ;
 import ggj.game.desc.BoardDesc;
 import ggj.game.desc.TileDesc;
-import ggj.game.desc.TileType;
 import ggj.game.view.BattleBoardView;
 import ggj.grid.Grid;
 
@@ -35,13 +34,20 @@ public class BattleBoard extends BattleObject
     }
 
     public function getCollisions (bounds :Rectangle, lastBounds :Rectangle, vertical :Boolean) :Number {
-        var xMin :int = Math.ceil(bounds.left);
-        var xMax :int = Math.floor(bounds.right);
-        var yMin :int = Math.ceil(bounds.top);
-        var yMax :int = Math.floor(bounds.bottom);
+        if ((!vertical && bounds.left == lastBounds.left && bounds.right == lastBounds.right) ||
+            (vertical && bounds.top == lastBounds.top && bounds.bottom == lastBounds.bottom)) {
+            return NaN;
+        }
 
+        var rightAligned :Boolean = (bounds.right == Math.floor(bounds.right));
+        var xMin :int = Math.floor(bounds.left);
+        var xMax :int = (rightAligned ? Math.floor(bounds.right - 1) : Math.floor(bounds.right));
         xMin = MathUtil.clamp(xMin, 0, this.width - 1);
         xMax = MathUtil.clamp(xMax, xMin, this.width - 1);
+
+        var bottomAligned :Boolean = (bounds.bottom == Math.floor(bounds.bottom));
+        var yMin :int = Math.floor(bounds.top);
+        var yMax :int = (bottomAligned ? Math.floor(bounds.bottom - 1) : Math.floor(bounds.bottom));
         yMin = MathUtil.clamp(yMin, 0, this.height - 1);
         yMax = MathUtil.clamp(yMax, yMin, this.height - 1);
 
@@ -67,7 +73,7 @@ public class BattleBoard extends BattleObject
                 for (yy = yMin; yy <= yMax; ++yy) {
                     tile = getTile(xx, yy);
                     if (tile.type != null) {
-                        return xx - bounds.width - 0.01;
+                        return xx - bounds.width;
                     }
                 }
             }
@@ -90,7 +96,7 @@ public class BattleBoard extends BattleObject
                 for (xx = xMin; xx <= xMax; ++xx) {
                     tile = getTile(xx, yy);
                     if (tile.type != null) {
-                        return yy - bounds.height - 0.01;
+                        return yy - bounds.height;
                     }
                 }
             }
