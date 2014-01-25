@@ -26,7 +26,7 @@ import react.Future;
 
 import starling.core.Starling;
 
-[SWF(width="960", height="640", frameRate="60", backgroundColor="#FFFFFF")]
+[SWF(width="1024", height="768", frameRate="60", backgroundColor="#FFFFFF")]
 public class GGJApp extends FlashbangApp
 {
     public function GGJApp (splashScreen :DisplayObject = null) {

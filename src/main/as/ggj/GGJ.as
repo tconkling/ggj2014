@@ -9,9 +9,9 @@ public class GGJ
 {
     /// Constants
     public static const FRAMERATE :Number = 1 / 60;
-    public static const TILE_SIZE_PX :Number = 80;
-    public static const GRID_WIDTH :int = 12;
-    public static const GRID_HEIGHT :int = 8;
+    public static const TILE_SIZE_PX :Number = 64;
+    public static const GRID_WIDTH :int = 16;
+    public static const GRID_HEIGHT :int = 12;
 
     /// Singletons
     public static function get resourceParams () :GGJResources { return _resourceParams; }
