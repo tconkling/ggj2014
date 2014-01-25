@@ -36,11 +36,14 @@ public class Actor extends BattleObject implements Updatable
 
         // jumping
         if (_input.jump && this.canJump) {
-            _isJumping = true;
             _v.y += JUMP_IMPULSE;
         } else {
             // gravity
             _v.y += (GRAVITY * dt);
+        }
+
+        if (_input.jump) {
+            _jumpButtonReleasedOnGround = false;
         }
 
         // clamp
@@ -48,20 +51,22 @@ public class Actor extends BattleObject implements Updatable
         _bounds.y += (_v.y * dt);
 
         // vertical collisions
-        _onGround = false;
-        var vCollision :Number = _ctx.board.getCollisions(_bounds, _lastBounds, true);
-        if (!isNaN(vCollision)) {
-            if (_bounds.y > _lastBounds.y) {
-                // we're on the ground
-                _onGround = true;
-                if (!_input.jump) {
-                    _isJumping = false;
+        if (_bounds.top != _lastBounds.top || _bounds.bottom != _lastBounds.bottom) {
+            _onGround = false;
+            var vCollision :Number = _ctx.board.getCollisions(_bounds, _lastBounds, true);
+            if (!isNaN(vCollision)) {
+                if (_bounds.y > _lastBounds.y) {
+                    // we're on the ground
+                    _onGround = true;
+                    if (!_input.jump) {
+                        _jumpButtonReleasedOnGround = true;
+                    }
                 }
-            }
 
-            // vertical collision. reset vertical velocity.
-            _bounds.y = vCollision;
-            _v.y = 0;
+                // vertical collision. reset vertical velocity.
+                _bounds.y = vCollision;
+                _v.y = 0;
+            }
         }
 
         // horizontal movement
@@ -74,15 +79,17 @@ public class Actor extends BattleObject implements Updatable
             _v.x = 0;
         }
         _bounds.x += (_v.x * dt);
-        var hCollision :Number = _ctx.board.getCollisions(_bounds, _lastBounds, false);
-        if (!isNaN(hCollision)) {
-            _bounds.x = hCollision;
-            _v.x = 0;
+        if (_bounds.left != _lastBounds.left || _bounds.right != _lastBounds.right) {
+            var hCollision :Number = _ctx.board.getCollisions(_bounds, _lastBounds, false);
+            if (!isNaN(hCollision)) {
+                _bounds.x = hCollision;
+                _v.x = 0;
+            }
         }
     }
 
     protected function get canJump () :Boolean {
-        return (_onGround && !_isJumping);
+        return (_onGround && _jumpButtonReleasedOnGround);
     }
 
     protected var _input :PlayerControl;
@@ -93,7 +100,7 @@ public class Actor extends BattleObject implements Updatable
     protected var _lastBounds :Rectangle = new Rectangle();
     protected var _v :Vector2 = new Vector2();
     protected var _onGround :Boolean;
-    protected var _isJumping :Boolean;
+    protected var _jumpButtonReleasedOnGround :Boolean;
 
     protected static const JUMP_IMPULSE :Number = -10;
     protected static const GRAVITY :Number = 20;
