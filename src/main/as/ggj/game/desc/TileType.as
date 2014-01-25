@@ -1,4 +1,4 @@
-package ggj.game.object {
+package ggj.game.desc {
 
 import aspire.util.Enum;
 

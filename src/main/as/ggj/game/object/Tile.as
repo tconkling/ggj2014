@@ -1,5 +1,7 @@
 package ggj.game.object {
 
+import ggj.game.desc.TileType;
+
 public class Tile
 {
     public var type :TileType;

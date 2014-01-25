@@ -16,7 +16,7 @@ import flashbang.util.Easing;
 import ggj.GGJ;
 import ggj.game.object.BattleBoard;
 import ggj.game.object.Tile;
-import ggj.game.object.TileType;
+import ggj.game.desc.TileType;
 import ggj.grid.BoardView;
 import ggj.grid.Grid;
 import ggj.grid.ScrollTask;

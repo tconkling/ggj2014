@@ -6,6 +6,7 @@ import flash.geom.Rectangle;
 import flashbang.core.Flashbang;
 
 import ggj.GGJ;
+import ggj.game.desc.TileType;
 import ggj.game.view.BattleBoardView;
 import ggj.grid.Grid;
 
