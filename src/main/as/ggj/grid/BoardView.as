@@ -103,6 +103,16 @@ public class BoardView extends SpriteObject
         return out;
     }
 
+    public function boardToViewBounds (r :Rectangle, out :Rectangle = null) :Rectangle {
+        out = (out || new Rectangle());
+        out.setTo(
+            r.x * _tileSizePx.x,
+            r.y * _tileSizePx.y,
+            r.width * _tileSizePx.x,
+            r.height * _tileSizePx.y);
+        return out;
+    }
+
     public function globalToView (p :Point, out :Point = null) :Point {
         return this.objectRootLayer.globalToLocal(p, out);
     }
