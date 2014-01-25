@@ -2,14 +2,12 @@ package ggj.game.object {
 
 public class Tile
 {
+    public var type :TileType;
+
     public function Tile (x :int, y :int, type :TileType) {
-        _type = type;
+        this.type = type;
         _x = x;
         _y = y;
-    }
-
-    public function get type () :TileType {
-        return _type;
     }
 
     public function get x () :int {
@@ -26,6 +24,5 @@ public class Tile
 
     protected var _x :int;
     protected var _y :int;
-    protected var _type :TileType;
 }
 }

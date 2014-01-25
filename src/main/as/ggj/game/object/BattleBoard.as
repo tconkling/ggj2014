@@ -14,8 +14,27 @@ public class BattleBoard extends BattleObject
         _tiles = new Grid(GGJ.GRID_WIDTH, GGJ.GRID_HEIGHT);
         for (var yy :int = 0; yy < _tiles.height; ++yy) {
             for (var xx :int = 0; xx < _tiles.width; ++xx) {
-                _tiles.setCellAt(xx, yy, new Tile(xx, yy, TileType.STONE));
+                _tiles.setCellAt(xx, yy, new Tile(xx, yy, null));
             }
+        }
+
+        const PLATFORMS :Array = [
+            0, 6,
+            1, 6,
+            2, 6,
+            3, 6,
+            4, 6,
+            5, 6,
+
+            3, 3,
+            4, 3,
+            5, 3,
+            6, 3,
+            7, 3
+        ];
+
+        for (var ii :int = 0; ii < PLATFORMS.length; ii += 2) {
+            getTile(PLATFORMS[ii], PLATFORMS[ii+1]).type = TileType.STONE;
         }
     }
 
