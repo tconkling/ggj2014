@@ -1,6 +1,3 @@
-//
-// aciv
-
 package ggj.game.object {
 
 import aspire.util.Enum;

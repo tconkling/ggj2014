@@ -1,6 +1,7 @@
 package ggj.game.object {
 
 import flash.geom.Point;
+import flash.geom.Rectangle;
 
 import flashbang.core.Flashbang;
 
@@ -42,6 +43,76 @@ public class BattleBoard extends BattleObject
         super.added();
         _view = new BattleBoardView(this, new Point(Flashbang.stageWidth, Flashbang.stageHeight));
         addObject(_view, _ctx.boardLayer);
+    }
+
+    public function getCollisions (bounds :Rectangle, lastBounds :Rectangle, out :Point = null) :Point {
+        out = (out || new Point());
+        out.setTo(bounds.x, bounds.y);
+
+        var xx :int;
+        var yy :int;
+        var tile :Tile;
+
+        var xMin :int = Math.floor(bounds.left);
+        var xMax :int = Math.ceil(bounds.right);
+        var yMin :int = Math.floor(bounds.top);
+        var yMax :int = Math.ceil(bounds.bottom);
+
+        if (bounds.left < lastBounds.left) {
+            // moving left
+            xx = xMin;
+            for (yy = yMin; yy <= yMax; ++yy) {
+                if (!isValidLoc(xx, yy)) {
+                    continue;
+                }
+                tile = getTile(xx, yy);
+                if (tile.type != null) {
+                    out.x = Math.max(xx + 1, out.x);
+                }
+            }
+
+        } else if (bounds.right > lastBounds.right) {
+            // moving left
+            xx = xMax;
+            for (yy = yMin; yy <= yMax; ++yy) {
+                if (!isValidLoc(xx, yy)) {
+                    continue;
+                }
+                tile = getTile(xx, yy);
+                if (tile.type != null) {
+                    out.x = Math.min(xx, out.x);
+                }
+            }
+        }
+
+        if (bounds.top < lastBounds.top) {
+            // moving up
+            yy = yMin;
+            for (xx = xMin; xx <= xMax; ++xx) {
+                if (!isValidLoc(xx, yy)) {
+                    continue;
+                }
+                tile = getTile(xx, yy);
+                if (tile.type != null) {
+                    out.y = Math.max(yy + 1, out.y);
+                }
+            }
+
+        } else if (bounds.bottom > lastBounds.bottom) {
+            // moving down
+            yy = yMax;
+            for (xx = xMin; xx <= xMax; ++xx) {
+                if (!isValidLoc(xx, yy)) {
+                    continue;
+                }
+                tile = getTile(xx, yy);
+                if (tile.type != null) {
+                    out.y = Math.min(yy, out.y);
+                }
+            }
+        }
+
+        return out;
     }
 
     public function get view () :BattleBoardView {

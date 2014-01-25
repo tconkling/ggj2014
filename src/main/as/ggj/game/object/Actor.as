@@ -15,7 +15,7 @@ public class Actor extends BattleObject implements Updatable
     public function Actor (input :PlayerControl) {
         _input = input;
 
-        _bounds = new Rectangle(6, 4, 1, 1);
+        _bounds = new Rectangle(6, 3, 1, 1);
         _lastBounds = _bounds.clone();
     }
 
@@ -40,10 +40,24 @@ public class Actor extends BattleObject implements Updatable
             _v.x = -5;
         }
 
+        // gravity
+        _v.y +=
+
         _bounds.x += (_v.x * dt);
         _bounds.y += (_v.y * dt);
 
         // collide
+        var collisions :Point = _ctx.board.getCollisions(_bounds, _lastBounds);
+        if (collisions.x != _bounds.x) {
+            // we had a horizontal collision. reset our horizontal velocity.
+            _bounds.x = collisions.x;
+            _v.x = 0;
+        }
+        if (collisions.y != _bounds.y) {
+            // vertical collision
+            _bounds.y = collisions.y;
+            _v.y = 0;
+        }
     }
 
     protected var _input :PlayerControl;
@@ -52,5 +66,7 @@ public class Actor extends BattleObject implements Updatable
     protected var _v :Vector2 = new Vector2();
 
     protected var _view :ActorView;
+
+    protected static const GRAVITY :Number = 5;
 }
 }
