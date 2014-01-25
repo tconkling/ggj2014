@@ -3,41 +3,26 @@
 
 package ggj.rsrc {
 
-import aspire.util.FileUtil;
-
-import flash.filesystem.File;
-
 import ggj.GGJ;
 
+// TODO: make static? Could be static as it currently stands.
 public class GGJResources
 {
-    public function GGJResources (rootDir :File) {
-        _root = rootDir;
-    }
-
-    // gamedata
-    public function get gameTome () :Object {
-        return { type: "microtome", name: "gameTome",
-            data: [ url("tome/" + GAMEDATA_NAME) ] };
-    }
-
-    // test board
-    public function get boardTome () :Object {
-        return { type: "microtome", name: "boardTome",
-            data: [ url("tome/" + TEST_BOARD_NAME) ] };
+    public function get tome () :Object {
+        return { type: "microtome", name: "gameTome", data: [ GAMEDATA_TOME, TEST_BOARD_TOME ] };
     }
 
     // gfx
     public function get gameFlump () :Object {
-        return { type: "flump", name: "game", data: url("flump/game.zip") };
+        return { type: "flump", name: "game", data: FLUMP };
     }
 
     // fonts
     public function get futura50Font () :Object {
         return {
             type: "font", name: "futura50",
-            xmlData: url(withScale("fonts/Futura50.fnt")),
-            textureData: url(withScale("fonts/Futura50.png")),
+            xmlData: withScale("FUTURA_50_FNT"),
+            textureData: withScale("FUTURA_50_PNG"),
             scale: GGJ.textureScale
         };
     }
@@ -45,8 +30,8 @@ public class GGJResources
     public function get futura25Font () :Object {
         return {
             type: "font", name: "futura25",
-            xmlData: url(withScale("fonts/Futura25.fnt")),
-            textureData: url(withScale("fonts/Futura25.png")),
+            xmlData: withScale("FUTURA_25_FNT"),
+            textureData: withScale("FUTURA_25_PNG"),
             scale: GGJ.textureScale
         };
     }
@@ -54,8 +39,8 @@ public class GGJResources
     public function get helvetica12Font () :Object {
         return {
             type: "font", name: "helvetica12",
-            xmlData: url(withScale("fonts/Helvetica12.fnt")),
-            textureData: url(withScale("fonts/Helvetica12.png")),
+            xmlData: withScale("HELVETICA_12_FNT"),
+            textureData: withScale("HELVETICA_12_PNG"),
             scale: GGJ.textureScale
         };
     }
@@ -63,28 +48,60 @@ public class GGJResources
     public function get helvetica24Font () :Object {
         return {
             type: "font", name: "helvetica24",
-            xmlData: url(withScale("fonts/Helvetica24.fnt")),
-            textureData: url(withScale("fonts/Helvetica24.png")),
+            xmlData: withScale("HELVETICA_24_FNT"),
+            textureData: withScale("HELVETICA_24_PNG"),
             scale: GGJ.textureScale
         };
     }
 
-    protected function url (path :String) :String {
-        return _root.resolvePath(path).url;
-    }
-
-    protected static function withScale (filename :String) :String {
+    protected static function withScale (filename :String) :Class {
         if (GGJ.textureScale != 1) {
-            const ext :String = FileUtil.getDotSuffix(filename);
-            filename = FileUtil.stripDotSuffix(filename) + "@" + GGJ.textureScale + "x." + ext;
+            filename = filename + "_2X";
         }
-        return filename;
+        return Class(GGJResources[filename]);
     }
 
-    protected var _root :File;
+    [Embed(source="../../../../../rsrc/flump/game.zip", mimeType="application/octet-stream")]
+    protected static const FLUMP :Class;
 
-    protected static const GAMEDATA_NAME :String = "game.xml";
-    protected static const TEST_BOARD_NAME :String = "test-board.xml";
+    [Embed(source="../../../../../rsrc/tome/game.xml", mimeType="application/octet-stream")]
+    protected static const GAMEDATA_TOME :Class;
+    [Embed(source="../../../../../rsrc/tome/test-board.xml", mimeType="application/octet-stream")]
+    protected static const TEST_BOARD_TOME :Class;
+
+
+    [Embed(source="../../../../../rsrc/fonts/Futura25.fnt", mimeType="application/octet-stream")]
+    protected static const FUTURA_25_FNT :Class;
+    [Embed(source="../../../../../rsrc/fonts/Futura25.png", mimeType="application/octet-stream")]
+    protected static const FUTURA_25_PNG :Class;
+    [Embed(source="../../../../../rsrc/fonts/Futura25@2x.fnt", mimeType="application/octet-stream")]
+    protected static const FUTURA_25_FNT_2X :Class;
+    [Embed(source="../../../../../rsrc/fonts/Futura25@2x.png", mimeType="application/octet-stream")]
+    protected static const FUTURA_25_PNG_2X :Class;
+    [Embed(source="../../../../../rsrc/fonts/Futura50.fnt", mimeType="application/octet-stream")]
+    protected static const FUTURA_50_FNT :Class;
+    [Embed(source="../../../../../rsrc/fonts/Futura50.png", mimeType="application/octet-stream")]
+    protected static const FUTURA_50_PNG :Class;
+    [Embed(source="../../../../../rsrc/fonts/Futura50@2x.fnt", mimeType="application/octet-stream")]
+    protected static const FUTURA_50_FNT_2X :Class;
+    [Embed(source="../../../../../rsrc/fonts/Futura50@2x.png", mimeType="application/octet-stream")]
+    protected static const FUTURA_50_PNG_2X :Class;
+    [Embed(source="../../../../../rsrc/fonts/Helvetica12.fnt", mimeType="application/octet-stream")]
+    protected static const HELVETICA_12_FNT :Class;
+    [Embed(source="../../../../../rsrc/fonts/Helvetica12.png", mimeType="application/octet-stream")]
+    protected static const HELVETICA_12_PNG :Class;
+    [Embed(source="../../../../../rsrc/fonts/Helvetica12@2x.fnt", mimeType="application/octet-stream")]
+    protected static const HELVETICA_12_FNT_2X :Class;
+    [Embed(source="../../../../../rsrc/fonts/Helvetica12@2x.png", mimeType="application/octet-stream")]
+    protected static const HELVETICA_12_PNG_2X :Class;
+    [Embed(source="../../../../../rsrc/fonts/Helvetica24.fnt", mimeType="application/octet-stream")]
+    protected static const HELVETICA_24_FNT :Class;
+    [Embed(source="../../../../../rsrc/fonts/Helvetica24.png", mimeType="application/octet-stream")]
+    protected static const HELVETICA_24_PNG :Class;
+    [Embed(source="../../../../../rsrc/fonts/Helvetica24@2x.fnt", mimeType="application/octet-stream")]
+    protected static const HELVETICA_24_FNT_2X :Class;
+    [Embed(source="../../../../../rsrc/fonts/Helvetica24@2x.png", mimeType="application/octet-stream")]
+    protected static const HELVETICA_24_PNG_2X :Class;
 }
 }
 

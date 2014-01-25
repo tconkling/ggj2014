@@ -42,7 +42,7 @@ public class GGJApp extends FlashbangApp
         // init resources
         GameDesc.registerResourceLoader();
         const textureScale :int = (Starling.contentScaleFactor >= 2 ? 2 : 1);
-        const resourceParams :GGJResources = new GGJResources(_rootDir);
+        const resourceParams :GGJResources = new GGJResources();
 
         GGJ.init(resourceParams, textureScale);
 
