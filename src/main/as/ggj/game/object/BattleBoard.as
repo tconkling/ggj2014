@@ -8,40 +8,23 @@ import flash.geom.Rectangle;
 import flashbang.core.Flashbang;
 
 import ggj.GGJ;
+import ggj.game.desc.BoardDesc;
+import ggj.game.desc.TileDesc;
 import ggj.game.desc.TileType;
 import ggj.game.view.BattleBoardView;
 import ggj.grid.Grid;
 
 public class BattleBoard extends BattleObject
 {
-    public function BattleBoard () {
-        _tiles = new Grid(GGJ.GRID_WIDTH, GGJ.GRID_HEIGHT);
+    public function BattleBoard (desc :BoardDesc) {
+        _tiles = new Grid(desc.width, desc.height);
         for (var yy :int = 0; yy < _tiles.height; ++yy) {
             for (var xx :int = 0; xx < _tiles.width; ++xx) {
                 _tiles.setCellAt(xx, yy, new Tile(xx, yy, null));
             }
         }
-
-        const PLATFORMS :Array = [
-            0, 6,
-            1, 6,
-            2, 6,
-            3, 6,
-            4, 6,
-            5, 6,
-
-            0, 5,
-            5, 5,
-
-            3, 3,
-            4, 3,
-            5, 3,
-            6, 3,
-            7, 3
-        ];
-
-        for (var ii :int = 0; ii < PLATFORMS.length; ii += 2) {
-            getTile(PLATFORMS[ii], PLATFORMS[ii+1]).type = TileType.STONE;
+        for each (var tile :TileDesc in desc.tiles) {
+            getTile(tile.x, tile.y).type = tile.type;
         }
     }
 

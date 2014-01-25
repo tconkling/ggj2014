@@ -16,9 +16,15 @@ public class GGJResources
     }
 
     // gamedata
-    public function get tome () :Object {
-        return { type: "microtome", name: "tome",
+    public function get gameTome () :Object {
+        return { type: "microtome", name: "gameTome",
             data: [ url("tome/" + GAMEDATA_NAME) ] };
+    }
+
+    // test board
+    public function get boardTome () :Object {
+        return { type: "microtome", name: "boardTome",
+            data: [ url("tome/" + TEST_BOARD_NAME) ] };
     }
 
     // gfx
@@ -78,6 +84,7 @@ public class GGJResources
     protected var _root :File;
 
     protected static const GAMEDATA_NAME :String = "game.xml";
+    protected static const TEST_BOARD_NAME :String = "test-board.xml";
 }
 }
 

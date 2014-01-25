@@ -36,7 +36,8 @@ public class GameDesc
         lib.removeAllTomes();
 
         _tomeResources = new ResourceSet();
-        _tomeResources.add(GGJ.resourceParams.tome);
+        _tomeResources.add(GGJ.resourceParams.gameTome);
+        _tomeResources.add(GGJ.resourceParams.boardTome);
         _tomeResources.load();
         return _tomeResources;
     }
