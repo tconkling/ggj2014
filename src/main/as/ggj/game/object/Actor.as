@@ -3,12 +3,15 @@ package ggj.game.object {
 import aspire.geom.Vector2;
 import aspire.util.MathUtil;
 
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import flashbang.core.Updatable;
 
 import ggj.game.control.PlayerControl;
+import ggj.game.desc.TileType;
 import ggj.game.view.ActorView;
+import ggj.game.view.DeadActorView;
 
 public class Actor extends BattleObject implements Updatable
 {
@@ -17,6 +20,16 @@ public class Actor extends BattleObject implements Updatable
 
         _bounds = new Rectangle(1, 2, 0.9, 0.9);
         _lastBounds = _bounds.clone();
+    }
+
+    public function die () :void {
+        var deadView :DeadActorView = new DeadActorView(this);
+        var loc :Point = _ctx.board.view.boardToView(this.bounds.topLeft);
+        deadView.display.x = loc.x;
+        deadView.display.y = loc.y;
+        this.mode.addObject(deadView, _ctx.boardLayer);
+
+        destroySelf();
     }
 
     override protected function added () :void {
@@ -60,6 +73,10 @@ public class Actor extends BattleObject implements Updatable
                     _onGround = true;
                     if (!_input.jump) {
                         _jumpButtonReleasedOnGround = true;
+                    }
+
+                    if (vCollision.tile.type == TileType.SPIKE) {
+                        die();
                     }
                 }
 

@@ -8,17 +8,14 @@ import aspire.util.Log;
 import flash.ui.Keyboard;
 
 import flashbang.core.AppMode;
-import flashbang.core.Flashbang;
 import flashbang.core.GameObjectBase;
 import flashbang.input.KeyboardState;
 
 import ggj.GGJ;
 import ggj.desc.GameDesc;
 import ggj.game.control.PlayerControl;
-import ggj.game.desc.BoardDesc;
 import ggj.game.object.Actor;
 import ggj.game.object.BattleBoard;
-import ggj.rsrc.GGJResources;
 
 public class BattleMode extends AppMode
 {
