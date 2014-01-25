@@ -6,7 +6,10 @@ package ggj {
 import aspire.util.F;
 import aspire.util.Log;
 
+import flash.desktop.NativeApplication;
 import flash.display.DisplayObject;
+import flash.events.InvokeEvent;
+import flash.filesystem.File;
 
 import flashbang.core.FlashbangApp;
 import flashbang.core.FlashbangConfig;
@@ -31,15 +34,24 @@ public class GGJApp extends FlashbangApp
         if (_splashScreen != null) {
             addChild(splashScreen);
         }
+
+        NativeApplication.nativeApplication.addEventListener(InvokeEvent.INVOKE, invoked);
     }
 
     override protected function run () :void {
         // init resources
         GameDesc.registerResourceLoader();
         const textureScale :int = (Starling.contentScaleFactor >= 2 ? 2 : 1);
-        const resourceParams :GGJResources = new GGJResources();
+        const resourceParams :GGJResources = new GGJResources(_rootDir);
 
         GGJ.init(resourceParams, textureScale);
+
+        _running = true;
+        loadResources();
+    }
+
+    protected function loadResources () :void {
+        if (!_running || !_invoked) return;
 
         // Show a loading screen, and begin loading resources
         defaultViewport.changeMode(new LoadingMode());
@@ -85,7 +97,24 @@ public class GGJApp extends FlashbangApp
         return fbConfig;
     }
 
+    protected function invoked (e :InvokeEvent) :void {
+        NativeApplication.nativeApplication.removeEventListener(InvokeEvent.INVOKE, invoked);
+
+        if (e.arguments.length > 0) {
+            _rootDir = new File(e.arguments[0]);
+        }
+        if (_rootDir == null || !_rootDir.exists) {
+            _rootDir = File.applicationDirectory;
+        }
+
+        _invoked = true;
+        loadResources();
+    }
+
     protected var _splashScreen :DisplayObject;
+    protected var _running :Boolean;
+    protected var _invoked :Boolean;
+    protected var _rootDir :File;
 
     protected static const log :Log = Log.getLog(GGJApp);
 }
