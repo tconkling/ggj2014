@@ -1,6 +1,7 @@
 package ggj.game.object {
 
 import aspire.geom.Vector2;
+import aspire.util.MathUtil;
 
 import flash.geom.Point;
 import flash.geom.Rectangle;
@@ -15,7 +16,7 @@ public class Actor extends BattleObject implements Updatable
     public function Actor (input :PlayerControl) {
         _input = input;
 
-        _bounds = new Rectangle(6, 3, 1, 1);
+        _bounds = new Rectangle(1, 2, 1, 1);
         _lastBounds = _bounds.clone();
     }
 
@@ -41,7 +42,7 @@ public class Actor extends BattleObject implements Updatable
         }
 
         // gravity
-        _v.y +=
+        _v.y = MathUtil.clamp(_v.y + (GRAVITY * dt), MIN_V, MAX_V);
 
         _bounds.x += (_v.x * dt);
         _bounds.y += (_v.y * dt);
@@ -67,6 +68,8 @@ public class Actor extends BattleObject implements Updatable
 
     protected var _view :ActorView;
 
-    protected static const GRAVITY :Number = 5;
+    protected static const GRAVITY :Number = 10;
+    protected static const MAX_V :Number = 10;
+    protected static const MIN_V :Number = -10;
 }
 }

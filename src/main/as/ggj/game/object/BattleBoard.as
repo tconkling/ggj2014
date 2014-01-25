@@ -1,5 +1,7 @@
 package ggj.game.object {
 
+import aspire.util.MathUtil;
+
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
@@ -50,38 +52,39 @@ public class BattleBoard extends BattleObject
         out = (out || new Point());
         out.setTo(bounds.x, bounds.y);
 
+        var xMin :int = Math.ceil(bounds.left);
+        var xMax :int = Math.floor(bounds.right);
+        var yMin :int = Math.ceil(bounds.top);
+        var yMax :int = Math.floor(bounds.bottom);
+
+        xMin = MathUtil.clamp(xMin, 0, this.width - 1);
+        xMax = MathUtil.clamp(xMax, xMin, this.width - 1);
+        yMin = MathUtil.clamp(yMin, 0, this.height - 1);
+        yMax = MathUtil.clamp(yMax, yMin, this.height - 1);
+
         var xx :int;
         var yy :int;
         var tile :Tile;
-
-        var xMin :int = Math.floor(bounds.left);
-        var xMax :int = Math.ceil(bounds.right);
-        var yMin :int = Math.floor(bounds.top);
-        var yMax :int = Math.ceil(bounds.bottom);
 
         if (bounds.left < lastBounds.left) {
             // moving left
             xx = xMin;
             for (yy = yMin; yy <= yMax; ++yy) {
-                if (!isValidLoc(xx, yy)) {
-                    continue;
-                }
                 tile = getTile(xx, yy);
                 if (tile.type != null) {
-                    out.x = Math.max(xx + 1, out.x);
+                    out.x = xx + 1;
+                    break;
                 }
             }
 
         } else if (bounds.right > lastBounds.right) {
-            // moving left
+            // moving right
             xx = xMax;
             for (yy = yMin; yy <= yMax; ++yy) {
-                if (!isValidLoc(xx, yy)) {
-                    continue;
-                }
                 tile = getTile(xx, yy);
                 if (tile.type != null) {
-                    out.x = Math.min(xx, out.x);
+                    out.x = xx - bounds.width;
+                    break;
                 }
             }
         }
@@ -90,12 +93,10 @@ public class BattleBoard extends BattleObject
             // moving up
             yy = yMin;
             for (xx = xMin; xx <= xMax; ++xx) {
-                if (!isValidLoc(xx, yy)) {
-                    continue;
-                }
                 tile = getTile(xx, yy);
                 if (tile.type != null) {
-                    out.y = Math.max(yy + 1, out.y);
+                    out.y = yy + 1;
+                    break;
                 }
             }
 
@@ -103,12 +104,10 @@ public class BattleBoard extends BattleObject
             // moving down
             yy = yMax;
             for (xx = xMin; xx <= xMax; ++xx) {
-                if (!isValidLoc(xx, yy)) {
-                    continue;
-                }
                 tile = getTile(xx, yy);
                 if (tile.type != null) {
-                    out.y = Math.min(yy, out.y);
+                    out.y = yy - bounds.height;
+                    break;
                 }
             }
         }
