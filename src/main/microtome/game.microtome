@@ -1,0 +1,16 @@
+//
+// ggj2014
+
+namespace ggj.game.desc;
+
+Tome BoardDesc {
+    int width (min=1);
+    int height (min=1);
+    List<TileDesc> tiles;
+}
+
+Tome TileDesc {
+    int x (min=0);
+    int y (min=0);
+    ggj.game.desc.TileType type (default="STONE");
+}

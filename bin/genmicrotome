@@ -1,0 +1,9 @@
+#!/bin/bash
+
+MT=$1
+if [ "$MT" == "" ]; then
+    MT="/export/microtome"
+fi
+
+$MT/bin/gentomes --header "`cat etc/SOURCE_HEADER`" --library_namespace ggj.microtome src/main/microtome src/main/as as
+$MT/bin/gentomes --header "`cat etc/SOURCE_HEADER_PY`" --library_namespace ggj.tome src/main/microtome src/main/py py

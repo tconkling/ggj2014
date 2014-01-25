@@ -1,0 +1,24 @@
+//
+// Global Game Jam 2014
+
+package ggj.game.desc {
+
+// GENERATED IMPORTS START
+import microtome.Tome;
+// GENERATED IMPORTS END
+
+// GENERATED CLASS_INTRO START
+public interface TileDesc extends Tome
+{
+// GENERATED CLASS_INTRO END
+
+// GENERATED CLASS_BODY START
+    function get x () :int;
+    function get y () :int;
+    function get type () :TileType;
+// GENERATED CLASS_BODY END
+
+// GENERATED CLASS_OUTRO START
+}
+}
+// GENERATED CLASS_OUTRO END
