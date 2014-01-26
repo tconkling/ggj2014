@@ -5,7 +5,6 @@ import flash.geom.Rectangle;
 
 import flashbang.core.Updatable;
 import flashbang.resource.MovieResource;
-import flashbang.util.DisplayUtil;
 
 import flump.display.Movie;
 

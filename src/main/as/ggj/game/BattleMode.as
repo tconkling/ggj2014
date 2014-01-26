@@ -69,7 +69,7 @@ public class BattleMode extends AppMode
             if (_ctx.stateMgr.state == GameState.EVERYONE_DIED) {
                 text = "Everybody died!";
             } else if (_ctx.stateMgr.state == GameState.HAS_WINNER) {
-                text = "" + _ctx.stateMgr.winner.team.name();
+                text = "" + _ctx.stateMgr.winner.team.name() + " wins!";
             }
             _viewport.pushMode(new GameOverMode(text));
         }

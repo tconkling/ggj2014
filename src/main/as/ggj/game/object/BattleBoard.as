@@ -36,6 +36,31 @@ public class BattleBoard extends BattleObject
         addObject(_view, _ctx.boardLayer);
     }
 
+    /** Return true if the given bounds intersects a tile of the given type */
+    public function intersectsTile (bounds :Rectangle, tileType :TileType) :Boolean {
+        var rightAligned :Boolean = (bounds.right == Math.floor(bounds.right));
+        var xMin :int = Math.floor(bounds.left);
+        var xMax :int = (rightAligned ? Math.floor(bounds.right - 1) : Math.floor(bounds.right));
+        xMin = MathUtil.clamp(xMin, 0, this.width - 1);
+        xMax = MathUtil.clamp(xMax, xMin, this.width - 1);
+
+        var bottomAligned :Boolean = (bounds.bottom == Math.floor(bounds.bottom));
+        var yMin :int = Math.floor(bounds.top);
+        var yMax :int = (bottomAligned ? Math.floor(bounds.bottom - 1) : Math.floor(bounds.bottom));
+        yMin = MathUtil.clamp(yMin, 0, this.height - 1);
+        yMax = MathUtil.clamp(yMax, yMin, this.height - 1);
+
+        for (var xx :int = xMin; xx <= xMax; ++xx) {
+            for (var yy :int = yMin; yy <= yMax; ++yy) {
+                if (getTile(xx, yy).type == tileType) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public function getCollisions (bounds :Rectangle, lastBounds :Rectangle, vertical :Boolean, out :Collision = null) :Collision {
         var rightAligned :Boolean = (bounds.right == Math.floor(bounds.right));
         var xMin :int = Math.floor(bounds.left);

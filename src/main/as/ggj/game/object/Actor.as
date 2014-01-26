@@ -11,6 +11,7 @@ import flashbang.core.Updatable;
 
 import ggj.GGJ;
 import ggj.game.control.PlayerControl;
+import ggj.game.desc.TileType;
 import ggj.game.view.ActorView;
 import ggj.game.view.DeadActorView;
 
@@ -70,6 +71,8 @@ public class Actor extends BattleObject implements Updatable
     public function update (dt :Number) :void {
         _lastBounds.copyFrom(_bounds);
 
+        var shouldDie :Boolean = false;
+
         // vertical movement
 
         // jumping
@@ -106,13 +109,12 @@ public class Actor extends BattleObject implements Updatable
                 _v.y = 0;
 
                 if (vCollision.tile.type.isSpike) {
-                    die();
+                    shouldDie = true;
                 }
             }
         }
 
         // horizontal movement
-
         if (_input.right) {
             _v.x = 5;
         } else if (_input.left) {
@@ -127,6 +129,13 @@ public class Actor extends BattleObject implements Updatable
                 _bounds.x = hCollision.location;
                 _v.x = 0;
             }
+        }
+
+        if (shouldDie) {
+            die();
+        } else if (_ctx.board.intersectsTile(_bounds, TileType.GOAL)) {
+            // we win!
+            _hitVictoryTile = true;
         }
     }
 
