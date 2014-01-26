@@ -5,10 +5,10 @@ import aspire.util.Enum;
 import flash.geom.Point;
 
 public class PlayerColor extends Enum {
-    public static const GREEN :PlayerColor = new PlayerColor("GREEN", 2);
-    public static const BLUE :PlayerColor = new PlayerColor("BLUE", 3);
-    public static const YELLOW :PlayerColor = new PlayerColor("YELLOW", 1);
-    public static const RED :PlayerColor = new PlayerColor("RED", 0);
+    public static const GREEN :PlayerColor = new PlayerColor("GREEN", 2, 0x25e857);
+    public static const BLUE :PlayerColor = new PlayerColor("BLUE", 3, 0x2ddff8);
+    public static const YELLOW :PlayerColor = new PlayerColor("YELLOW", 1, 0xfed034);
+    public static const RED :PlayerColor = new PlayerColor("RED", 0, 0xfb1923);
     finishedEnumerating(PlayerColor);
 
     public static function values () :Array {
@@ -39,6 +39,10 @@ public class PlayerColor extends Enum {
         return _powerViewIdx;
     }
 
+    public function get color () :uint {
+        return _color;
+    }
+
     protected function getOffset (base :Point) :Point {
         var off :Point = base.clone();
         off.y += 4 * ordinal();
@@ -46,9 +50,10 @@ public class PlayerColor extends Enum {
     }
 
     /** @private */
-    public function PlayerColor (name :String, powerViewIdx :int) {
+    public function PlayerColor (name :String, powerViewIdx :int, color :uint) {
         super(name);
         _powerViewIdx = powerViewIdx;
+        _color = color;
     }
 
     protected static const IDLE_OFFSET :Point = new Point(0, 0);
@@ -57,5 +62,6 @@ public class PlayerColor extends Enum {
     protected static const DEATH_OFFSET :Point = new Point(0, 3);
 
     protected var _powerViewIdx :int;
+    protected var _color :uint;
 }
 }

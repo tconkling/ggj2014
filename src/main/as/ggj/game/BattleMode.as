@@ -20,6 +20,7 @@ import ggj.game.object.ActiveBoardMgr;
 import ggj.game.object.Actor;
 import ggj.game.object.GameState;
 import ggj.game.object.GameStateMgr;
+import ggj.game.object.Hud;
 import ggj.game.object.Team;
 import ggj.game.object.Tile;
 import ggj.util.FeathersMgr;
@@ -58,6 +59,7 @@ public class BattleMode extends AppMode
         // controller objects
         addObject(_ctx.stateMgr = new GameStateMgr());
         addObject(_ctx.boardMgr = new ActiveBoardMgr());
+        addObject(new Hud(_ctx.boardMgr));
 
         // actors
         var spawnTile :Tile = _ctx.boardMgr.activeBoard.spawnTile;

@@ -38,7 +38,6 @@ public class ActiveBoardMgr extends BattleObject {
                 changed = true;
                 powerActive = false;
             }
-            _powerViews[idx].on = powerActive;
             if (changed) break;
         }
 
@@ -46,6 +45,10 @@ public class ActiveBoardMgr extends BattleObject {
             Sound.LEVEL_SWAP.play();
             updateBoardViews();
         }
+    }
+
+    public function isPowerActive (team :Team) :Boolean {
+        return _powerOffCooldown[team.ordinal()] < _elapsed;
     }
 
     protected function updateBoardViews () :void {
@@ -69,12 +72,6 @@ public class ActiveBoardMgr extends BattleObject {
             board.view.display.alpha = BACKGROUND_BOARD_ALPHA;
             _boards.push(board);
 
-            var powerView :PowerView = new PowerView(playerColor);
-            powerView.display.x = ((board.width - _ctx.numPlayers) / 2 + ii) * GGJ.TILE_SIZE_PX;
-            powerView.display.y = (board.height) * GGJ.TILE_SIZE_PX;
-            addObject(powerView, _ctx.uiLayer);
-            powerView.on = true;
-            _powerViews.push(powerView);
             _powerOffCooldown.push(-1);
         }
 
@@ -173,7 +170,6 @@ public class ActiveBoardMgr extends BattleObject {
 
     protected var _activeIdx :int;
     protected var _boards :Vector.<BattleBoard> = new <BattleBoard>[];
-    protected var _powerViews :Vector.<PowerView> = new <PowerView>[];
     protected var _powerOffCooldown :Vector.<Number> = new <Number>[];
     protected var _elapsed :Number = 0;
 }
