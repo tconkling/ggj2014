@@ -164,7 +164,7 @@ public class ActiveBoardMgr extends BattleObject {
 
     protected static const POWER_COOLDOWN :Number = 5.0;
 
-    protected static const BOARD_VIEW_DELAY :Number = 1.0;
+    protected static const BOARD_VIEW_DELAY :Number = 0.4;
     protected static const BOARD_FADE_DELAY :Number = 0.2;
 
     protected var _activeIdx :int;
