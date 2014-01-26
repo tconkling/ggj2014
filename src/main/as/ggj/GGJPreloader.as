@@ -15,13 +15,12 @@ import flash.utils.getDefinitionByName;
  * <p>The following compiler argument is required to make this work:</p>
  * <pre>-frame=two,ggj.GGJApp</pre>
  */
-[SWF(width="1024", height="768", frameRate="60", backgroundColor="#FFFFFF")]
+[SWF(width="1056", height="768", frameRate="60", backgroundColor="#FFFFFF")]
 public class GGJPreloader extends MovieClip
 {
     public function GGJPreloader() {
         // the document class must be a MovieClip so that everything else can load on the 2nd frame
         stop();
-
         addChild(_splashScreen);
 
         var bg :Shape = new Shape();

@@ -30,6 +30,7 @@ import starling.display.DisplayObject;
 import starling.display.Image;
 import starling.display.Sprite;
 import starling.textures.Texture;
+import starling.textures.TextureSmoothing;
 
 public class BattleBoardView extends BoardView
 {
@@ -54,6 +55,7 @@ public class BattleBoardView extends BoardView
         _tileSheet = ImageResource.require("game/tilesheet").texture;
 
         // create tile sprites
+        const scale :Number = GGJ.TILE_SIZE_PX / GGJ.TILE_SHEET_TILE_PX;
         for (var yy :int = 0; yy < _board.height; ++yy) {
             for (var xx :int = 0; xx < _board.width; ++xx) {
                 var tile :Tile = _board.getTile(xx, yy);
@@ -62,6 +64,7 @@ public class BattleBoardView extends BoardView
                 var tileSprite :Sprite = new Sprite();
                 tileSprite.x = xLoc;
                 tileSprite.y = yLoc;
+                tileSprite.scaleX = tileSprite.scaleY = scale;
                 _tileLayer.addChild(tileSprite);
                 _tiles.setCellAt(xx, yy, tileSprite);
 
@@ -120,7 +123,9 @@ public class BattleBoardView extends BoardView
         var tileSprite :Sprite = _tiles.cellAt(tile.x, tile.y);
         tileSprite.removeChildren(0, -1, true);
         if (tile.type != TileType.EMPTY) {
-            tileSprite.addChild(new Image(getTexture(tile.type)));
+            var img :Image = new Image(getTexture(tile.type));
+            img.smoothing = TextureSmoothing.NONE;
+            tileSprite.addChild(img);
         }
         tilesUpdated();
     }
@@ -250,7 +255,7 @@ public class BattleBoardView extends BoardView
         if (tex == null) {
             var loc :Point = type.getTileCoordinates(_color);
             tex = Texture.fromTexture(_tileSheet,
-                new Rectangle(loc.x, loc.y, GGJ.TILE_SIZE_PX, GGJ.TILE_SIZE_PX));
+                new Rectangle(loc.x, loc.y, GGJ.TILE_SHEET_TILE_PX, GGJ.TILE_SHEET_TILE_PX));
             _tileTextures.put(type, tex);
         }
         return tex;

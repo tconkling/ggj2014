@@ -86,7 +86,7 @@ public final class TileType extends Enum
             y = color.ordinal();
         }
 
-        return new Point(x * GGJ.TILE_SIZE_PX, y * GGJ.TILE_SIZE_PX);
+        return new Point(x * GGJ.TILE_SHEET_TILE_PX, y * GGJ.TILE_SHEET_TILE_PX);
     }
 
     public function get collides () :Boolean {
