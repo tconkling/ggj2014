@@ -77,34 +77,18 @@ public class GGJResources
     protected static const FUTURA_25_FNT :Class;
     [Embed(source="../../../../../rsrc/fonts/Futura25.png", mimeType="application/octet-stream")]
     protected static const FUTURA_25_PNG :Class;
-    [Embed(source="../../../../../rsrc/fonts/Futura25@2x.fnt", mimeType="application/octet-stream")]
-    protected static const FUTURA_25_FNT_2X :Class;
-    [Embed(source="../../../../../rsrc/fonts/Futura25@2x.png", mimeType="application/octet-stream")]
-    protected static const FUTURA_25_PNG_2X :Class;
     [Embed(source="../../../../../rsrc/fonts/Futura50.fnt", mimeType="application/octet-stream")]
     protected static const FUTURA_50_FNT :Class;
     [Embed(source="../../../../../rsrc/fonts/Futura50.png", mimeType="application/octet-stream")]
     protected static const FUTURA_50_PNG :Class;
-    [Embed(source="../../../../../rsrc/fonts/Futura50@2x.fnt", mimeType="application/octet-stream")]
-    protected static const FUTURA_50_FNT_2X :Class;
-    [Embed(source="../../../../../rsrc/fonts/Futura50@2x.png", mimeType="application/octet-stream")]
-    protected static const FUTURA_50_PNG_2X :Class;
     [Embed(source="../../../../../rsrc/fonts/Helvetica12.fnt", mimeType="application/octet-stream")]
     protected static const HELVETICA_12_FNT :Class;
     [Embed(source="../../../../../rsrc/fonts/Helvetica12.png", mimeType="application/octet-stream")]
     protected static const HELVETICA_12_PNG :Class;
-    [Embed(source="../../../../../rsrc/fonts/Helvetica12@2x.fnt", mimeType="application/octet-stream")]
-    protected static const HELVETICA_12_FNT_2X :Class;
-    [Embed(source="../../../../../rsrc/fonts/Helvetica12@2x.png", mimeType="application/octet-stream")]
-    protected static const HELVETICA_12_PNG_2X :Class;
     [Embed(source="../../../../../rsrc/fonts/Helvetica24.fnt", mimeType="application/octet-stream")]
     protected static const HELVETICA_24_FNT :Class;
     [Embed(source="../../../../../rsrc/fonts/Helvetica24.png", mimeType="application/octet-stream")]
     protected static const HELVETICA_24_PNG :Class;
-    [Embed(source="../../../../../rsrc/fonts/Helvetica24@2x.fnt", mimeType="application/octet-stream")]
-    protected static const HELVETICA_24_FNT_2X :Class;
-    [Embed(source="../../../../../rsrc/fonts/Helvetica24@2x.png", mimeType="application/octet-stream")]
-    protected static const HELVETICA_24_PNG_2X :Class;
 }
 }
 
