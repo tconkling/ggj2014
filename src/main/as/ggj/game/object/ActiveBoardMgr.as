@@ -78,7 +78,9 @@ public class ActiveBoardMgr extends BattleObject {
         for (ii = 0; ii < _boards.length * 2; ii++) {
             var viewDelay :Number = BOARD_VIEW_DELAY;
             var fadeDelay :Number = BOARD_FADE_DELAY;
-            if (ii >= _boards.length) {
+            if (ii == 0) {
+                fadeDelay *= 2;
+            } else if (ii >= _boards.length) {
                 viewDelay *= 0.5;
                 fadeDelay *= 0.5;
             }
