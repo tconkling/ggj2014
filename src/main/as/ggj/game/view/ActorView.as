@@ -18,7 +18,7 @@ public class ActorView extends BattleSpriteObject implements Updatable
 
     override protected function added () :void {
         super.added();
-        var bounds :Rectangle = _ctx.activeBoard.view.boardToViewBounds(_actor.bounds);
+        var bounds :Rectangle = _ctx.boardMgr.activeBoard.view.boardToViewBounds(_actor.bounds);
 //        _sprite.addChild(DisplayUtil.fillRect(bounds.width, bounds.height, 0x0));
 
         var movie :Movie = MovieResource.createMovie(_actor.team.movieName);
@@ -28,7 +28,7 @@ public class ActorView extends BattleSpriteObject implements Updatable
     }
 
     public function update (dt :Number) :void {
-        var loc :Point = _ctx.activeBoard.view.boardToView(_actor.bounds.topLeft);
+        var loc :Point = _ctx.boardMgr.activeBoard.view.boardToView(_actor.bounds.topLeft);
         _sprite.x = loc.x;
         _sprite.y = loc.y;
     }

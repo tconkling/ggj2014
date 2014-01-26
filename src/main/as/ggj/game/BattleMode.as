@@ -15,11 +15,9 @@ import flashbang.layout.HLayoutSprite;
 
 import ggj.GGJ;
 import ggj.debug.ParamEditor;
-import ggj.desc.GameDesc;
 import ggj.game.control.PlayerControl;
-import ggj.game.desc.PlayerColor;
+import ggj.game.object.ActiveBoardMgr;
 import ggj.game.object.Actor;
-import ggj.game.object.BattleBoard;
 import ggj.game.object.GameState;
 import ggj.game.object.GameStateMgr;
 import ggj.game.object.Team;
@@ -30,7 +28,7 @@ public class BattleMode extends AppMode
 {
     public function BattleMode (numPlayers :int) {
         _ctx = new BattleCtx();
-        _numPlayers = numPlayers;
+        _ctx.numPlayers = numPlayers;
     }
 
     override protected function registerObject (obj :GameObjectBase) :void {
@@ -54,24 +52,11 @@ public class BattleMode extends AppMode
 
         // controller objects
         addObject(_ctx.stateMgr = new GameStateMgr());
-
-        // boards - separate loops because activeBoard must be valid before adding Actors.
-        var active :Boolean = GGJ.RAND.getIntInRange(0, _numPlayers);
-        for (var ii :int = 0; ii < _numPlayers; ii++) {
-            var board :BattleBoard = new BattleBoard(GameDesc.lib.getTome(BOARD_NAMES[ii]),
-                PlayerColor.values()[ii]);
-            addObject(board);
-            if (ii == active) {
-                _ctx.activeBoard = board;
-            } else {
-                board.view.display.alpha = 0.2;
-            }
-            _ctx.boards.push(board);
-        }
+        addObject(_ctx.boardMgr = new ActiveBoardMgr());
 
         // actors
-        var spawnTile :Tile = _ctx.activeBoard.spawnTile;
-        for (ii = 0; ii < _numPlayers; ii++) {
+        var spawnTile :Tile = _ctx.boardMgr.activeBoard.spawnTile;
+        for (var ii :int = 0; ii < _ctx.numPlayers; ii++) {
             var left :uint  = CONTROLS[0 + ii * 4];
             var right :uint = CONTROLS[1 + ii * 4];
             var jump :uint  = CONTROLS[2 + ii * 4];
@@ -105,11 +90,9 @@ public class BattleMode extends AppMode
             }
             _viewport.pushMode(new GameOverMode(text));
         }
-    }
 
-    protected static const BOARD_NAMES :Vector.<String> = new <String>[
-        "rgby_layout_1", "test-board"
-    ];
+        _ctx.boardMgr.updateActiveBoard();
+    }
 
     // per player: left move, right move, jump, power
     protected static const CONTROLS :Vector.<uint> = new <uint>[
@@ -120,7 +103,6 @@ public class BattleMode extends AppMode
     ];
 
     protected var _ctx :BattleCtx;
-    protected var _numPlayers :int;
     protected var _keyboardState :KeyboardState;
 
     protected static const log :Log = Log.getLog(BattleMode);
