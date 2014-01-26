@@ -1,5 +1,12 @@
 package ggj.game.object {
 
+import flashbang.tasks.AlphaTask;
+import flashbang.tasks.FunctionTask;
+import flashbang.tasks.ParallelTask;
+import flashbang.tasks.SerialTask;
+import flashbang.tasks.TimedTask;
+import flashbang.util.Easing;
+
 import ggj.GGJ;
 import ggj.desc.GameDesc;
 import ggj.game.desc.PlayerColor;
@@ -45,7 +52,7 @@ public class ActiveBoardMgr extends BattleObject {
             var playerColor :PlayerColor = playerColors[ii];
             var board :BattleBoard = new BattleBoard(GameDesc.lib.getTome(boardName), playerColor);
             addObject(board);
-            if (ii != _activeIdx) {
+            if (ii > 0) {
                 board.view.display.alpha = BACKGROUND_BOARD_ALPHA;
             }
             _boards.push(board);
@@ -60,6 +67,25 @@ public class ActiveBoardMgr extends BattleObject {
             _powerOffCooldown.push(-1);
         }
         _ctx.boardLayer.setChildIndex(_boards[_activeIdx].view.display, _boards.length - 1);
+
+        var anim :SerialTask = new SerialTask(new TimedTask(BOARD_VIEW_DELAY));
+        for (ii = 1; ii < _boards.length; ii++) {
+            anim.addTask(new ParallelTask(
+                new AlphaTask(BACKGROUND_BOARD_ALPHA, BOARD_FADE_DELAY, Easing.linear,
+                    _boards[ii - 1].view.display),
+                new AlphaTask(1.0, BOARD_FADE_DELAY, Easing.linear, _boards[ii].view.display)
+            ));
+            anim.addTask(new TimedTask(BOARD_VIEW_DELAY));
+        }
+        if (_activeIdx != _boards.length - 1) {
+            anim.addTask(new ParallelTask(
+                new AlphaTask(BACKGROUND_BOARD_ALPHA, BOARD_FADE_DELAY, Easing.linear,
+                    _boards[_boards.length - 1].view.display),
+                new AlphaTask(1.0, BOARD_FADE_DELAY, Easing.linear, activeBoard.view.display)
+            ));
+        }
+        anim.addTask(new FunctionTask(_ctx.stateMgr.startAnimationComplete));
+        addObject(anim);
     }
 
     protected static const BOARD_NAMES :Vector.<String> = new <String>[
@@ -69,6 +95,9 @@ public class ActiveBoardMgr extends BattleObject {
     protected static const BACKGROUND_BOARD_ALPHA :Number = 0.2;
 
     protected static const POWER_COOLDOWN :Number = 5.0;
+
+    protected static const BOARD_VIEW_DELAY :Number = 1.0;
+    protected static const BOARD_FADE_DELAY :Number = 0.25;
 
     protected var _activeIdx :int;
     protected var _boards :Vector.<BattleBoard> = new <BattleBoard>[];
