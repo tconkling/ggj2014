@@ -55,7 +55,7 @@ public class ActiveBoardMgr extends BattleObject {
         var availableColors :Array = PlayerColor.values();
         for (var ii :int = 0; ii < _ctx.numPlayers; ii++) {
             var boardName :String = GGJ.RAND.pluck(boardNames, BOARD_NAMES[0]);
-            var playerColor :PlayerColor = GGJ.RAND.pluck(availableColors);
+            var playerColor :PlayerColor = availableColors[ii];
             _ctx.playerColors.push(playerColor);
 
             var board :BattleBoard = new BattleBoard(GameDesc.lib.getTome(boardName), playerColor);
