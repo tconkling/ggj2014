@@ -5,6 +5,7 @@ import flash.geom.Rectangle;
 import flashbang.objects.SpriteObject;
 
 import ggj.game.object.Actor;
+import ggj.rsrc.Sound;
 
 public class DeadActorView extends SpriteObject {
     public function DeadActorView (actor :Actor) {
@@ -20,6 +21,8 @@ public class DeadActorView extends SpriteObject {
         anim.display.y = bounds.height;
         anim.visible = true;
         regs.add(anim.done.connect(destroySelf));
+
+        Sound.DEATH.play();
     }
 
     protected var _actor :Actor;

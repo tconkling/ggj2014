@@ -3,6 +3,8 @@
 
 package ggj.rsrc {
 
+import flashbang.audio.SoundType;
+
 import ggj.GGJ;
 
 // TODO: make static? Could be static as it currently stands.
@@ -97,6 +99,9 @@ public class GGJResources
 
     [Embed(source="../../../../../rsrc/player.png")]
     protected static const PLAYER :Class;
+
+    [Embed(source="../../../../../rsrc/sound/player_death.mp3")]
+    public static const SOUND_DEATH :Class;
 }
 }
 

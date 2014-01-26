@@ -20,6 +20,7 @@ import ggj.debug.DebugOverlayMode;
 import ggj.desc.GameDesc;
 import ggj.game.BattleMode;
 import ggj.rsrc.GGJResources;
+import ggj.rsrc.Sound;
 import ggj.rsrc.TextureResourceLoader;
 import ggj.screens.LoadingMode;
 
@@ -87,6 +88,9 @@ public class GGJApp extends FlashbangApp
         rsrcs.add(GGJ.resourceParams.futura25Font);
         rsrcs.add(GGJ.resourceParams.helvetica24Font);
         rsrcs.add(GGJ.resourceParams.helvetica12Font);
+        for each (var sound :Sound in Sound.values()) {
+            rsrcs.add(sound.resourceDef);
+        }
         return rsrcs;
     }
 

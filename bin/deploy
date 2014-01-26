@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SWF="out/production/ggj2014/ggj2014.swf"
+SWF="dist/ggj.swf"
 MD5=`cat $SWF | md5`
 WEB_DIR="../rgby.roguenet.org"
 
