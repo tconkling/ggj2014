@@ -161,7 +161,7 @@ public class ActiveBoardMgr extends BattleObject {
     }
 
     protected static const BOARD_NAMES :Vector.<String> = new <String>[
-        "rgby_layout_1", "rgby_layout_2", "rgby_layout_3"
+        "rgby_layout_1", "rgby_layout_2", "rgby_layout_3", "rgby_layout_4"
     ];
 
     protected static const BACKGROUND_BOARD_ALPHA :Number = 0.2;

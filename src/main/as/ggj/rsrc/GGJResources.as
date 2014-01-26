@@ -3,8 +3,6 @@
 
 package ggj.rsrc {
 
-import flashbang.audio.SoundType;
-
 import ggj.GGJ;
 
 // TODO: make static? Could be static as it currently stands.
@@ -12,7 +10,7 @@ public class GGJResources
 {
     public function get tome () :Object {
         return { type: "microtome", name: "gameTome", data: [ GAMEDATA_TOME,
-            BOARD_LAYOUT_1, BOARD_LAYOUT_2, BOARD_LAYOUT_3 ] };
+            BOARD_LAYOUT_1, BOARD_LAYOUT_2, BOARD_LAYOUT_3, BOARD_LAYOUT_4 ] };
     }
 
     // gfx
