@@ -41,12 +41,17 @@ public class ActiveBoardMgr extends BattleObject {
             _powerViews[idx].on = powerActive;
             if (changed) break;
         }
+
         if (changed) {
-            _ctx.boardLayer.setChildIndex(_boards[_activeIdx].view.display, _boards.length - 1);
-            for (var ii :int = 0; ii < _boards.length; ii++) {
-                _boards[ii].view.display.alpha = ii == _activeIdx ? 1.0 : BACKGROUND_BOARD_ALPHA;
-            }
             Sound.LEVEL_SWAP.play();
+            updateBoardViews();
+        }
+    }
+
+    protected function updateBoardViews () :void {
+        _ctx.boardLayer.setChildIndex(_boards[_activeIdx].view.display, _boards.length - 1);
+        for (var ii :int = 0; ii < _boards.length; ii++) {
+            _boards[ii].view.display.alpha = ii == _activeIdx ? 1.0 : BACKGROUND_BOARD_ALPHA;
         }
     }
 
@@ -72,7 +77,8 @@ public class ActiveBoardMgr extends BattleObject {
             _powerViews.push(powerView);
             _powerOffCooldown.push(-1);
         }
-        _ctx.boardLayer.setChildIndex(_boards[_activeIdx].view.display, _boards.length - 1);
+
+        updateBoardViews();
 
         // show an intro animation
         if (!GGJ.DEBUG) {
