@@ -17,7 +17,7 @@ public class ActiveBoardMgr extends BattleObject {
         for each (var a :Actor in actors) {
             var idx :int = a.team.ordinal();
             var powerActive :Boolean = _powerOffCooldown[idx] < _elapsed;
-            if (a.requestMapChange && powerActive) {
+            if (a.requestMapChange && powerActive && _activeIdx != idx) {
                 _activeIdx = idx;
                 _powerOffCooldown[idx] = _elapsed + POWER_COOLDOWN;
                 changed = true;
