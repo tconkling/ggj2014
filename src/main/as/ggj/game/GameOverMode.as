@@ -5,6 +5,7 @@ import flashbang.layout.VLayoutSprite;
 import flashbang.objects.SimpleTextButton;
 import flashbang.util.DisplayUtil;
 
+import ggj.GGJ;
 import ggj.util.Text;
 
 import starling.display.Sprite;
@@ -22,7 +23,7 @@ public class GameOverMode extends AppMode {
         // ok button
         var btnOk :SimpleTextButton = new SimpleTextButton("OK!");
         this.regs.add(btnOk.clicked.connect(function () :void {
-            _viewport.unwindToMode(new BattleMode(3));
+            _viewport.unwindToMode(new BattleMode(GGJ.NUM_PLAYERS));
         }));
         addObject(btnOk, layout);
 

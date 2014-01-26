@@ -20,6 +20,9 @@ public class GGJ
 
     public static const RAND :Randoms = new Randoms();
 
+    /** hard coded because we didn't get time to make it dynamic */
+    public static const NUM_PLAYERS :int = 4;
+
     /// Singletons
     public static function get resourceParams () :GGJResources { return _resourceParams; }
     public static function get textureScale () :int { return _textureScale; }
