@@ -42,7 +42,7 @@ public class Actor extends BattleObject implements Updatable
     }
 
     public function get requestMapChange () :Boolean {
-        return _input.power;
+        return _ctx.stateMgr.playing && _input.power;
     }
 
     override public function get groups () :Array {
@@ -80,7 +80,7 @@ public class Actor extends BattleObject implements Updatable
         // vertical movement
 
         // jumping
-        if (_input.jump && this.canJump) {
+        if (_ctx.stateMgr.playing && _input.jump && this.canJump) {
             _v.y += -_ctx.params.jumpImpulse;
             _view.jump();
         } else {
@@ -88,7 +88,7 @@ public class Actor extends BattleObject implements Updatable
             _v.y += (_ctx.params.gravity * dt);
         }
 
-        if (_input.jump) {
+        if (_ctx.stateMgr.playing && _input.jump) {
             _jumpButtonReleasedOnGround = false;
         }
 
@@ -120,9 +120,9 @@ public class Actor extends BattleObject implements Updatable
         }
 
         // horizontal movement
-        if (_input.right) {
+        if (_ctx.stateMgr.playing && _input.right) {
             _v.x = _ctx.params.moveSpeed;
-        } else if (_input.left) {
+        } else if (_ctx.stateMgr.playing && _input.left) {
             _v.x = -ctx.params.moveSpeed;
         } else {
             _v.x = 0;

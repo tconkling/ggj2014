@@ -7,7 +7,7 @@ import flashbang.core.Updatable;
 
 public class GameStateMgr extends BattleObject implements Updatable {
     public function GameStateMgr () {
-        _state = GameState.PLAYING;
+        _state = GameState.START_ANIMATION;
     }
 
     public function get state () :GameState {
@@ -19,7 +19,15 @@ public class GameStateMgr extends BattleObject implements Updatable {
     }
 
     public function get isGameOver () :Boolean {
-        return (_state != GameState.PLAYING);
+        return _state == GameState.EVERYONE_DIED || _state == GameState.HAS_WINNER;
+    }
+
+    public function get playing () :Boolean {
+        return _state == GameState.PLAYING;
+    }
+
+    public function startAnimationComplete () :void {
+        _state = GameState.PLAYING;
     }
 
     public function update (dt :Number) :void {

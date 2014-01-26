@@ -4,6 +4,7 @@ import aspire.util.Enum;
 
 public final class GameState extends Enum
 {
+    public static const START_ANIMATION :GameState = new GameState("START_ANIMATION");
     public static const PLAYING :GameState = new GameState("PLAYING");
     public static const EVERYONE_DIED :GameState = new GameState("EVERYONE_DIED");
     public static const HAS_WINNER :GameState = new GameState("HAS_WINNER");

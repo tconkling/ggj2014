@@ -11,6 +11,8 @@ public class ActiveBoardMgr extends BattleObject {
     }
 
     public function updateActiveBoard (dt :Number) :void {
+        if (!_ctx.stateMgr.playing) return;
+
         _elapsed += dt;
         var changed :Boolean;
         var actors :Array = Actor.getAll(this.mode);
