@@ -23,6 +23,7 @@ import ggj.game.object.BattleBoard;
 import ggj.game.object.GameState;
 import ggj.game.object.GameStateMgr;
 import ggj.game.object.Team;
+import ggj.game.object.Tile;
 import ggj.util.FeathersMgr;
 
 public class BattleMode extends AppMode
@@ -69,12 +70,13 @@ public class BattleMode extends AppMode
         }
 
         // actors
+        var spawnTile :Tile = _ctx.activeBoard.spawnTile;
         for (ii = 0; ii < _numPlayers; ii++) {
             var left :uint  = CONTROLS[0 + ii * 4];
             var right :uint = CONTROLS[1 + ii * 4];
             var jump :uint  = CONTROLS[2 + ii * 4];
             var power :uint = CONTROLS[3 + ii * 4];
-            addObject(new Actor(Team.values()[ii], 1 + ii, 8,
+            addObject(new Actor(Team.values()[ii], spawnTile.x + (ii * 0.25), spawnTile.y,
                 new PlayerControl(left, right, jump, power, _keyboardState)));
         }
 

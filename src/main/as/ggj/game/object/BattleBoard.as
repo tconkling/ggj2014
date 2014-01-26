@@ -1,5 +1,6 @@
 package ggj.game.object {
 
+import aspire.util.Log;
 import aspire.util.MathUtil;
 
 import flash.geom.Point;
@@ -25,9 +26,22 @@ public class BattleBoard extends BattleObject
                 _tiles.setCellAt(xx, yy, new Tile(xx, yy, TileType.EMPTY));
             }
         }
-        for each (var tile :TileDesc in desc.tiles) {
-            getTile(tile.x, tile.y).type = tile.type;
+        for each (var tileDesc :TileDesc in desc.tiles) {
+            var tile :Tile = getTile(tileDesc.x, tileDesc.y);
+            tile.type = tileDesc.type;
+            if (tileDesc.type == TileType.SPAWN) {
+                _spawnTile = tile;
+            }
         }
+
+        if (_spawnTile == null) {
+            log.warning("No spawn tile on this board");
+            _spawnTile = _tiles.cellAtIdx(0);
+        }
+    }
+
+    public function get spawnTile () :Tile {
+        return _spawnTile;
     }
 
     override protected function added () :void {
@@ -163,7 +177,10 @@ public class BattleBoard extends BattleObject
 
     protected var _color :PlayerColor;
     protected var _tiles :Grid;
+    protected var _spawnTile :Tile;
 
     protected var _view :BattleBoardView;
+
+    protected static const log :Log = Log.getLog(BattleBoard);
 }
 }
