@@ -22,7 +22,10 @@ import ggj.game.object.GameState;
 import ggj.game.object.GameStateMgr;
 import ggj.game.object.Team;
 import ggj.game.object.Tile;
+import ggj.rsrc.GGJResources;
 import ggj.util.FeathersMgr;
+
+import starling.display.Quad;
 
 public class BattleMode extends AppMode
 {
@@ -39,6 +42,8 @@ public class BattleMode extends AppMode
     }
 
     override protected function setup () :void {
+        modeSprite.addChild(new Quad(Flashbang.stageWidth, Flashbang.stageHeight, BG_COLOR));
+
         addObject(_ctx);
 
         // input
@@ -105,6 +110,8 @@ public class BattleMode extends AppMode
         Keyboard.U,    Keyboard.I,     Keyboard.O,  Keyboard.P,     // player 3
         Keyboard.V,    Keyboard.B,     Keyboard.N,  Keyboard.M      // player 4
     ];
+
+    protected static const BG_COLOR :uint = 0x19242A;
 
     protected var _ctx :BattleCtx;
     protected var _keyboardState :KeyboardState;

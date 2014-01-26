@@ -269,6 +269,5 @@ public class BattleBoardView extends BoardView
     protected static const R :Rectangle = new Rectangle();
 
     protected static const PAN_ANIM :String = "ZoomAnim";
-    protected static const BG_COLOR :uint = 0x19242A;
 }
 }
