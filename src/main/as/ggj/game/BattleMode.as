@@ -82,6 +82,7 @@ public class BattleMode extends AppMode
     }
 
     override protected function update (dt :Number) :void {
+        var totalDt :Number = dt;
         while (dt > 0 && !_ctx.stateMgr.isGameOver) {
             var thisDt :Number = Math.min(dt, GGJ.FRAMERATE);
             super.update(thisDt);
@@ -98,7 +99,7 @@ public class BattleMode extends AppMode
             _viewport.pushMode(new GameOverMode(text));
         }
 
-        _ctx.boardMgr.updateActiveBoard();
+        _ctx.boardMgr.updateActiveBoard(totalDt);
     }
 
     // per player: left move, right move, jump, power
