@@ -15,7 +15,7 @@ import flash.utils.getDefinitionByName;
  * <p>The following compiler argument is required to make this work:</p>
  * <pre>-frame=two,ggj.GGJApp</pre>
  */
-[SWF(width="960", height="640", frameRate="60", backgroundColor="#FFFFFF")]
+[SWF(width="1024", height="768", frameRate="60", backgroundColor="#FFFFFF")]
 public class GGJPreloader extends MovieClip
 {
     public function GGJPreloader() {
@@ -24,7 +24,9 @@ public class GGJPreloader extends MovieClip
 
         addChild(_splashScreen);
 
-        _splashScreen.addChild(new IMAGE());
+        var bg :Shape = new Shape();
+        fillRect(bg, this.stage.stageWidth, this.stage.stageHeight, 0x0);
+        _splashScreen.addChild(bg);
 
         // draw a progress bar
         const WIDTH :Number = 400;
@@ -71,8 +73,5 @@ public class GGJPreloader extends MovieClip
     }
 
     protected var _splashScreen :Sprite = new Sprite();
-
-    [Embed(source="../../../../rsrc/preloader.jpg")]
-    protected static const IMAGE :Class;
 }
 }
