@@ -8,10 +8,13 @@ import aspire.util.Log;
 import flash.ui.Keyboard;
 
 import flashbang.core.AppMode;
+import flashbang.core.Flashbang;
 import flashbang.core.GameObjectBase;
 import flashbang.input.KeyboardState;
+import flashbang.layout.HLayoutSprite;
 
 import ggj.GGJ;
+import ggj.debug.ParamEditor;
 import ggj.desc.GameDesc;
 import ggj.game.control.PlayerControl;
 import ggj.game.desc.PlayerColor;
@@ -20,6 +23,7 @@ import ggj.game.object.BattleBoard;
 import ggj.game.object.GameState;
 import ggj.game.object.GameStateMgr;
 import ggj.game.object.Team;
+import ggj.util.FeathersMgr;
 
 public class BattleMode extends AppMode
 {
@@ -45,6 +49,7 @@ public class BattleMode extends AppMode
         // layers
         _modeSprite.addChild(_ctx.boardLayer);
         _modeSprite.addChild(_ctx.uiLayer);
+        _modeSprite.addChild(_ctx.debugLayer);
 
         // controller objects
         addObject(_ctx.stateMgr = new GameStateMgr());
@@ -72,6 +77,14 @@ public class BattleMode extends AppMode
             addObject(new Actor(Team.values()[ii], 1 + ii, 8,
                 new PlayerControl(left, right, jump, power, _keyboardState)));
         }
+
+        // parameter editing
+        addObject(new FeathersMgr());
+        var debugLayout :HLayoutSprite = new HLayoutSprite();
+        _ctx.debugLayer.addChild(debugLayout);
+        addObject(new ParamEditor(_ctx.params, "gravity"), debugLayout);
+        debugLayout.layout();
+        debugLayout.y = Flashbang.stageHeight - debugLayout.height;
     }
 
     override protected function update (dt :Number) :void {
