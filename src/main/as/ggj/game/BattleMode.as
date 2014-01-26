@@ -116,10 +116,10 @@ public class BattleMode extends AppMode
 
     // per player: left move, right move, jump, power
     protected static const CONTROLS :Vector.<uint> = new <uint>[
-        Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP,    Keyboard.R, // player 1
-        Keyboard.A,    Keyboard.D,     Keyboard.SPACE, Keyboard.W, // player 2
-        Keyboard.U,    Keyboard.I,     Keyboard.O,     Keyboard.P, // player 3
-        Keyboard.V,    Keyboard.B,     Keyboard.N,     Keyboard.M  // player 4
+        Keyboard.A,    Keyboard.D,    Keyboard.W,   Keyboard.S,    // player 1
+        Keyboard.F,    Keyboard.H,     Keyboard.T,  Keyboard.G,    // player 2
+        Keyboard.J,    Keyboard.L,     Keyboard.I,  Keyboard.K,    // player 3
+        Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP, Keyboard.DOWN  // player 4
     ];
 
     protected static const BG_COLOR :uint = 0x19242A;
