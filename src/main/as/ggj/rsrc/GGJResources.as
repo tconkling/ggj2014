@@ -79,6 +79,8 @@ public class GGJResources
     protected static const BOARD_LAYOUT_2 :Class;
     [Embed(source="../../../../../rsrc/tome/rgby_layout_3.xml", mimeType="application/octet-stream")]
     protected static const BOARD_LAYOUT_3 :Class;
+    [Embed(source="../../../../../rsrc/tome/rgby_layout_4.xml", mimeType="application/octet-stream")]
+    protected static const BOARD_LAYOUT_4 :Class;
 
     [Embed(source="../../../../../rsrc/fonts/Futura25.fnt", mimeType="application/octet-stream")]
     protected static const FUTURA_25_FNT :Class;
