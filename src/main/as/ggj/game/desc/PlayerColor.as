@@ -5,10 +5,10 @@ import aspire.util.Enum;
 import flash.geom.Point;
 
 public class PlayerColor extends Enum {
-    public static const GREEN :PlayerColor = new PlayerColor("GREEN", 2, 0x25e857);
-    public static const BLUE :PlayerColor = new PlayerColor("BLUE", 3, 0x2ddff8);
-    public static const YELLOW :PlayerColor = new PlayerColor("YELLOW", 1, 0xfed034);
-    public static const RED :PlayerColor = new PlayerColor("RED", 0, 0xfb1923);
+    public static const GREEN :PlayerColor = new PlayerColor("GREEN", "game/victory_green", 2, 0x25e857);
+    public static const BLUE :PlayerColor = new PlayerColor("BLUE", "game/victory_blue", 3, 0x2ddff8);
+    public static const YELLOW :PlayerColor = new PlayerColor("YELLOW", "game/victory_yellow", 1, 0xfed034);
+    public static const RED :PlayerColor = new PlayerColor("RED", "game/victory_red", 0, 0xfb1923);
     finishedEnumerating(PlayerColor);
 
     public static function values () :Array {
@@ -43,6 +43,10 @@ public class PlayerColor extends Enum {
         return _color;
     }
 
+    public function get victoryMovieName () :String {
+        return _victoryMovieName;
+    }
+
     protected function getOffset (base :Point) :Point {
         var off :Point = base.clone();
         off.y += 4 * ordinal();
@@ -50,18 +54,20 @@ public class PlayerColor extends Enum {
     }
 
     /** @private */
-    public function PlayerColor (name :String, powerViewIdx :int, color :uint) {
+    public function PlayerColor (name :String, victoryMovieName :String, powerViewIdx :int, color :uint) {
         super(name);
+        _victoryMovieName = victoryMovieName;
         _powerViewIdx = powerViewIdx;
         _color = color;
     }
+
+    protected var _victoryMovieName :String;
+    protected var _powerViewIdx :int;
+    protected var _color :uint;
 
     protected static const IDLE_OFFSET :Point = new Point(0, 0);
     protected static const RUN_OFFSET :Point = new Point(0, 1);
     protected static const JUMP_OFFSET :Point = new Point(0, 2);
     protected static const DEATH_OFFSET :Point = new Point(0, 3);
-
-    protected var _powerViewIdx :int;
-    protected var _color :uint;
 }
 }

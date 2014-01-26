@@ -106,7 +106,7 @@ public class BattleMode extends AppMode
             if (winningTeam == null) {
                 _viewport.changeMode(new BattleMode(_ctx.numPlayers, _ctx.params, _ctx.scoreboard));
             } else {
-                _viewport.pushMode(new GameOverMode("" + winningTeam.name() + "wins"));
+                _viewport.pushMode(new GameOverMode(winningTeam));
             }
 
         } else {

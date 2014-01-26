@@ -10,9 +10,9 @@ import ggj.rsrc.GGJResources;
 public class GGJ
 {
     /// Constants
-    public static const DEBUG :Boolean = false;
+    public static const DEBUG :Boolean = true;
 
-    public static const WIN_SCORE :int = 5;
+    public static const WIN_SCORE :int = 1;
     public static const ACTOR_WIDTH :Number = 0.8;
     public static const ACTOR_HEIGHT :Number = 0.7;
     public static const FRAMERATE :Number = 1 / 60;
