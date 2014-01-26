@@ -1,5 +1,9 @@
 package ggj.game.object {
 
+import aspire.util.F;
+
+import flashbang.core.Flashbang;
+import flashbang.resource.ImageResource;
 import flashbang.tasks.AlphaTask;
 import flashbang.tasks.FunctionTask;
 import flashbang.tasks.ParallelTask;
@@ -11,6 +15,8 @@ import ggj.GGJ;
 import ggj.desc.GameDesc;
 import ggj.game.desc.PlayerColor;
 import ggj.game.view.PowerView;
+
+import starling.display.Image;
 
 public class ActiveBoardMgr extends BattleObject {
     public function get activeBoard () :BattleBoard {
@@ -66,6 +72,8 @@ public class ActiveBoardMgr extends BattleObject {
         }
         _ctx.boardLayer.setChildIndex(_boards[_activeIdx].view.display, _boards.length - 1);
 
+        // build up game start animation
+
         var anim :SerialTask = new SerialTask();
         for (ii = 0; ii < _boards.length * 2; ii++) {
             var viewDelay :Number = BOARD_VIEW_DELAY;
@@ -94,6 +102,8 @@ public class ActiveBoardMgr extends BattleObject {
             anim.addTask(fade);
             anim.addTask(new TimedTask(viewDelay));
         }
+
+        // get our active board on top if it isn't already
         if (_activeIdx != _boards.length - 1) {
             anim.addTask(new ParallelTask(
                 new AlphaTask(BACKGROUND_BOARD_ALPHA, BOARD_FADE_DELAY / 2, Easing.linear,
@@ -104,6 +114,21 @@ public class ActiveBoardMgr extends BattleObject {
                 }))
             ));
         }
+
+        var go :Image = ImageResource.createImage("game/level_start_go");
+        go.x = (Flashbang.stageWidth - go.width) / 2;
+        go.y = (Flashbang.stageHeight - go.height) / 2;
+        go.visible = false;
+        _ctx.uiLayer.addChild(go);
+        anim.addTask(new FunctionTask(function () :void {
+            go.visible = true;
+        }));
+        anim.addTask(new TimedTask(BOARD_VIEW_DELAY));
+        anim.addTask(new FunctionTask(function () :void {
+            _ctx.uiLayer.removeChild(go);
+        }));
+
+        // signal that our animation is complete
         anim.addTask(new FunctionTask(_ctx.stateMgr.startAnimationComplete));
         addObject(anim);
     }
