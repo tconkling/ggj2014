@@ -108,7 +108,7 @@ public class BattleMode extends AppMode
     }
 
     protected static const BOARD_NAMES :Vector.<String> = new <String>[
-        "rgby_layout_1", "rgby_layout_2"
+        "rgby_layout_1", "test-board"
     ];
 
     // per player: left move, right move, jump, power

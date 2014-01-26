@@ -41,9 +41,6 @@ public class BattleBoardView extends BoardView
 
         _board = board;
 
-        _bg = DisplayUtil.fillRect(_viewSizePx.x, _viewSizePx.y, BG_COLOR);
-        _sprite.addChildAt(_bg, 0);
-
         _root.addChild(_tileLayer);
         _root.addChild(overlayLayer);
 
@@ -79,12 +76,6 @@ public class BattleBoardView extends BoardView
 
             updateTileVisibility(this.viewBounds, _lastViewBounds);
             _lastViewBounds.copyFrom(this.viewBounds);
-
-            var boardViewBoundsPx :Rectangle = _root.getBounds(_sprite, R);
-            _bg.visible = (boardViewBoundsPx.left > 0 ||
-                boardViewBoundsPx.top > 0 ||
-                boardViewBoundsPx.right < _viewSizePx.x ||
-                boardViewBoundsPx.bottom < _viewSizePx.y);
         }
 
         if (_tilesUpdated) {
@@ -272,7 +263,6 @@ public class BattleBoardView extends BoardView
     protected var _color :PlayerColor;
     protected var _tileTextures :Map = Maps.newMapOf(TileType);
 
-    protected var _bg :DisplayObject;
     protected const _tileLayer :Sprite = new Sprite();
 
     protected static const P :Point = new Point();
