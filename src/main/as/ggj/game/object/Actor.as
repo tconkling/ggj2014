@@ -77,7 +77,7 @@ public class Actor extends BattleObject implements Updatable
 
         // jumping
         if (_input.jump && this.canJump) {
-            _v.y += _ctx.params.jumpImpulse;
+            _v.y += -_ctx.params.jumpImpulse;
         } else {
             // gravity
             _v.y += (_ctx.params.gravity * dt);
@@ -88,7 +88,7 @@ public class Actor extends BattleObject implements Updatable
         }
 
         // clamp
-        _v.y = MathUtil.clamp(_v.y, _ctx.params.minV, _ctx.params.maxV);
+        _v.y = MathUtil.clamp(_v.y, -_ctx.params.maxJumpSpeed, _ctx.params.maxFallSpeed);
         _bounds.y += (_v.y * dt);
 
         // vertical collisions
@@ -116,9 +116,9 @@ public class Actor extends BattleObject implements Updatable
 
         // horizontal movement
         if (_input.right) {
-            _v.x = 5;
+            _v.x = _ctx.params.moveSpeed;
         } else if (_input.left) {
-            _v.x = -5;
+            _v.x = -ctx.params.moveSpeed;
         } else {
             _v.x = 0;
         }
