@@ -10,7 +10,7 @@ import ggj.rsrc.GGJResources;
 public class GGJ
 {
     /// Constants
-    public static const DEBUG :Boolean = true;
+    public static const DEBUG :Boolean = false;
 
     public static const WIN_SCORE :int = 5;
     public static const ACTOR_WIDTH :Number = 0.8;
@@ -36,7 +36,5 @@ public class GGJ
 
     protected static var _resourceParams :GGJResources;
     protected static var _textureScale :int;
-
-    protected static var _isMobile :Boolean;
 }
 }

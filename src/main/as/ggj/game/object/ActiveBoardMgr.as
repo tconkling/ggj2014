@@ -13,7 +13,6 @@ import flashbang.util.Easing;
 import ggj.GGJ;
 import ggj.desc.GameDesc;
 import ggj.game.desc.PlayerColor;
-import ggj.game.view.PowerView;
 import ggj.rsrc.Sound;
 
 import starling.display.Image;
@@ -77,8 +76,8 @@ public class ActiveBoardMgr extends BattleObject {
 
         updateBoardViews();
 
-        // show an intro animation
-        if (!GGJ.DEBUG) {
+        // show an intro animation only for the first round
+        if (!_ctx.scoreboard.hasScore && !GGJ.DEBUG) {
             addObject(new SerialTask(
                 createIntroAnim(),
                 new FunctionTask(_ctx.stateMgr.startAnimationComplete)));

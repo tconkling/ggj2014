@@ -7,18 +7,16 @@ import aspire.util.Maps;
 import ggj.game.object.Team;
 
 public class Scoreboard {
-    public function Scoreboard () {
-        for each (var team :Team in Team.values()) {
-            _scores.put(team, 0);
-        }
+    public function get hasScore () :Boolean {
+        return !_scores.isEmpty();
     }
 
     public function getScore (team :Team) :int {
-        return _scores.get(team);
+        return (_scores.containsKey(team) ? _scores.get(team) : 0);
     }
 
     public function incrementScore (team :Team) :void {
-        _scores.put(team, _scores.get(team) + 1);
+        _scores.put(team, getScore(team) + 1);
     }
 
     protected var _scores :Map = Maps.newMapOf(Team);
