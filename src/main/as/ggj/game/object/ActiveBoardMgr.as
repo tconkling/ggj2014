@@ -67,29 +67,41 @@ public class ActiveBoardMgr extends BattleObject {
         _ctx.boardLayer.setChildIndex(_boards[_activeIdx].view.display, _boards.length - 1);
 
         var anim :SerialTask = new SerialTask();
-        for (ii = 0; ii < _boards.length; ii++) {
+        for (ii = 0; ii < _boards.length * 2; ii++) {
+            var viewDelay :Number = BOARD_VIEW_DELAY;
+            var fadeDelay :Number = BOARD_FADE_DELAY;
+            if (ii >= _boards.length) {
+                viewDelay *= 0.5;
+                fadeDelay *= 0.5;
+            }
+
             var fade :ParallelTask = new ParallelTask();
             if (ii > 0) {
-                fade.addTask(new AlphaTask(BACKGROUND_BOARD_ALPHA, BOARD_FADE_DELAY, Easing.linear,
-                    _boards[ii - 1].view.display));
+                fade.addTask(new AlphaTask(BACKGROUND_BOARD_ALPHA, fadeDelay, Easing.linear,
+                    _boards[(ii - 1) % _boards.length].view.display));
             }
-            fade.addTask(
-                new AlphaTask(1.0, BOARD_FADE_DELAY, Easing.linear, _boards[ii].view.display));
+            fade.addTask(new AlphaTask(1.0, fadeDelay, Easing.linear,
+                _boards[ii % _boards.length].view.display));
+
             // halfway though the fade, get the new top board on top.
             var swap :Function = function (boardIdx :int) :Function {
                 return function () :void {
                     _ctx.boardLayer.setChildIndex(_boards[boardIdx].view.display, _boards.length - 1);
                 }
-            }(ii);
-            fade.addTask(new SerialTask(new TimedTask(BOARD_FADE_DELAY / 2), new FunctionTask(swap)));
+            }(ii % _boards.length);
+            fade.addTask(new SerialTask(new TimedTask(fadeDelay / 2), new FunctionTask(swap)));
+
             anim.addTask(fade);
-            anim.addTask(new TimedTask(BOARD_VIEW_DELAY));
+            anim.addTask(new TimedTask(viewDelay));
         }
         if (_activeIdx != _boards.length - 1) {
             anim.addTask(new ParallelTask(
-                new AlphaTask(BACKGROUND_BOARD_ALPHA, BOARD_FADE_DELAY, Easing.linear,
+                new AlphaTask(BACKGROUND_BOARD_ALPHA, BOARD_FADE_DELAY / 2, Easing.linear,
                     _boards[_boards.length - 1].view.display),
-                new AlphaTask(1.0, BOARD_FADE_DELAY, Easing.linear, activeBoard.view.display)
+                new AlphaTask(1.0, BOARD_FADE_DELAY / 2, Easing.linear, activeBoard.view.display),
+                new SerialTask(new TimedTask(BOARD_FADE_DELAY / 4), new FunctionTask(function () :void {
+                    _ctx.boardLayer.setChildIndex(activeBoard.view.display, _boards.length - 1);
+                }))
             ));
         }
         anim.addTask(new FunctionTask(_ctx.stateMgr.startAnimationComplete));
@@ -105,7 +117,7 @@ public class ActiveBoardMgr extends BattleObject {
     protected static const POWER_COOLDOWN :Number = 5.0;
 
     protected static const BOARD_VIEW_DELAY :Number = 1.0;
-    protected static const BOARD_FADE_DELAY :Number = 0.25;
+    protected static const BOARD_FADE_DELAY :Number = 0.2;
 
     protected var _activeIdx :int;
     protected var _boards :Vector.<BattleBoard> = new <BattleBoard>[];
