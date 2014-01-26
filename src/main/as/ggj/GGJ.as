@@ -3,6 +3,8 @@
 
 package ggj {
 
+import aspire.util.Randoms;
+
 import ggj.rsrc.GGJResources;
 
 public class GGJ
@@ -13,6 +15,8 @@ public class GGJ
     public static const FRAMERATE :Number = 1 / 60;
     public static const TILE_SIZE_PX :Number = 48;
     public static const TILE_SHEET_TILE_PX :Number = 24;
+
+    public static const RAND :Randoms = new Randoms();
 
     /// Singletons
     public static function get resourceParams () :GGJResources { return _resourceParams; }

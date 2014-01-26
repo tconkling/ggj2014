@@ -15,7 +15,8 @@ public class BattleCtx extends GameObject
     public const boardLayer :Sprite = new Sprite();
     public const uiLayer :Sprite = new Sprite();
 
-    public var board :BattleBoard;
+    public var activeBoard :BattleBoard;
+    public var boards :Vector.<BattleBoard> = new <BattleBoard>[];
     public var stateMgr :GameStateMgr;
     public var params :Params = new Params();
 }

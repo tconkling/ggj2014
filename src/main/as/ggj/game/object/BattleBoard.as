@@ -17,7 +17,8 @@ import ggj.grid.Grid;
 
 public class BattleBoard extends BattleObject
 {
-    public function BattleBoard (desc :BoardDesc) {
+    public function BattleBoard (desc :BoardDesc, color :PlayerColor) {
+        _color = color;
         _tiles = new Grid(desc.width, desc.height);
         for (var yy :int = 0; yy < _tiles.height; ++yy) {
             for (var xx :int = 0; xx < _tiles.width; ++xx) {
@@ -32,7 +33,7 @@ public class BattleBoard extends BattleObject
     override protected function added () :void {
         super.added();
         _view = new BattleBoardView(this, new Point(Flashbang.stageWidth, Flashbang.stageHeight),
-            PlayerColor.BLUE);
+            _color);
         addObject(_view, _ctx.boardLayer);
     }
 
@@ -160,10 +161,7 @@ public class BattleBoard extends BattleObject
         return _tiles.validLoc(x, y);
     }
 
-    override public function get isSingleton () :Boolean {
-        return true;
-    }
-
+    protected var _color :PlayerColor;
     protected var _tiles :Grid;
 
     protected var _view :BattleBoardView;

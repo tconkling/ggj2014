@@ -47,7 +47,7 @@ public class Actor extends BattleObject implements Updatable
 
     public function die () :void {
         var deadView :DeadActorView = new DeadActorView(this);
-        var loc :Point = _ctx.board.view.boardToView(this.bounds.topLeft);
+        var loc :Point = _ctx.activeBoard.view.boardToView(this.bounds.topLeft);
         deadView.display.x = loc.x;
         deadView.display.y = loc.y;
         this.mode.addObject(deadView, _ctx.boardLayer);
@@ -94,7 +94,7 @@ public class Actor extends BattleObject implements Updatable
         // vertical collisions
         if (_bounds.top != _lastBounds.top || _bounds.bottom != _lastBounds.bottom) {
             _onGround = false;
-            var vCollision :Collision = _ctx.board.getCollisions(_bounds, _lastBounds, true, COLLISION);
+            var vCollision :Collision = _ctx.activeBoard.getCollisions(_bounds, _lastBounds, true, COLLISION);
             if (vCollision != null) {
                 if (_bounds.y > _lastBounds.y) {
                     // we're on the ground
@@ -124,7 +124,7 @@ public class Actor extends BattleObject implements Updatable
         }
         _bounds.x += (_v.x * dt);
         if (_bounds.left != _lastBounds.left || _bounds.right != _lastBounds.right) {
-            var hCollision :Collision = _ctx.board.getCollisions(_bounds, _lastBounds, false, COLLISION);
+            var hCollision :Collision = _ctx.activeBoard.getCollisions(_bounds, _lastBounds, false, COLLISION);
             if (hCollision != null) {
                 _bounds.x = hCollision.location;
                 _v.x = 0;

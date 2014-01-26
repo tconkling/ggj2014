@@ -14,6 +14,7 @@ import flashbang.input.KeyboardState;
 import ggj.GGJ;
 import ggj.desc.GameDesc;
 import ggj.game.control.PlayerControl;
+import ggj.game.desc.PlayerColor;
 import ggj.game.object.Actor;
 import ggj.game.object.BattleBoard;
 import ggj.game.object.GameState;
@@ -22,8 +23,9 @@ import ggj.game.object.Team;
 
 public class BattleMode extends AppMode
 {
-    public function BattleMode () {
+    public function BattleMode (numPlayers :int) {
         _ctx = new BattleCtx();
+        _numPlayers = numPlayers;
     }
 
     override protected function registerObject (obj :GameObjectBase) :void {
@@ -46,15 +48,25 @@ public class BattleMode extends AppMode
 
         // controller objects
         addObject(_ctx.stateMgr = new GameStateMgr());
-        addObject(_ctx.board = new BattleBoard(GameDesc.lib.getTome("test-board")));
+
+        // boards - separate loops because activeBoard must be valid before adding Actors.
+        for (var ii :int = 0; ii < _numPlayers; ii++) {
+            var board :BattleBoard = new BattleBoard(GameDesc.lib.getTome("test-board"),
+                PlayerColor.values()[ii]);
+            addObject(board);
+            _ctx.boards.push(board);
+        }
+        _ctx.activeBoard = _ctx.boards[0];
 
         // actors
-        var p1 :Actor = new Actor(Team.PLAYER_1, 1, 8,
-            new PlayerControl(Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP, Keyboard.R, _keyboardState));
-        var p2 :Actor = new Actor(Team.PLAYER_2, 2, 8,
-            new PlayerControl(Keyboard.A, Keyboard.D, Keyboard.W, Keyboard.SPACE, _keyboardState));
-        addObject(p1);
-        addObject(p2);
+        for (ii = 0; ii < _numPlayers; ii++) {
+            var left :uint  = CONTROLS[0 + ii * 4];
+            var right :uint = CONTROLS[1 + ii * 4];
+            var jump :uint  = CONTROLS[2 + ii * 4];
+            var power :uint = CONTROLS[3 + ii * 4];
+            addObject(new Actor(Team.values()[ii], 1 + ii, 8,
+                new PlayerControl(left, right, jump, power, _keyboardState)));
+        }
     }
 
     override protected function update (dt :Number) :void {
@@ -75,7 +87,16 @@ public class BattleMode extends AppMode
         }
     }
 
+    // per player: left move, right move, jump, power
+    protected static const CONTROLS :Vector.<uint> = new <uint>[
+        Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP, Keyboard.R,     // player 1
+        Keyboard.A,    Keyboard.D,     Keyboard.W,  Keyboard.SPACE, // player 2
+        Keyboard.U,    Keyboard.I,     Keyboard.O,  Keyboard.P,     // player 3
+        Keyboard.V,    Keyboard.B,     Keyboard.N,  Keyboard.M      // player 4
+    ];
+
     protected var _ctx :BattleCtx;
+    protected var _numPlayers :int;
     protected var _keyboardState :KeyboardState;
 
     protected static const log :Log = Log.getLog(BattleMode);
