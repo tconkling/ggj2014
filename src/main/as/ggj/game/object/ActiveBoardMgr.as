@@ -38,7 +38,7 @@ public class ActiveBoardMgr extends BattleObject {
     protected var _boards :Vector.<BattleBoard> = new <BattleBoard>[];
 
     protected static const BOARD_NAMES :Vector.<String> = new <String>[
-        "rgby_layout_1", "test-board"
+        "rgby_layout_1", "rgby_layout_2", "rgby_layout_3"
     ];
 
     protected static const BACKGROUND_BOARD_ALPHA :Number = 0.2;

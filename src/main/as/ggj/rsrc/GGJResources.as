@@ -10,7 +10,7 @@ public class GGJResources
 {
     public function get tome () :Object {
         return { type: "microtome", name: "gameTome", data: [ GAMEDATA_TOME,
-            BOARD_LAYOUT_1, BOARD_LAYOUT_2 ] };
+            BOARD_LAYOUT_1, BOARD_LAYOUT_2, BOARD_LAYOUT_3 ] };
     }
 
     // gfx
@@ -69,8 +69,10 @@ public class GGJResources
     protected static const GAMEDATA_TOME :Class;
     [Embed(source="../../../../../rsrc/tome/rgby_layout_1.xml", mimeType="application/octet-stream")]
     protected static const BOARD_LAYOUT_1 :Class;
-    [Embed(source="../../../../../rsrc/tome/test-board.xml", mimeType="application/octet-stream")]
+    [Embed(source="../../../../../rsrc/tome/rgby_layout_2.xml", mimeType="application/octet-stream")]
     protected static const BOARD_LAYOUT_2 :Class;
+    [Embed(source="../../../../../rsrc/tome/rgby_layout_3.xml", mimeType="application/octet-stream")]
+    protected static const BOARD_LAYOUT_3 :Class;
 
 
     [Embed(source="../../../../../rsrc/fonts/Futura25.fnt", mimeType="application/octet-stream")]
