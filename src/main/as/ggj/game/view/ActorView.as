@@ -84,6 +84,7 @@ class ActorAnimation extends SpriteObject implements Updatable {
         if (_visible == value) return;
 
         _sprite.getChildAt(_idx).visible = _visible = value;
+        if (!_visible) _idx = 0; // reset index when going invisible
     }
 
     public function update (dt :Number) :void {
