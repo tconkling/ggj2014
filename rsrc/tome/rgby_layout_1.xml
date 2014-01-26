@@ -44,18 +44,33 @@
       <tile tomeType="TileDesc" type="PERMANENT" x="22" y="3" />
       <tile tomeType="TileDesc" type="BLOCK" x="23" y="3" />
       <tile tomeType="TileDesc" type="BLOCK" x="0" y="4" />
+      <tile tomeType="TileDesc" type="BLOCK" x="8" y="4" />
+      <tile tomeType="TileDesc" type="BLOCK" x="9" y="4" />
       <tile tomeType="TileDesc" type="SPIKE_CEIL" x="12" y="4" />
       <tile tomeType="TileDesc" type="SPIKE_CEIL" x="13" y="4" />
       <tile tomeType="TileDesc" type="BLOCK" x="23" y="4" />
       <tile tomeType="TileDesc" type="BLOCK" x="0" y="5" />
+      <tile tomeType="TileDesc" type="BLOCK" x="5" y="5" />
       <tile tomeType="TileDesc" type="BLOCK" x="6" y="5" />
       <tile tomeType="TileDesc" type="BLOCK" x="7" y="5" />
       <tile tomeType="TileDesc" type="BLOCK" x="8" y="5" />
+      <tile tomeType="TileDesc" type="SPIKE_CEIL" x="9" y="5" />
       <tile tomeType="TileDesc" type="BLOCK" x="23" y="5" />
       <tile tomeType="TileDesc" type="BLOCK" x="0" y="6" />
+      <tile tomeType="TileDesc" type="BLOCK" x="1" y="6" />
+      <tile tomeType="TileDesc" type="BLOCK" x="2" y="6" />
+      <tile tomeType="TileDesc" type="BLOCK" x="12" y="6" />
+      <tile tomeType="TileDesc" type="BLOCK" x="13" y="6" />
+      <tile tomeType="TileDesc" type="BLOCK" x="14" y="6" />
+      <tile tomeType="TileDesc" type="BLOCK" x="15" y="6" />
+      <tile tomeType="TileDesc" type="BLOCK" x="16" y="6" />
       <tile tomeType="TileDesc" type="BLOCK" x="17" y="6" />
       <tile tomeType="TileDesc" type="BLOCK" x="23" y="6" />
       <tile tomeType="TileDesc" type="BLOCK" x="0" y="7" />
+      <tile tomeType="TileDesc" type="SPIKE_GROUND" x="1" y="7" />
+      <tile tomeType="TileDesc" type="SPIKE_GROUND" x="2" y="7" />
+      <tile tomeType="TileDesc" type="SPIKE_CEIL" x="15" y="7" />
+      <tile tomeType="TileDesc" type="SPIKE_CEIL" x="16" y="7" />
       <tile tomeType="TileDesc" type="BLOCK" x="17" y="7" />
       <tile tomeType="TileDesc" type="BLOCK" x="23" y="7" />
       <tile tomeType="TileDesc" type="BLOCK" x="0" y="8" />
@@ -84,6 +99,7 @@
       <tile tomeType="TileDesc" type="SPIKE_GROUND" x="19" y="10" />
       <tile tomeType="TileDesc" type="BLOCK" x="23" y="10" />
       <tile tomeType="TileDesc" type="BLOCK" x="0" y="11" />
+      <tile tomeType="TileDesc" type="BLOCK" x="14" y="11" />
       <tile tomeType="TileDesc" type="BLOCK" x="15" y="11" />
       <tile tomeType="TileDesc" type="BLOCK" x="16" y="11" />
       <tile tomeType="TileDesc" type="BLOCK" x="17" y="11" />
