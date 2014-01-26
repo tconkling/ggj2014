@@ -12,14 +12,13 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import flashbang.resource.ImageResource;
-import flashbang.util.DisplayUtil;
 import flashbang.util.Easing;
 
 import ggj.GGJ;
 import ggj.game.desc.PlayerColor;
+import ggj.game.desc.TileType;
 import ggj.game.object.BattleBoard;
 import ggj.game.object.Tile;
-import ggj.game.desc.TileType;
 import ggj.grid.BoardView;
 import ggj.grid.Grid;
 import ggj.grid.ScrollTask;
