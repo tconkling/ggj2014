@@ -2,6 +2,10 @@ package ggj.game.desc {
 
 import aspire.util.Enum;
 
+import flash.geom.Point;
+
+import ggj.GGJ;
+
 public final class TileType extends Enum
 {
     // floor/wall/ceiling tile types
@@ -47,8 +51,40 @@ public final class TileType extends Enum
         return Enum.valueOf(TileType, name) as TileType;
     }
 
-    public function get imageName () :String {
-        return _imageName;
+    public function getTileCoordinates (color :PlayerColor) :Point {
+        var x :int;
+        var y :int;
+        switch (this) {
+        case PERMANENT:
+            y = 4;
+            break;
+
+        case GOAL:
+            x = 1;
+            y = 5;
+            break;
+
+        case SPAWN:
+            y = 5;
+            break;
+
+        case SPIKE_GROUND:
+            x = 1 + color.ordinal();
+            y = 4;
+            break;
+
+        case SPIKE_CEIL:
+            x = 5 + color.ordinal();
+            y = 4;
+            break;
+
+        default:
+            // all the floor tiles
+            x = ordinal();
+            y = color.ordinal();
+        }
+
+        return new Point(x * GGJ.TILE_SIZE_PX, y * GGJ.TILE_SIZE_PX);
     }
 
     public function get isFloor () :Boolean {

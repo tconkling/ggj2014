@@ -4,6 +4,8 @@
 package ggj.game.view {
 
 import aspire.util.Comparators;
+import aspire.util.Map;
+import aspire.util.Maps;
 import aspire.util.MathUtil;
 
 import flash.geom.Point;
@@ -14,6 +16,7 @@ import flashbang.util.DisplayUtil;
 import flashbang.util.Easing;
 
 import ggj.GGJ;
+import ggj.game.desc.PlayerColor;
 import ggj.game.object.BattleBoard;
 import ggj.game.object.Tile;
 import ggj.game.desc.TileType;
@@ -26,12 +29,13 @@ import react.Promise;
 import starling.display.DisplayObject;
 import starling.display.Image;
 import starling.display.Sprite;
+import starling.textures.Texture;
 
 public class BattleBoardView extends BoardView
 {
     public const overlayLayer :Sprite = new Sprite();
 
-    public function BattleBoardView (board :BattleBoard, viewSizePx :Point) {
+    public function BattleBoardView (board :BattleBoard, viewSizePx :Point, color :PlayerColor) {
         super(new Point(GGJ.TILE_SIZE_PX, GGJ.TILE_SIZE_PX), viewSizePx);
 
         _board = board;
@@ -46,9 +50,8 @@ public class BattleBoardView extends BoardView
 
         _lastViewBounds = new Rectangle(0, 0, _board.width, _board.height);
 
-        for each (var tt :TileType in TileType.values()) {
-            _tileImageResources.push(ImageResource.require(tt.imageName));
-        }
+        _color = color;
+        _tileSheet = ImageResource.require("game/tilesheet").texture;
 
         // create tile sprites
         for (var yy :int = 0; yy < _board.height; ++yy) {
@@ -117,11 +120,7 @@ public class BattleBoardView extends BoardView
         var tileSprite :Sprite = _tiles.cellAt(tile.x, tile.y);
         tileSprite.removeChildren(0, -1, true);
         if (tile.type != null) {
-            var resource :Image = _tileImageResources[tile.type.ordinal()].create();
-            // force the tile size to match our configured size.
-            resource.width = _tileSizePx.x;
-            resource.height = _tileSizePx.y;
-            tileSprite.addChild(resource);
+            tileSprite.addChild(new Image(getTexture(tile.type)));
         }
         tilesUpdated();
     }
@@ -246,6 +245,17 @@ public class BattleBoardView extends BoardView
         return Comparators.compareNumbers(a.y, b.y);
     }
 
+    protected function getTexture (type :TileType) :Texture {
+        var tex :Texture = _tileTextures.get(type);
+        if (tex == null) {
+            var loc :Point = type.getTileCoordinates(_color);
+            tex = Texture.fromTexture(_tileSheet,
+                new Rectangle(loc.x, loc.y, GGJ.TILE_SIZE_PX, GGJ.TILE_SIZE_PX));
+            _tileTextures.put(type, tex);
+        }
+        return tex;
+    }
+
     protected var _board :BattleBoard;
     protected var _tiles :Grid;
 
@@ -253,7 +263,9 @@ public class BattleBoardView extends BoardView
 
     protected var _lastViewBounds :Rectangle;
 
-    protected var _tileImageResources :Vector.<ImageResource> = new <ImageResource>[];
+    protected var _tileSheet :Texture;
+    protected var _color :PlayerColor;
+    protected var _tileTextures :Map = Maps.newMapOf(TileType);
 
     protected var _bg :DisplayObject;
     protected const _tileLayer :Sprite = new Sprite();

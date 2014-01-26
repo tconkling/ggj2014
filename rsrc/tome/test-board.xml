@@ -19,16 +19,18 @@
       <tile tomeType="TileDesc" type="BLOCK" x="8" y="3" />
       <tile tomeType="TileDesc" type="NS" x="15" y="3" />
       <tile tomeType="TileDesc" type="NS" x="4" y="4" />
+      <tile tomeType="TileDesc" type="S" x="11" y="4" />
       <tile tomeType="TileDesc" type="NS" x="15" y="4" />
       <tile tomeType="TileDesc" type="ES" x="2" y="5" />
       <tile tomeType="TileDesc" type="EW" x="3" y="5" />
       <tile tomeType="TileDesc" type="NEW" x="4" y="5" />
       <tile tomeType="TileDesc" type="EW_BROKEN" x="5" y="5" />
       <tile tomeType="TileDesc" type="W" x="6" y="5" />
-      <tile tomeType="TileDesc" type="S" x="11" y="5" />
+      <tile tomeType="TileDesc" type="E" x="10" y="5" />
+      <tile tomeType="TileDesc" type="NSW" x="11" y="5" />
       <tile tomeType="TileDesc" type="NS" x="15" y="5" />
       <tile tomeType="TileDesc" type="N" x="2" y="6" />
-      <tile tomeType="TileDesc" type="NSW" x="11" y="6" />
+      <tile tomeType="TileDesc" type="NES" x="11" y="6" />
       <tile tomeType="TileDesc" type="W" x="12" y="6" />
       <tile tomeType="TileDesc" type="NS" x="15" y="6" />
       <tile tomeType="TileDesc" type="NS" x="11" y="7" />
@@ -36,7 +38,7 @@
       <tile tomeType="TileDesc" type="SPIKE_GROUND" x="7" y="8" />
       <tile tomeType="TileDesc" type="E" x="9" y="8" />
       <tile tomeType="TileDesc" type="EW" x="10" y="8" />
-      <tile tomeType="TileDesc" type="NES" x="11" y="8" />
+      <tile tomeType="TileDesc" type="NESW" x="11" y="8" />
       <tile tomeType="TileDesc" type="EW" x="12" y="8" />
       <tile tomeType="TileDesc" type="SW" x="13" y="8" />
       <tile tomeType="TileDesc" type="NS" x="15" y="8" />

@@ -9,6 +9,7 @@ import flashbang.core.Flashbang;
 
 import ggj.GGJ;
 import ggj.game.desc.BoardDesc;
+import ggj.game.desc.PlayerColor;
 import ggj.game.desc.TileDesc;
 import ggj.game.view.BattleBoardView;
 import ggj.grid.Grid;
@@ -29,7 +30,8 @@ public class BattleBoard extends BattleObject
 
     override protected function added () :void {
         super.added();
-        _view = new BattleBoardView(this, new Point(Flashbang.stageWidth, Flashbang.stageHeight));
+        _view = new BattleBoardView(this, new Point(Flashbang.stageWidth, Flashbang.stageHeight),
+            PlayerColor.BLUE);
         addObject(_view, _ctx.boardLayer);
     }
 

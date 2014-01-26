@@ -101,7 +101,7 @@ public class Actor extends BattleObject implements Updatable
                         _jumpButtonReleasedOnGround = true;
                     }
 
-                    if (vCollision.tile.type == TileType.SPIKE) {
+                    if (vCollision.tile.type.isSpike) {
                         die();
                     }
                 }

@@ -3,10 +3,10 @@ package ggj.game.desc {
 import aspire.util.Enum;
 
 public class PlayerColor extends Enum {
-    public static const RED :PlayerColor = new PlayerColor("RED");
     public static const GREEN :PlayerColor = new PlayerColor("GREEN");
     public static const BLUE :PlayerColor = new PlayerColor("BLUE");
     public static const YELLOW :PlayerColor = new PlayerColor("YELLOW");
+    public static const RED :PlayerColor = new PlayerColor("RED");
     finishedEnumerating(PlayerColor);
 
     public static function values () :Array {
