@@ -13,8 +13,28 @@ from tools.csv_grid import Grid
 LOG = logging.getLogger(__name__)
 
 TILE_TYPES = {
-    '=': TileType.STONE,
-    '^': TileType.SPIKE,
+    '#': TileType.BLOCK,
+    '[': TileType.E,
+    '-': TileType.EW,
+    ']': TileType.W,
+    'A': TileType.S,
+    '|': TileType.NS,
+    'U': TileType.N,
+    '<': TileType.ES,
+    '>': TileType.SW,
+    'L': TileType.NE,
+    'J': TileType.NW,
+    'X': TileType.NESW,
+    'T': TileType.ESW,
+    '{': TileType.NSW,
+    '}': TileType.NES,
+    'V': TileType.NEW,
+    '~': TileType.EW_BROKEN,
+    'M': TileType.SPIKE_GROUND,
+    'W': TileType.SPIKE_CEIL,
+    'O': TileType.PERMANENT,
+    '@': TileType.SPAWN,
+    '$': TileType.GOAL
 }
 
 
