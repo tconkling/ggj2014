@@ -17,5 +17,6 @@ public class BattleCtx extends GameObject
 
     public var board :BattleBoard;
     public var stateMgr :GameStateMgr;
+    public var params :Params = new Params();
 }
 }

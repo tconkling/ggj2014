@@ -77,10 +77,10 @@ public class Actor extends BattleObject implements Updatable
 
         // jumping
         if (_input.jump && this.canJump) {
-            _v.y += JUMP_IMPULSE;
+            _v.y += _ctx.params.jumpImpulse;
         } else {
             // gravity
-            _v.y += (GRAVITY * dt);
+            _v.y += (_ctx.params.gravity * dt);
         }
 
         if (_input.jump) {
@@ -88,7 +88,7 @@ public class Actor extends BattleObject implements Updatable
         }
 
         // clamp
-        _v.y = MathUtil.clamp(_v.y, MIN_V, MAX_V);
+        _v.y = MathUtil.clamp(_v.y, _ctx.params.minV, _ctx.params.maxV);
         _bounds.y += (_v.y * dt);
 
         // vertical collisions
@@ -156,11 +156,6 @@ public class Actor extends BattleObject implements Updatable
     protected var _jumpButtonReleasedOnGround :Boolean;
 
     protected var _hitVictoryTile :Boolean;
-
-    protected static const JUMP_IMPULSE :Number = -10;
-    protected static const GRAVITY :Number = 20;
-    protected static const MAX_V :Number = 10;
-    protected static const MIN_V :Number = -10;
 
     protected static const COLLISION :Collision = new Collision();
 }
