@@ -1,8 +1,7 @@
 package ggj.game.object {
 
-import aspire.util.F;
-
 import flashbang.core.Flashbang;
+import flashbang.core.GameObjectBase;
 import flashbang.resource.ImageResource;
 import flashbang.tasks.AlphaTask;
 import flashbang.tasks.FunctionTask;
@@ -73,8 +72,20 @@ public class ActiveBoardMgr extends BattleObject {
         }
         _ctx.boardLayer.setChildIndex(_boards[_activeIdx].view.display, _boards.length - 1);
 
+        // show an intro animation
+        if (!GGJ.DEBUG) {
+            addObject(new SerialTask(
+                createIntroAnim(),
+                new FunctionTask(_ctx.stateMgr.startAnimationComplete)));
+        } else {
+            _ctx.stateMgr.startAnimationComplete();
+        }
+    }
+
+    protected function createIntroAnim () :GameObjectBase {
         // build up game start animation
 
+        var ii :int = 0;
         var anim :SerialTask = new SerialTask();
         for (ii = 0; ii < _boards.length * 3; ii++) {
             var viewDelay :Number = BOARD_VIEW_DELAY;
@@ -136,9 +147,7 @@ public class ActiveBoardMgr extends BattleObject {
             _ctx.uiLayer.removeChild(go);
         }));
 
-        // signal that our animation is complete
-        anim.addTask(new FunctionTask(_ctx.stateMgr.startAnimationComplete));
-        addObject(anim);
+        return anim;
     }
 
     protected static const BOARD_NAMES :Vector.<String> = new <String>[

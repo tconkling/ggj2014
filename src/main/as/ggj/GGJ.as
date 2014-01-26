@@ -10,6 +10,7 @@ import ggj.rsrc.GGJResources;
 public class GGJ
 {
     /// Constants
+    public static const DEBUG :Boolean = true;
     public static const ACTOR_WIDTH :Number = 0.9;
     public static const ACTOR_HEIGHT :Number = 0.9;
     public static const FRAMERATE :Number = 1 / 60;
