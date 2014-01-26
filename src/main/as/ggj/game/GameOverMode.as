@@ -3,6 +3,11 @@ package ggj.game {
 import flashbang.core.AppMode;
 import flashbang.layout.VLayoutSprite;
 import flashbang.objects.SimpleTextButton;
+import flashbang.tasks.AlphaTask;
+import flashbang.tasks.CallbackTask;
+import flashbang.tasks.FunctionTask;
+import flashbang.tasks.SerialTask;
+import flashbang.tasks.TimedTask;
 import flashbang.util.DisplayUtil;
 
 import ggj.GGJ;
@@ -20,13 +25,6 @@ public class GameOverMode extends AppMode {
         layout.addChild(Text.helvetica24(text).color(0x0).build());
         layout.addVSpacer(15);
 
-        // ok button
-        var btnOk :SimpleTextButton = new SimpleTextButton("OK!");
-        this.regs.add(btnOk.clicked.connect(function () :void {
-            _viewport.unwindToMode(new BattleMode(GGJ.NUM_PLAYERS));
-        }));
-        addObject(btnOk, layout);
-
         layout.layout();
 
         const HMARGIN :Number = 10;
@@ -42,6 +40,13 @@ public class GameOverMode extends AppMode {
         DisplayUtil.center(layout, _modeSprite);
         _modeSprite.addChild(layout);
 
+        // restart the game after a second
+        addObject(new SerialTask(
+            new TimedTask(1),
+            new AlphaTask(0, 0.25, null, layout),
+            new FunctionTask(function () :void {
+                _viewport.unwindToMode(new BattleMode(GGJ.NUM_PLAYERS));
+            })));
     }
 }
 }

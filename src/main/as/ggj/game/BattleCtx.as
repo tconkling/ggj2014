@@ -24,7 +24,7 @@ public class BattleCtx extends GameObject
     public var params :Params;
     public var scoreboard :Scoreboard;
 
-    public function dBattleCtx (numPlayers :int, params :Params, scoreboard :Scoreboard) {
+    public function BattleCtx (numPlayers :int, params :Params, scoreboard :Scoreboard) {
         this.numPlayers = numPlayers;
         this.params = params;
         this.scoreboard = scoreboard;

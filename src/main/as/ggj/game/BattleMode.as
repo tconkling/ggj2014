@@ -95,10 +95,19 @@ public class BattleMode extends AppMode
         }
 
         if (_ctx.stateMgr.isGameOver) {
+            var winningTeam :Team;
             if (_ctx.stateMgr.state == GameState.HAS_WINNER) {
                 _ctx.scoreboard.incrementScore(_ctx.stateMgr.winner.team);
+                if (_ctx.scoreboard.getScore(_ctx.stateMgr.winner.team) >= GGJ.WIN_SCORE) {
+                    winningTeam = _ctx.stateMgr.winner.team;
+                }
             }
-            _viewport.changeMode(new BattleMode(_ctx.numPlayers, _ctx.params, _ctx.scoreboard));
+
+            if (winningTeam == null) {
+                _viewport.changeMode(new BattleMode(_ctx.numPlayers, _ctx.params, _ctx.scoreboard));
+            } else {
+                _viewport.pushMode(new GameOverMode("" + winningTeam.name() + "wins"));
+            }
 
         } else {
             _ctx.boardMgr.updateActiveBoard(totalDt);
