@@ -22,7 +22,7 @@ public class GameOverMode extends AppMode {
         // ok button
         var btnOk :SimpleTextButton = new SimpleTextButton("OK!");
         this.regs.add(btnOk.clicked.connect(function () :void {
-            _viewport.unwindToMode(new BattleMode(2));
+            _viewport.unwindToMode(new BattleMode(3));
         }));
         addObject(btnOk, layout);
 

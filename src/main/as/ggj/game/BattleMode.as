@@ -22,7 +22,6 @@ import ggj.game.object.GameState;
 import ggj.game.object.GameStateMgr;
 import ggj.game.object.Team;
 import ggj.game.object.Tile;
-import ggj.rsrc.GGJResources;
 import ggj.util.FeathersMgr;
 
 import starling.display.Quad;

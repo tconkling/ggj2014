@@ -78,7 +78,7 @@ public class GGJApp extends FlashbangApp
         }
 
         createViewport("debug").pushMode(new DebugOverlayMode());
-        defaultViewport.unwindToMode(new BattleMode(2));
+        defaultViewport.unwindToMode(new BattleMode(3));
     }
 
     override protected function createConfig () :FlashbangConfig {
