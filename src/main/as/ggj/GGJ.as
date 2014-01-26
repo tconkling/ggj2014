@@ -11,8 +11,8 @@ public class GGJ
 {
     /// Constants
     public static const DEBUG :Boolean = true;
-    public static const ACTOR_WIDTH :Number = 0.9;
-    public static const ACTOR_HEIGHT :Number = 0.9;
+    public static const ACTOR_WIDTH :Number = 0.8;
+    public static const ACTOR_HEIGHT :Number = 0.7;
     public static const FRAMERATE :Number = 1 / 60;
     public static const TILE_SIZE_PX :Number = 48;
     public static const TILE_SHEET_TILE_PX :Number = 24;
