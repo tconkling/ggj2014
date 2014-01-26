@@ -112,7 +112,13 @@ public class BattleBoardView extends BoardView
     public function updateTileView (tile :Tile) :void {
         var tileSprite :Sprite = _tiles.cellAt(tile.x, tile.y);
         tileSprite.removeChildren(0, -1, true);
-        if (tile.type != TileType.EMPTY) {
+        // TODO: if lots of spawns and goals are created and replaced in a single view, the orphaned
+        // GameObjects should get cleaned up.
+        if (tile.type == TileType.SPAWN) {
+            addObject(new SpawnTile(_tileSheet), tileSprite);
+        } else if (tile.type == TileType.GOAL) {
+            addObject(new GoalTile(_tileSheet), tileSprite);
+        } else if (tile.type != TileType.EMPTY) {
             var img :Image = new Image(getTexture(tile.type));
             img.smoothing = TextureSmoothing.NONE;
             tileSprite.addChild(img);

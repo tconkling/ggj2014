@@ -66,7 +66,7 @@ public final class TileType extends Enum
             break;
 
         case GOAL:
-            x = 1;
+            x = 3;
             y = 5;
             break;
 
