@@ -7,17 +7,13 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import flashbang.core.AppMode;
-
 import flashbang.core.Updatable;
 
 import ggj.GGJ;
-
 import ggj.game.control.PlayerControl;
 import ggj.game.desc.TileType;
 import ggj.game.view.ActorView;
 import ggj.game.view.DeadActorView;
-
-import react.UnitSignal;
 
 public class Actor extends BattleObject implements Updatable
 {
@@ -25,7 +21,8 @@ public class Actor extends BattleObject implements Updatable
         return mode.getObjectsInGroup(Actor);
     }
 
-    public function Actor (x :Number, y :Number, input :PlayerControl) {
+    public function Actor (name :String, x :Number, y :Number, input :PlayerControl) {
+        _name = name;
         _input = input;
         _bounds = new Rectangle(
             x + ((1 - GGJ.ACTOR_WIDTH) * 0.5),
@@ -33,6 +30,10 @@ public class Actor extends BattleObject implements Updatable
             GGJ.ACTOR_WIDTH,
             GGJ.ACTOR_HEIGHT);
         _lastBounds = _bounds.clone();
+    }
+
+    public function get name () :String {
+        return _name;
     }
 
     public function get hitVictoryTile () :Boolean {
@@ -130,6 +131,7 @@ public class Actor extends BattleObject implements Updatable
         return (_onGround && _jumpButtonReleasedOnGround);
     }
 
+    protected var _name :String;
     protected var _input :PlayerControl;
     protected var _view :ActorView;
 
