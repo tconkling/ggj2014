@@ -48,26 +48,18 @@ public class PowerView extends BattleSpriteObject {
         _sprite.addChild(_offImg);
         _sprite.addChild(_onImg);
         _sprite.addChild(_burstImg);
+        addObject(new RepeatingTask(function () :ObjectTask {
+            return new SerialTask(
+                new AlphaTask(1.0, 0.3, Easing.easeOut, _burstImg),
+                new AlphaTask(0.0, 0.3, Easing.easeIn, _burstImg));
+        }));
         updateState();
     }
 
     protected function updateState () :void {
-        if (_anim != null) {
-            _anim.destroySelf();
-            _anim = null;
-        }
-
         _offImg.visible = !_on;
         _onImg.visible = _on;
         _burstImg.visible = _on;
-        if (_on) {
-            _burstImg.alpha = 0;
-            addObject(_anim = new RepeatingTask(function () :ObjectTask {
-                return new SerialTask(
-                    new AlphaTask(1.0, 0.5, Easing.easeOut, _burstImg),
-                    new AlphaTask(0.0, 0.5, Easing.easeIn, _burstImg));
-            }));
-        }
     }
 
     protected static const OFF_OFFSET :Point = new Point(9, 4);
@@ -79,6 +71,5 @@ public class PowerView extends BattleSpriteObject {
     protected var _onImg :Image;
     protected var _burstImg :Image;
     protected var _on :Boolean;
-    protected var _anim :ObjectTask;
 }
 }
