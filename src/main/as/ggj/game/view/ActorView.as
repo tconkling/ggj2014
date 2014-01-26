@@ -8,8 +8,6 @@ import flashbang.util.DisplayUtil;
 
 import ggj.game.object.Actor;
 
-import react.Registration;
-
 import starling.display.Quad;
 
 public class ActorView extends BattleSpriteObject implements Updatable
@@ -18,9 +16,24 @@ public class ActorView extends BattleSpriteObject implements Updatable
         _actor = actor;
     }
 
+    public function get facingRight () :Boolean {
+        return _facingRight;
+    }
+
+    public function set facingRight (value :Boolean) :void {
+        if (_facingRight == value) return;
+
+        _facingRight = value;
+        _idle.facingRight = value;
+        _run.facingRight = value;
+        _jump.facingRight = value;
+    }
+
     override protected function added () :void {
         super.added();
         var bounds :Rectangle = _ctx.boardMgr.activeBoard.view.boardToViewBounds(_actor.bounds);
+
+        _facingRight = true;
 
         _idle = ActorAnimation.createIdle(_actor.team.color);
         addObject(_idle, _sprite);
@@ -74,6 +87,7 @@ public class ActorView extends BattleSpriteObject implements Updatable
     protected var _idle :ActorAnimation;
     protected var _run :ActorAnimation;
     protected var _jump :ActorAnimation;
+    protected var _facingRight :Boolean;
 }
 }
 

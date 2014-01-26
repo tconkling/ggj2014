@@ -63,6 +63,17 @@ public class ActorAnimation extends SpriteObject implements Updatable {
         return _doneSignal;
     }
 
+    public function get facingRight () :Boolean {
+        return _facingRight;
+    }
+
+    public function set facingRight (value :Boolean) :void {
+        if (_facingRight == value) return;
+
+        _facingRight = value;
+        _sprite.scaleX = _facingRight ? 1 : -1;
+    }
+
     public function update (dt :Number) :void {
         if (!_visible) return;
         _elapsed += dt;
@@ -112,5 +123,6 @@ public class ActorAnimation extends SpriteObject implements Updatable {
     protected var _visible :Boolean;
     protected var _doneSignal :UnitSignal;
     protected var _signaledDone :Boolean;
+    protected var _facingRight :Boolean;
 }
 }

@@ -136,6 +136,8 @@ public class Actor extends BattleObject implements Updatable
             }
         }
 
+        if (Math.abs(_v.x) > 0) _view.facingRight = _v.x > 0;
+
         if (shouldDie) {
             die();
         } else if (_ctx.boardMgr.activeBoard.intersectsTile(_bounds, TileType.GOAL)) {
