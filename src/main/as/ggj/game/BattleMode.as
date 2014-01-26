@@ -28,9 +28,10 @@ import starling.display.Quad;
 
 public class BattleMode extends AppMode
 {
-    public function BattleMode (numPlayers :int) {
+    public function BattleMode (numPlayers :int, scoreboard :Scoreboard = null) {
         _ctx = new BattleCtx();
         _ctx.numPlayers = numPlayers;
+        _ctx.scoreboard = (scoreboard || new Scoreboard());
     }
 
     override protected function registerObject (obj :GameObjectBase) :void {
@@ -93,16 +94,14 @@ public class BattleMode extends AppMode
         }
 
         if (_ctx.stateMgr.isGameOver) {
-            var text :String = "";
-            if (_ctx.stateMgr.state == GameState.EVERYONE_DIED) {
-                text = "Everybody died!";
-            } else if (_ctx.stateMgr.state == GameState.HAS_WINNER) {
-                text = "" + _ctx.stateMgr.winner.team.name() + " wins!";
+            if (_ctx.stateMgr.state == GameState.HAS_WINNER) {
+                _ctx.scoreboard.incrementScore(_ctx.stateMgr.winner.team);
             }
-            _viewport.pushMode(new GameOverMode(text));
-        }
+            _viewport.changeMode(new BattleMode(_ctx.numPlayers, _ctx.scoreboard));
 
-        _ctx.boardMgr.updateActiveBoard(totalDt);
+        } else {
+            _ctx.boardMgr.updateActiveBoard(totalDt);
+        }
     }
 
     // per player: left move, right move, jump, power
