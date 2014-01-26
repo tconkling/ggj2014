@@ -17,6 +17,10 @@ public class PlayerColor extends Enum {
         return Enum.valueOf(PlayerColor, name) as PlayerColor;
     }
 
+    public function get playerAssetName () :String {
+        return "game/player_" + name().toLowerCase();
+    }
+
     /** @private */
     public function PlayerColor (name :String) {
         super(name);
