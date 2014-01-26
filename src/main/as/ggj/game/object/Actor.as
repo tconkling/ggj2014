@@ -133,7 +133,7 @@ public class Actor extends BattleObject implements Updatable
 
         if (shouldDie) {
             die();
-        } else if (_ctx.board.intersectsTile(_bounds, TileType.GOAL)) {
+        } else if (_ctx.activeBoard.intersectsTile(_bounds, TileType.GOAL)) {
             // we win!
             _hitVictoryTile = true;
         }
