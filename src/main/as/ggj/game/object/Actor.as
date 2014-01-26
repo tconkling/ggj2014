@@ -11,7 +11,6 @@ import flashbang.core.Updatable;
 
 import ggj.GGJ;
 import ggj.game.control.PlayerControl;
-import ggj.game.desc.TileType;
 import ggj.game.view.ActorView;
 import ggj.game.view.DeadActorView;
 
@@ -100,15 +99,15 @@ public class Actor extends BattleObject implements Updatable
                     if (!_input.jump) {
                         _jumpButtonReleasedOnGround = true;
                     }
-
-                    if (vCollision.tile.type.isSpike) {
-                        die();
-                    }
                 }
 
                 // vertical collision. reset vertical velocity.
                 _bounds.y = vCollision.location;
                 _v.y = 0;
+
+                if (vCollision.tile.type.isSpike) {
+                    die();
+                }
             }
         }
 
