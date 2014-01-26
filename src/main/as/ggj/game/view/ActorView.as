@@ -8,6 +8,8 @@ import flashbang.util.DisplayUtil;
 
 import ggj.game.object.Actor;
 
+import react.Registration;
+
 import starling.display.Quad;
 
 public class ActorView extends BattleSpriteObject implements Updatable
@@ -31,6 +33,12 @@ public class ActorView extends BattleSpriteObject implements Updatable
         _run.display.x = bounds.width * 0.5;
         _run.display.y = bounds.height;
 
+        _jump = ActorAnimation.createJump(_actor.team.color, _ctx.params.jumpDuration);
+        addObject(_jump, _sprite);
+        _jump.display.x = bounds.width * 0.5;
+        _jump.display.y = bounds.height;
+        regs.add(_jump.done.connect(jumpDone));
+
         var boundsView :Quad = DisplayUtil.fillRect(bounds.width, bounds.height, 0xffffff);
         boundsView.alpha = 0.1;
         _sprite.addChild(boundsView);
@@ -40,17 +48,32 @@ public class ActorView extends BattleSpriteObject implements Updatable
         var loc :Point = _ctx.boardMgr.activeBoard.view.boardToView(_actor.bounds.topLeft);
         if (loc.equals(new Point(_sprite.x, _sprite.y))) {
             _idle.visible = true;
+            _run.visible = false;
+            _jump.visible = false;
         } else {
             _idle.visible = false;
+            if (!_jump.visible) _run.visible = true;
             _sprite.x = loc.x;
             _sprite.y = loc.y;
         }
-        _run.visible = !_idle.visible;
+    }
+
+    public function jump () :void {
+        _idle.visible = _run.visible = false;
+        _jump.visible = true;
+    }
+
+    public function jumpDone () :void {
+        if (_jump.visible) {
+            _jump.visible = false;
+            _run.visible = true; // assume we're moving, our next frame will sort us out.
+        }
     }
 
     protected var _actor :Actor;
     protected var _idle :ActorAnimation;
     protected var _run :ActorAnimation;
+    protected var _jump :ActorAnimation;
 }
 }
 

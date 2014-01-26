@@ -26,8 +26,8 @@ public class ActorAnimation extends SpriteObject implements Updatable {
         return new ActorAnimation(color.runOffset, 15.0, 9);
     }
 
-    public static function createJump (color :PlayerColor, fps :Number) :ActorAnimation {
-        return new ActorAnimation(color.jumpOffset, fps, 11, false);
+    public static function createJump (color :PlayerColor, jumpDuration :Number) :ActorAnimation {
+        return new ActorAnimation(color.jumpOffset, 11 / jumpDuration, 11, false);
     }
 
     public static function createDeath (color :PlayerColor) :ActorAnimation {
@@ -49,7 +49,11 @@ public class ActorAnimation extends SpriteObject implements Updatable {
     public function set visible (value :Boolean) :void {
         if (_visible == value) return;
         _sprite.getChildAt(_idx).visible = _visible = value;
-        if (!_visible) _idx = 0; // reset index when going invisible
+        if (!_visible) {
+            // reset when going invisible
+            _idx = 0;
+            _signaledDone = false;
+        }
     }
 
     public function get done () :SignalView {
@@ -85,9 +89,11 @@ public class ActorAnimation extends SpriteObject implements Updatable {
     }
 
     protected function incrementFrame () :void {
-        if (_idx == _sprite.numChildren - 1 && _doneSignal != null && !_signaledDone) {
+        var done :Boolean = _idx == _sprite.numChildren - 1;
+        if (done && _doneSignal != null && !_signaledDone) {
             _signaledDone = true;
             _doneSignal.emit();
+            if (!_visible) return; // reaction to signal emit might make us invisible
         }
         if (!_loops && _idx == _sprite.numChildren - 1) return;
 

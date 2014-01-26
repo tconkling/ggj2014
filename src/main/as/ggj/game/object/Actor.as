@@ -82,6 +82,7 @@ public class Actor extends BattleObject implements Updatable
         // jumping
         if (_input.jump && this.canJump) {
             _v.y += -_ctx.params.jumpImpulse;
+            _view.jump();
         } else {
             // gravity
             _v.y += (_ctx.params.gravity * dt);
