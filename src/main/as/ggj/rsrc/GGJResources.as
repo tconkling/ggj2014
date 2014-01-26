@@ -18,6 +18,10 @@ public class GGJResources
         return { type: "flump", name: "game", data: FLUMP };
     }
 
+    public function get player () :Object {
+        return { type: "texture", name: "player", data: PLAYER };
+    }
+
     // fonts
     public function get futura50Font () :Object {
         return {
@@ -74,7 +78,6 @@ public class GGJResources
     [Embed(source="../../../../../rsrc/tome/rgby_layout_3.xml", mimeType="application/octet-stream")]
     protected static const BOARD_LAYOUT_3 :Class;
 
-
     [Embed(source="../../../../../rsrc/fonts/Futura25.fnt", mimeType="application/octet-stream")]
     protected static const FUTURA_25_FNT :Class;
     [Embed(source="../../../../../rsrc/fonts/Futura25.png", mimeType="application/octet-stream")]
@@ -91,6 +94,9 @@ public class GGJResources
     protected static const HELVETICA_24_FNT :Class;
     [Embed(source="../../../../../rsrc/fonts/Helvetica24.png", mimeType="application/octet-stream")]
     protected static const HELVETICA_24_PNG :Class;
+
+    [Embed(source="../../../../../rsrc/player.png")]
+    protected static const PLAYER :Class;
 }
 }
 

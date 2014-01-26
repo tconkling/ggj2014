@@ -15,6 +15,7 @@ public class GGJ
     public static const FRAMERATE :Number = 1 / 60;
     public static const TILE_SIZE_PX :Number = 48;
     public static const TILE_SHEET_TILE_PX :Number = 24;
+    public static const ACTOR_SHEET_TILE_PX :Number = 48;
 
     public static const RAND :Randoms = new Randoms();
 

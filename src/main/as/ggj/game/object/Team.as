@@ -20,8 +20,8 @@ public final class Team extends Enum
         return Enum.valueOf(Team, name) as Team;
     }
 
-    public function get movieName () :String {
-        return _color.playerAssetName;
+    public function get color () :PlayerColor {
+        return _color;
     }
 
     public function Team (name :String, color :PlayerColor) {

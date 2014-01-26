@@ -8,6 +8,7 @@ import aspire.util.Log;
 
 import flash.display.DisplayObject;
 
+import flashbang.core.Flashbang;
 import flashbang.core.FlashbangApp;
 import flashbang.core.FlashbangConfig;
 import flashbang.resource.ResourceSet;
@@ -17,6 +18,7 @@ import ggj.debug.DebugOverlayMode;
 import ggj.desc.GameDesc;
 import ggj.game.BattleMode;
 import ggj.rsrc.GGJResources;
+import ggj.rsrc.TextureResourceLoader;
 import ggj.screens.LoadingMode;
 
 import react.Future;
@@ -36,6 +38,7 @@ public class GGJApp extends FlashbangApp
     override protected function run () :void {
         // init resources
         GameDesc.registerResourceLoader();
+        Flashbang.rsrcs.registerResourceLoader("texture", TextureResourceLoader);
         const textureScale :int = (Starling.contentScaleFactor >= 2 ? 2 : 1);
         const resourceParams :GGJResources = new GGJResources();
 
@@ -63,6 +66,7 @@ public class GGJApp extends FlashbangApp
     protected function getResourceSet () :ResourceSet {
         const rsrcs :ResourceSet = new ResourceSet();
         rsrcs.add(GGJ.resourceParams.gameFlump);
+        rsrcs.add(GGJ.resourceParams.player);
         rsrcs.add(GGJ.resourceParams.futura50Font);
         rsrcs.add(GGJ.resourceParams.futura25Font);
         rsrcs.add(GGJ.resourceParams.helvetica24Font);
