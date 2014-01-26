@@ -2,7 +2,7 @@ package ggj.game {
 
 public class Params {
     public var gravity :Number = 40;
-    public var jumpImpulse :Number = 15;
+    public var jumpImpulse :Number = 13.5;
     public var maxFallSpeed :Number = 15;
 
     public var moveAccel :Number = 100;
