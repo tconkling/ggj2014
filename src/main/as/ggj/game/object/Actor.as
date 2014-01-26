@@ -15,6 +15,7 @@ import ggj.game.desc.PlayerColor;
 import ggj.game.desc.TileType;
 import ggj.game.view.ActorView;
 import ggj.game.view.DeadActorView;
+import ggj.rsrc.Sound;
 
 public class Actor extends BattleObject implements Updatable
 {
@@ -73,6 +74,7 @@ public class Actor extends BattleObject implements Updatable
         super.added();
         _view = new ActorView(this);
         addObject(_view, _ctx.boardLayer);
+        Sound.PLAYER_SPAWN.play();
     }
 
     public function get bounds () :Rectangle {
@@ -90,6 +92,7 @@ public class Actor extends BattleObject implements Updatable
         if (_ctx.stateMgr.playing && _input.jump && this.canJump) {
             _v.y += -_ctx.params.jumpImpulse;
             _view.jump();
+            Sound.PLAYER_JUMP.play();
         } else {
             // gravity
             _v.y += (_ctx.params.gravity * dt);
@@ -105,6 +108,7 @@ public class Actor extends BattleObject implements Updatable
 
         // vertical collisions
         if (_bounds.top != _lastBounds.top || _bounds.bottom != _lastBounds.bottom) {
+            var wasOnGround :Boolean = _onGround;
             _onGround = false;
             var vCollision :Collision = _ctx.boardMgr.activeBoard.getCollisions(_bounds, _lastBounds, true, COLLISION);
             if (vCollision != null) {
@@ -114,6 +118,7 @@ public class Actor extends BattleObject implements Updatable
                     if (!_input.jump) {
                         _jumpButtonReleasedOnGround = true;
                     }
+                    if (!wasOnGround) Sound.PLAYER_LAND.play();
                 }
 
                 // vertical collision. reset vertical velocity.
@@ -150,6 +155,7 @@ public class Actor extends BattleObject implements Updatable
         } else if (_ctx.boardMgr.activeBoard.intersectsTile(_bounds, TileType.GOAL)) {
             // we win!
             _hitVictoryTile = true;
+            Sound.PLAYER_GOAL.play();
         }
     }
 

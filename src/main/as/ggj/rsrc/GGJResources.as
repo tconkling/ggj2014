@@ -102,6 +102,20 @@ public class GGJResources
 
     [Embed(source="../../../../../rsrc/sound/player_death.mp3")]
     public static const SOUND_DEATH :Class;
+    [Embed(source="../../../../../rsrc/sound/level_swap.mp3")]
+    public static const SOUND_LEVEL_SWAP :Class;
+    [Embed(source="../../../../../rsrc/sound/menu_select_option.mp3")]
+    public static const SOUND_MENU_SELECT_OPTION :Class;
+    [Embed(source="../../../../../rsrc/sound/menu_select_player.mp3")]
+    public static const SOUND_MENU_SELECT_PLAYER :Class;
+    [Embed(source="../../../../../rsrc/sound/player_goal.mp3")]
+    public static const SOUND_PLAYER_GOAL :Class;
+    [Embed(source="../../../../../rsrc/sound/player_jump.mp3")]
+    public static const SOUND_PLAYER_JUMP :Class;
+    [Embed(source="../../../../../rsrc/sound/player_land.mp3")]
+    public static const SOUND_PLAYER_LAND :Class;
+    [Embed(source="../../../../../rsrc/sound/player_spawn.mp3")]
+    public static const SOUND_PLAYER_SPAWN :Class;
 }
 }
 

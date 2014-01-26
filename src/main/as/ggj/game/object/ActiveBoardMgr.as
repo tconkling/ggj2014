@@ -14,6 +14,7 @@ import ggj.GGJ;
 import ggj.desc.GameDesc;
 import ggj.game.desc.PlayerColor;
 import ggj.game.view.PowerView;
+import ggj.rsrc.Sound;
 
 import starling.display.Image;
 
@@ -45,6 +46,7 @@ public class ActiveBoardMgr extends BattleObject {
             for (var ii :int = 0; ii < _boards.length; ii++) {
                 _boards[ii].view.display.alpha = ii == _activeIdx ? 1.0 : BACKGROUND_BOARD_ALPHA;
             }
+            Sound.LEVEL_SWAP.play();
         }
     }
 
@@ -109,6 +111,7 @@ public class ActiveBoardMgr extends BattleObject {
             }
             fade.addTask(new AlphaTask(1.0, fadeDelay, Easing.linear,
                 _boards[ii % _boards.length].view.display));
+            fade.addTask(Sound.LEVEL_SWAP.task());
 
             // halfway though the fade, get the new top board on top.
             var swap :Function = function (boardIdx :int) :Function {
@@ -130,7 +133,8 @@ public class ActiveBoardMgr extends BattleObject {
                 new AlphaTask(1.0, BOARD_FADE_DELAY / 2, Easing.linear, activeBoard.view.display),
                 new SerialTask(new TimedTask(BOARD_FADE_DELAY / 4), new FunctionTask(function () :void {
                     _ctx.boardLayer.setChildIndex(activeBoard.view.display, _boards.length - 1);
-                }))
+                }),
+                Sound.LEVEL_SWAP.task())
             ));
         }
 
