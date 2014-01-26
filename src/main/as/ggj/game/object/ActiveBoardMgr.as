@@ -10,10 +10,21 @@ public class ActiveBoardMgr extends BattleObject {
     }
 
     public function updateActiveBoard () :void {
-        if (!_activeBoardChanged) return;
-
-        _activeBoardChanged = false;
-        _ctx.boardLayer.setChildIndex(_boards[_activeIdx].view.display, _boards.length - 1);
+        var changed :Boolean;
+        var actors :Array = Actor.getAll(this.mode);
+        for each (var a :Actor in actors) {
+            if (a.requestMapChange) {
+                _activeIdx = a.team.ordinal();
+                changed = true;
+                break;
+            }
+        }
+        if (changed) {
+            _ctx.boardLayer.setChildIndex(_boards[_activeIdx].view.display, _boards.length - 1);
+            for (var ii :int = 0; ii < _boards.length; ii++) {
+                _boards[ii].view.display.alpha = ii == _activeIdx ? 1.0 : BACKGROUND_BOARD_ALPHA;
+            }
+        }
     }
 
     override protected function added () :void {
@@ -29,12 +40,10 @@ public class ActiveBoardMgr extends BattleObject {
             }
             _boards.push(board);
         }
-        _activeBoardChanged = true;
-        updateActiveBoard();
+        _ctx.boardLayer.setChildIndex(_boards[_activeIdx].view.display, _boards.length - 1);
     }
 
     protected var _activeIdx :int;
-    protected var _activeBoardChanged :Boolean;
     protected var _boards :Vector.<BattleBoard> = new <BattleBoard>[];
 
     protected static const BOARD_NAMES :Vector.<String> = new <String>[

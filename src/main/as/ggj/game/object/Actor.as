@@ -41,6 +41,10 @@ public class Actor extends BattleObject implements Updatable
         return _hitVictoryTile;
     }
 
+    public function get requestMapChange () :Boolean {
+        return _input.power;
+    }
+
     override public function get groups () :Array {
         return [ Actor ].concat(super.groups);
     }
@@ -156,6 +160,7 @@ public class Actor extends BattleObject implements Updatable
     protected var _jumpButtonReleasedOnGround :Boolean;
 
     protected var _hitVictoryTile :Boolean;
+    protected var _requestedMapChange :Boolean;
 
     protected static const COLLISION :Collision = new Collision();
 }
