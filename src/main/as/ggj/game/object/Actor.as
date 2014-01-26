@@ -8,6 +8,8 @@ import flash.geom.Rectangle;
 
 import flashbang.core.Updatable;
 
+import ggj.GGJ;
+
 import ggj.game.control.PlayerControl;
 import ggj.game.desc.TileType;
 import ggj.game.view.ActorView;
@@ -15,10 +17,13 @@ import ggj.game.view.DeadActorView;
 
 public class Actor extends BattleObject implements Updatable
 {
-    public function Actor (input :PlayerControl) {
+    public function Actor (x :Number, y :Number, input :PlayerControl) {
         _input = input;
-
-        _bounds = new Rectangle(1, 2, 0.9, 0.9);
+        _bounds = new Rectangle(
+            x + ((1 - GGJ.ACTOR_WIDTH) * 0.5),
+            y - GGJ.ACTOR_HEIGHT,
+            GGJ.ACTOR_WIDTH,
+            GGJ.ACTOR_HEIGHT);
         _lastBounds = _bounds.clone();
     }
 

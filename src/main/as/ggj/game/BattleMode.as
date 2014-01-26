@@ -46,9 +46,12 @@ public class BattleMode extends AppMode
         addObject(_ctx.board);
 
         // actors
-        var p1 :PlayerControl = new PlayerControl(Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP,
-            Keyboard.R, _keyboardState);
-        addObject(new Actor(p1));
+        var p1 :Actor = new Actor(1, 8, new PlayerControl(Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP,
+            Keyboard.R, _keyboardState));
+        var p2 :Actor = new Actor(2, 8, new PlayerControl(Keyboard.A, Keyboard.D, Keyboard.W,
+            Keyboard.SPACE, _keyboardState));
+        addObject(p1);
+        addObject(p2);
     }
 
     override protected function update (dt :Number) :void {
