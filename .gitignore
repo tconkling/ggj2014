@@ -1,3 +1,5 @@
 *.swf
 tmp/
 *.csv
+**/*.numbers/Metadata/
+**/*.numbers/*.jpg
