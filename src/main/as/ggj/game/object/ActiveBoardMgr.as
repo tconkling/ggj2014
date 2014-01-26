@@ -52,9 +52,7 @@ public class ActiveBoardMgr extends BattleObject {
             var playerColor :PlayerColor = playerColors[ii];
             var board :BattleBoard = new BattleBoard(GameDesc.lib.getTome(boardName), playerColor);
             addObject(board);
-            if (ii > 0) {
-                board.view.display.alpha = BACKGROUND_BOARD_ALPHA;
-            }
+            board.view.display.alpha = BACKGROUND_BOARD_ALPHA;
             _boards.push(board);
 
             var powerView :PowerView = new PowerView(playerColor);
@@ -68,13 +66,23 @@ public class ActiveBoardMgr extends BattleObject {
         }
         _ctx.boardLayer.setChildIndex(_boards[_activeIdx].view.display, _boards.length - 1);
 
-        var anim :SerialTask = new SerialTask(new TimedTask(BOARD_VIEW_DELAY));
-        for (ii = 1; ii < _boards.length; ii++) {
-            anim.addTask(new ParallelTask(
-                new AlphaTask(BACKGROUND_BOARD_ALPHA, BOARD_FADE_DELAY, Easing.linear,
-                    _boards[ii - 1].view.display),
-                new AlphaTask(1.0, BOARD_FADE_DELAY, Easing.linear, _boards[ii].view.display)
-            ));
+        var anim :SerialTask = new SerialTask();
+        for (ii = 0; ii < _boards.length; ii++) {
+            var fade :ParallelTask = new ParallelTask();
+            if (ii > 0) {
+                fade.addTask(new AlphaTask(BACKGROUND_BOARD_ALPHA, BOARD_FADE_DELAY, Easing.linear,
+                    _boards[ii - 1].view.display));
+            }
+            fade.addTask(
+                new AlphaTask(1.0, BOARD_FADE_DELAY, Easing.linear, _boards[ii].view.display));
+            // halfway though the fade, get the new top board on top.
+            var swap :Function = function (boardIdx :int) :Function {
+                return function () :void {
+                    _ctx.boardLayer.setChildIndex(_boards[boardIdx].view.display, _boards.length - 1);
+                }
+            }(ii);
+            fade.addTask(new SerialTask(new TimedTask(BOARD_FADE_DELAY / 2), new FunctionTask(swap)));
+            anim.addTask(fade);
             anim.addTask(new TimedTask(BOARD_VIEW_DELAY));
         }
         if (_activeIdx != _boards.length - 1) {
