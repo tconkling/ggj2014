@@ -88,7 +88,7 @@ public class Actor extends BattleObject implements Updatable
         }
 
         // clamp
-        _v.y = MathUtil.clamp(_v.y, -_ctx.params.maxJumpSpeed, _ctx.params.maxFallSpeed);
+        _v.y = MathUtil.clamp(_v.y, -_ctx.params.jumpImpulse, _ctx.params.maxFallSpeed);
         _bounds.y += (_v.y * dt);
 
         // vertical collisions

@@ -76,7 +76,6 @@ public class BattleMode extends AppMode
         _ctx.debugLayer.addChild(debugLayout);
         addObject(new ParamEditor(_ctx.params, "gravity"), debugLayout);
         addObject(new ParamEditor(_ctx.params, "jumpImpulse"), debugLayout);
-        addObject(new ParamEditor(_ctx.params, "maxJumpSpeed"), debugLayout);
         addObject(new ParamEditor(_ctx.params, "maxFallSpeed"), debugLayout);
         addObject(new ParamEditor(_ctx.params, "moveSpeed"), debugLayout);
         debugLayout.layout();

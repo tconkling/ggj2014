@@ -20,7 +20,7 @@ public class ParamEditor extends SpriteObject {
         var layout :HLayoutSprite = new HLayoutSprite();
         _sprite.addChild(layout);
 
-        layout.addChild(Text.helvetica12(_paramName).color(0x0).build());
+        layout.addChild(Text.helvetica12(_paramName).color(0xffffff).build());
 
         var input :TextInput = Text.createInputText("", layout, 40);
         input.restrict = "0123456789.-";
