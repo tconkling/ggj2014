@@ -19,10 +19,6 @@ public class PlayerColor extends Enum {
         return Enum.valueOf(PlayerColor, name) as PlayerColor;
     }
 
-    public function get playerAssetName () :String {
-        return "game/player_" + name().toLowerCase();
-    }
-
     public function get idleOffset () :Point {
         return getOffset(IDLE_OFFSET);
     }

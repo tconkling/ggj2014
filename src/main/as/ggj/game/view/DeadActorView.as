@@ -3,31 +3,25 @@ package ggj.game.view {
 import flash.geom.Rectangle;
 
 import flashbang.objects.SpriteObject;
-import flashbang.resource.MovieResource;
-import flashbang.tasks.AlphaTask;
-import flashbang.tasks.LocationTask;
-import flashbang.tasks.ParallelTask;
-import flashbang.tasks.SelfDestructTask;
-import flashbang.tasks.SerialTask;
-import flashbang.util.Easing;
-
-import flump.display.Movie;
 
 import ggj.game.object.Actor;
 
 public class DeadActorView extends SpriteObject {
     public function DeadActorView (actor :Actor) {
-        var bounds :Rectangle = actor.ctx.boardMgr.activeBoard.view.boardToViewBounds(actor.bounds);
-        var movie :Movie = MovieResource.createMovie(actor.team.color.playerAssetName); // TODO
-        movie.x = (bounds.width * 0.5);
-        movie.y = bounds.height;
-        _sprite.addChild(movie);
-
-        addObject(new SerialTask(
-            new ParallelTask(
-                new LocationTask(movie.x, movie.y - 40, 0.5, Easing.easeIn, movie),
-                new AlphaTask(0, 0.5)),
-            new SelfDestructTask()));
+        _actor = actor;
     }
+
+    override protected function added () :void {
+        var bounds :Rectangle = _actor.ctx.boardMgr.activeBoard.view.boardToViewBounds(_actor.bounds);
+
+        var anim :ActorAnimation = ActorAnimation.createDeath(_actor.team.color);
+        addObject(anim, _sprite);
+        anim.display.x = bounds.width * 0.5;
+        anim.display.y = bounds.height;
+        anim.visible = true;
+        regs.add(anim.done.connect(destroySelf));
+    }
+
+    protected var _actor :Actor;
 }
 }
