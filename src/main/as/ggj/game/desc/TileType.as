@@ -8,7 +8,7 @@ import ggj.GGJ;
 
 public final class TileType extends Enum
 {
-    public static const EMPTY :TileType = new TileType("EMPTY", false, false);
+    // be careful when adding or modifying this enum, the ordinal is used in getTileCoordinates
 
     // floor/wall/ceiling tile types
     // block (closed in all directions)
@@ -43,6 +43,7 @@ public final class TileType extends Enum
     // spawn and goal - not floor, the player can layer on top of them
     public static const SPAWN :TileType = new TileType("SPAWN", false);
     public static const GOAL :TileType = new TileType("GOAL", false);
+    public static const EMPTY :TileType = new TileType("EMPTY", false, false);
     finishedEnumerating(TileType);
 
     public static function values () :Array {
@@ -57,6 +58,9 @@ public final class TileType extends Enum
         var x :int;
         var y :int;
         switch (this) {
+        case EMPTY:
+            return null;
+
         case PERMANENT:
             y = 4;
             break;
