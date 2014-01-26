@@ -17,7 +17,7 @@ public final class GameState extends Enum
         return Enum.valueOf(GameState, name) as GameState;
     }
 
-    public function GameState (name :String, imageName :String) {
+    public function GameState (name :String) {
         super(name);
     }
 }
