@@ -75,12 +75,17 @@ public class ActiveBoardMgr extends BattleObject {
         // build up game start animation
 
         var anim :SerialTask = new SerialTask();
-        for (ii = 0; ii < _boards.length * 2; ii++) {
+        for (ii = 0; ii < _boards.length * 3; ii++) {
             var viewDelay :Number = BOARD_VIEW_DELAY;
             var fadeDelay :Number = BOARD_FADE_DELAY;
             if (ii == 0) {
                 fadeDelay *= 2;
+            } else if (ii >= _boards.length * 2) {
+                // third time through supa fast
+                viewDelay *= 0.25;
+                fadeDelay *= 0.25;
             } else if (ii >= _boards.length) {
+                // second time through fast
                 viewDelay *= 0.5;
                 fadeDelay *= 0.5;
             }
