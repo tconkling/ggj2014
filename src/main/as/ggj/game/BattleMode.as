@@ -29,10 +29,8 @@ import starling.display.Quad;
 
 public class BattleMode extends AppMode
 {
-    public function BattleMode (numPlayers :int, scoreboard :Scoreboard = null) {
-        _ctx = new BattleCtx();
-        _ctx.numPlayers = numPlayers;
-        _ctx.scoreboard = (scoreboard || new Scoreboard());
+    public function BattleMode (numPlayers :int, params :Params = null, scoreboard :Scoreboard = null) {
+        _ctx = new BattleCtx(numPlayers, params || new Params(), scoreboard || new Scoreboard());
     }
 
     override protected function registerObject (obj :GameObjectBase) :void {
@@ -81,6 +79,7 @@ public class BattleMode extends AppMode
             addObject(new ParamEditor(_ctx.params, "jumpImpulse"), debugLayout);
             addObject(new ParamEditor(_ctx.params, "maxFallSpeed"), debugLayout);
             addObject(new ParamEditor(_ctx.params, "moveAccel"), debugLayout);
+            addObject(new ParamEditor(_ctx.params, "moveDecel"), debugLayout);
             addObject(new ParamEditor(_ctx.params, "maxMoveSpeed"), debugLayout);
             debugLayout.layout();
             debugLayout.y = Flashbang.stageHeight - debugLayout.height - 2;
@@ -99,7 +98,7 @@ public class BattleMode extends AppMode
             if (_ctx.stateMgr.state == GameState.HAS_WINNER) {
                 _ctx.scoreboard.incrementScore(_ctx.stateMgr.winner.team);
             }
-            _viewport.changeMode(new BattleMode(_ctx.numPlayers, _ctx.scoreboard));
+            _viewport.changeMode(new BattleMode(_ctx.numPlayers, _ctx.params, _ctx.scoreboard));
 
         } else {
             _ctx.boardMgr.updateActiveBoard(totalDt);

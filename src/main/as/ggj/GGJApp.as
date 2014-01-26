@@ -55,7 +55,7 @@ public class GGJApp extends FlashbangApp
     }
 
     protected function loadResources () :void {
-        // Show a loading screen, and begin loading resources
+        // Show a loading screen, and begin laoading resources
         defaultViewport.changeMode(new LoadingMode());
 
         Future.sequence([getResourceSet().load(), GameDesc.load()])

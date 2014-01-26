@@ -2,6 +2,7 @@ package ggj.game.object {
 
 import aspire.geom.Vector2;
 import aspire.util.MathUtil;
+import aspire.util.MathUtil;
 
 import flash.geom.Point;
 import flash.geom.Rectangle;
@@ -137,11 +138,12 @@ public class Actor extends BattleObject implements Updatable
         } else if (_ctx.stateMgr.playing && _input.left) {
             _v.x -= (ctx.params.moveAccel * dt);
         } else if (_v.x != 0) {
-            // decelerate
-            var decel :Number = Math.abs(_v.x) * _ctx.params.friction * dt;
-            decel *= -MathUtil.sign(_v.x);
-            // TODO
-            _v.x = 0;
+            var decel :Number = (_ctx.params.moveDecel * dt);
+            if (_v.x > 0) {
+                _v.x = MathUtil.max(_v.x - decel, 0);
+            } else {
+                _v.x = MathUtil.min(_v.x + decel, 0);
+            }
         }
 
         // clamp velocity

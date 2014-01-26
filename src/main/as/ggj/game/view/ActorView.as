@@ -6,6 +6,8 @@ import flash.geom.Rectangle;
 import flashbang.core.Updatable;
 import flashbang.util.DisplayUtil;
 
+import ggj.GGJ;
+
 import ggj.game.object.Actor;
 
 import starling.display.Quad;
@@ -50,9 +52,11 @@ public class ActorView extends BattleSpriteObject implements Updatable
         _jump.display.y = bounds.height;
         regs.add(_jump.done.connect(jumpDone));
 
-        var boundsView :Quad = DisplayUtil.fillRect(bounds.width, bounds.height, 0xffffff);
-        boundsView.alpha = 0.1;
-        _sprite.addChild(boundsView);
+        if (GGJ.DEBUG) {
+            var boundsView :Quad = DisplayUtil.fillRect(bounds.width, bounds.height, 0xffffff);
+            boundsView.alpha = 0.1;
+            _sprite.addChild(boundsView);
+        }
     }
 
     public function update (dt :Number) :void {

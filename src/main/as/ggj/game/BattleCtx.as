@@ -20,8 +20,15 @@ public class BattleCtx extends GameObject
     public var numPlayers :int;
     public var stateMgr :GameStateMgr;
     public var boardMgr :ActiveBoardMgr;
-    public var params :Params = new Params();
+
+    public var params :Params;
     public var scoreboard :Scoreboard;
+
+    public function BattleCtx (numPlayers :int, params :Params, scoreboard :Scoreboard) {
+        this.numPlayers = numPlayers;
+        this.params = params;
+        this.scoreboard = scoreboard;
+    }
 
     public var playerColors :Vector.<PlayerColor> = new <PlayerColor>[];
 }
