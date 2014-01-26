@@ -14,7 +14,7 @@ public class DeadActorView extends SpriteObject {
     override protected function added () :void {
         var bounds :Rectangle = _actor.ctx.boardMgr.activeBoard.view.boardToViewBounds(_actor.bounds);
 
-        var anim :ActorAnimation = ActorAnimation.createDeath(_actor.team.color);
+        var anim :ActorAnimation = ActorAnimation.createDeath(_actor.color);
         addObject(anim, _sprite);
         anim.display.x = bounds.width * 0.5;
         anim.display.y = bounds.height;

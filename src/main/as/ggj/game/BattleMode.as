@@ -65,8 +65,8 @@ public class BattleMode extends AppMode
             var right :uint = CONTROLS[1 + ii * 4];
             var jump :uint  = CONTROLS[2 + ii * 4];
             var power :uint = CONTROLS[3 + ii * 4];
-            addObject(new Actor(Team.values()[ii], spawnTile.x + (ii * 0.25), spawnTile.y,
-                new PlayerControl(left, right, jump, power, _keyboardState)));
+            addObject(new Actor(Team.values()[ii], _ctx.playerColors[ii], spawnTile.x + (ii * 0.25),
+                spawnTile.y, new PlayerControl(left, right, jump, power, _keyboardState)));
         }
 
         // parameter editing

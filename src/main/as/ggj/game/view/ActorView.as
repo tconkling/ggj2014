@@ -33,18 +33,18 @@ public class ActorView extends BattleSpriteObject implements Updatable
         super.added();
         var bounds :Rectangle = _ctx.boardMgr.activeBoard.view.boardToViewBounds(_actor.bounds);
 
-        _idle = ActorAnimation.createIdle(_actor.team.color);
+        _idle = ActorAnimation.createIdle(_actor.color);
         addObject(_idle, _sprite);
         _idle.display.x = bounds.width * 0.5;
         _idle.display.y = bounds.height;
         _idle.visible = true;
 
-        _run = ActorAnimation.createRun(_actor.team.color);
+        _run = ActorAnimation.createRun(_actor.color);
         addObject(_run, _sprite);
         _run.display.x = bounds.width * 0.5;
         _run.display.y = bounds.height;
 
-        _jump = ActorAnimation.createJump(_actor.team.color, _ctx.params.jumpDuration);
+        _jump = ActorAnimation.createJump(_actor.color, _ctx.params.jumpDuration);
         addObject(_jump, _sprite);
         _jump.display.x = bounds.width * 0.5;
         _jump.display.y = bounds.height;

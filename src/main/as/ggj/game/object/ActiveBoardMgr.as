@@ -52,18 +52,19 @@ public class ActiveBoardMgr extends BattleObject {
     override protected function added () :void {
         _activeIdx = GGJ.RAND.getIntInRange(0, _ctx.numPlayers);
         var boardNames :Vector.<String> = BOARD_NAMES.concat();
-        var playerColors :Array = PlayerColor.values();
+        var availableColors :Array = PlayerColor.values();
         for (var ii :int = 0; ii < _ctx.numPlayers; ii++) {
             var boardName :String = GGJ.RAND.pluck(boardNames, BOARD_NAMES[0]);
-            var playerColor :PlayerColor = playerColors[ii];
+            var playerColor :PlayerColor = GGJ.RAND.pluck(availableColors);
+            _ctx.playerColors.push(playerColor);
+
             var board :BattleBoard = new BattleBoard(GameDesc.lib.getTome(boardName), playerColor);
             addObject(board);
             board.view.display.alpha = BACKGROUND_BOARD_ALPHA;
             _boards.push(board);
 
             var powerView :PowerView = new PowerView(playerColor);
-            powerView.display.x =
-                ((board.width - _ctx.numPlayers) / 2 + playerColor.ordinal()) * GGJ.TILE_SIZE_PX;
+            powerView.display.x = ((board.width - _ctx.numPlayers) / 2 + ii) * GGJ.TILE_SIZE_PX;
             powerView.display.y = (board.height) * GGJ.TILE_SIZE_PX;
             addObject(powerView, _ctx.uiLayer);
             powerView.on = true;

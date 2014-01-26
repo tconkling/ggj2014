@@ -5,6 +5,7 @@ package ggj.game {
 
 import flashbang.core.GameObject;
 
+import ggj.game.desc.PlayerColor;
 import ggj.game.object.ActiveBoardMgr;
 import ggj.game.object.GameStateMgr;
 
@@ -20,5 +21,7 @@ public class BattleCtx extends GameObject
     public var stateMgr :GameStateMgr;
     public var boardMgr :ActiveBoardMgr;
     public var params :Params = new Params();
+
+    public var playerColors :Vector.<PlayerColor> = new <PlayerColor>[];
 }
 }

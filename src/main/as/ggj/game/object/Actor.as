@@ -11,6 +11,7 @@ import flashbang.core.Updatable;
 
 import ggj.GGJ;
 import ggj.game.control.PlayerControl;
+import ggj.game.desc.PlayerColor;
 import ggj.game.desc.TileType;
 import ggj.game.view.ActorView;
 import ggj.game.view.DeadActorView;
@@ -21,8 +22,10 @@ public class Actor extends BattleObject implements Updatable
         return mode.getObjectsInGroup(Actor);
     }
 
-    public function Actor (team :Team, x :Number, y :Number, input :PlayerControl) {
+    public function Actor (team :Team, color :PlayerColor, x :Number, y :Number,
+            input :PlayerControl) {
         _team = team;
+        _color = color;
         _startLoc = new Point(x, y);
         _input = input;
         _bounds = new Rectangle(
@@ -35,6 +38,10 @@ public class Actor extends BattleObject implements Updatable
 
     public function get team () :Team {
         return _team;
+    }
+
+    public function get color () :PlayerColor {
+        return _color;
     }
 
     public function get hitVictoryTile () :Boolean {
@@ -59,7 +66,7 @@ public class Actor extends BattleObject implements Updatable
         destroySelf();
 
         // respawn (this.mode is null at this point)
-        _ctx.mode.addObject(new Actor(_team, _startLoc.x, _startLoc.y, _input));
+        _ctx.mode.addObject(new Actor(_team, _color, _startLoc.x, _startLoc.y, _input));
     }
 
     override protected function added () :void {
@@ -154,6 +161,7 @@ public class Actor extends BattleObject implements Updatable
     protected var _startLoc :Point;
     protected var _input :PlayerControl;
     protected var _view :ActorView;
+    protected var _color :PlayerColor;
 
     // physics
     protected var _bounds :Rectangle = new Rectangle();
