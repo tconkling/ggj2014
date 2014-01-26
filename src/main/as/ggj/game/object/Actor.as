@@ -23,6 +23,7 @@ public class Actor extends BattleObject implements Updatable
 
     public function Actor (team :Team, x :Number, y :Number, input :PlayerControl) {
         _team = team;
+        _startLoc = new Point(x, y);
         _input = input;
         _bounds = new Rectangle(
             x + ((1 - GGJ.ACTOR_WIDTH) * 0.5),
@@ -52,6 +53,9 @@ public class Actor extends BattleObject implements Updatable
         this.mode.addObject(deadView, _ctx.boardLayer);
 
         destroySelf();
+
+        // respawn (this.mode is null at this point)
+        _ctx.mode.addObject(new Actor(_team, _startLoc.x, _startLoc.y, _input));
     }
 
     override protected function added () :void {
@@ -132,6 +136,7 @@ public class Actor extends BattleObject implements Updatable
     }
 
     protected var _team :Team;
+    protected var _startLoc :Point;
     protected var _input :PlayerControl;
     protected var _view :ActorView;
 
