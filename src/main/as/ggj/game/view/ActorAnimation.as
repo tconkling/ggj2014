@@ -123,6 +123,6 @@ public class ActorAnimation extends SpriteObject implements Updatable {
     protected var _visible :Boolean;
     protected var _doneSignal :UnitSignal;
     protected var _signaledDone :Boolean;
-    protected var _facingRight :Boolean;
+    protected var _facingRight :Boolean = true;
 }
 }
