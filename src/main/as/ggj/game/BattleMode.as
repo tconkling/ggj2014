@@ -76,7 +76,8 @@ public class BattleMode extends AppMode
         addObject(new ParamEditor(_ctx.params, "gravity"), debugLayout);
         addObject(new ParamEditor(_ctx.params, "jumpImpulse"), debugLayout);
         addObject(new ParamEditor(_ctx.params, "maxFallSpeed"), debugLayout);
-        addObject(new ParamEditor(_ctx.params, "moveSpeed"), debugLayout);
+        addObject(new ParamEditor(_ctx.params, "moveAccel"), debugLayout);
+        addObject(new ParamEditor(_ctx.params, "maxMoveSpeed"), debugLayout);
         debugLayout.layout();
         debugLayout.y = Flashbang.stageHeight - debugLayout.height - 2;
     }

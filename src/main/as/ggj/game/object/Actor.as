@@ -133,12 +133,20 @@ public class Actor extends BattleObject implements Updatable
 
         // horizontal movement
         if (_ctx.stateMgr.playing && _input.right) {
-            _v.x = _ctx.params.moveSpeed;
+            _v.x += (_ctx.params.moveAccel * dt);
         } else if (_ctx.stateMgr.playing && _input.left) {
-            _v.x = -ctx.params.moveSpeed;
-        } else {
+            _v.x -= (ctx.params.moveAccel * dt);
+        } else if (_v.x != 0) {
+            // decelerate
+            var decel :Number = Math.abs(_v.x) * _ctx.params.friction * dt;
+            decel *= -MathUtil.sign(_v.x);
+            // TODO
             _v.x = 0;
         }
+
+        // clamp velocity
+        _v.x = MathUtil.clamp(_v.x, -_ctx.params.maxMoveSpeed, _ctx.params.maxMoveSpeed);
+
         _bounds.x += (_v.x * dt);
         if (_bounds.left != _lastBounds.left || _bounds.right != _lastBounds.right) {
             var hCollision :Collision = _ctx.boardMgr.activeBoard.getCollisions(_bounds, _lastBounds, false, COLLISION);
