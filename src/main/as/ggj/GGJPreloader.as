@@ -15,7 +15,7 @@ import flash.utils.getDefinitionByName;
  * <p>The following compiler argument is required to make this work:</p>
  * <pre>-frame=two,ggj.GGJApp</pre>
  */
-[SWF(width="1152", height="768", frameRate="60", backgroundColor="#FFFFFF")]
+[SWF(width="1440", height="900", frameRate="60", backgroundColor="#FFFFFF")]
 public class GGJPreloader extends MovieClip
 {
     public function GGJPreloader() {

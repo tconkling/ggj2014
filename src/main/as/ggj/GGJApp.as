@@ -72,6 +72,7 @@ public class GGJApp extends FlashbangApp
 
         var instance :Starling = FullScreenExtension.createStarling(Sprite, this.stage,
             viewPort.width, viewPort.height);
+//        var instance :Starling = new Starling(Sprite, this.stage, viewPort);
         instance.stage.stageWidth = this.config.stageWidth;
         instance.stage.stageHeight = this.config.stageHeight;
         instance.enableErrorChecking = Capabilities.isDebugger;
