@@ -70,16 +70,18 @@ public class BattleMode extends AppMode
         }
 
         // parameter editing
-        addObject(new FeathersMgr());
-        var debugLayout :HLayoutSprite = new HLayoutSprite();
-        _ctx.debugLayer.addChild(debugLayout);
-        addObject(new ParamEditor(_ctx.params, "gravity"), debugLayout);
-        addObject(new ParamEditor(_ctx.params, "jumpImpulse"), debugLayout);
-        addObject(new ParamEditor(_ctx.params, "maxFallSpeed"), debugLayout);
-        addObject(new ParamEditor(_ctx.params, "moveAccel"), debugLayout);
-        addObject(new ParamEditor(_ctx.params, "maxMoveSpeed"), debugLayout);
-        debugLayout.layout();
-        debugLayout.y = Flashbang.stageHeight - debugLayout.height - 2;
+        if (GGJ.DEBUG) {
+            addObject(new FeathersMgr());
+            var debugLayout :HLayoutSprite = new HLayoutSprite();
+            _ctx.debugLayer.addChild(debugLayout);
+            addObject(new ParamEditor(_ctx.params, "gravity"), debugLayout);
+            addObject(new ParamEditor(_ctx.params, "jumpImpulse"), debugLayout);
+            addObject(new ParamEditor(_ctx.params, "maxFallSpeed"), debugLayout);
+            addObject(new ParamEditor(_ctx.params, "moveAccel"), debugLayout);
+            addObject(new ParamEditor(_ctx.params, "maxMoveSpeed"), debugLayout);
+            debugLayout.layout();
+            debugLayout.y = Flashbang.stageHeight - debugLayout.height - 2;
+        }
     }
 
     override protected function update (dt :Number) :void {
