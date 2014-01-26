@@ -50,13 +50,18 @@ public class BattleMode extends AppMode
         addObject(_ctx.stateMgr = new GameStateMgr());
 
         // boards - separate loops because activeBoard must be valid before adding Actors.
+        var active :Boolean = GGJ.RAND.getIntInRange(0, _numPlayers);
         for (var ii :int = 0; ii < _numPlayers; ii++) {
             var board :BattleBoard = new BattleBoard(GameDesc.lib.getTome("test-board"),
                 PlayerColor.values()[ii]);
             addObject(board);
+            if (ii == active) {
+                _ctx.activeBoard = board;
+            } else {
+                board.view.display.alpha = 0.2;
+            }
             _ctx.boards.push(board);
         }
-        _ctx.activeBoard = _ctx.boards[0];
 
         // actors
         for (ii = 0; ii < _numPlayers; ii++) {
