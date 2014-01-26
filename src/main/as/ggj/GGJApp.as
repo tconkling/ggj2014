@@ -7,6 +7,8 @@ import aspire.util.F;
 import aspire.util.Log;
 
 import flash.display.DisplayObject;
+import flash.geom.Rectangle;
+import flash.system.Capabilities;
 
 import flashbang.core.Flashbang;
 import flashbang.core.FlashbangApp;
@@ -24,8 +26,11 @@ import ggj.screens.LoadingMode;
 import react.Future;
 
 import starling.core.Starling;
+import starling.display.Sprite;
+import starling.extensions.brinkbit.fullscreenscreenextension.FullScreenExtension;
+import starling.utils.RectangleUtil;
 
-[SWF(width="1152", height="768", frameRate="60", backgroundColor="#FFFFFF")]
+[SWF(width="1440", height="900", frameRate="60", backgroundColor="#FFFFFF")]
 public class GGJApp extends FlashbangApp
 {
     public function GGJApp (splashScreen :DisplayObject = null) {
@@ -58,7 +63,18 @@ public class GGJApp extends FlashbangApp
     }
 
     override protected function initStarling () :Starling {
-        var instance :Starling = super.initStarling();
+        Starling.handleLostContext = true;
+
+        var viewPort :Rectangle = RectangleUtil.fit(
+            new Rectangle(0, 0, this.config.stageWidth, this.config.stageHeight),
+            new Rectangle(0, 0, this.config.windowWidth, this.config.windowHeight));
+
+        var instance :Starling = FullScreenExtension.createStarling(Sprite, this.stage,
+            viewPort.width, viewPort.height);
+        instance.stage.stageWidth = this.config.stageWidth;
+        instance.stage.stageHeight = this.config.stageHeight;
+        instance.enableErrorChecking = Capabilities.isDebugger;
+
         instance.stage.color = 0x606497;
         return instance;
     }
