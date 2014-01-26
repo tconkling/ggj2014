@@ -6,6 +6,8 @@ import aspire.util.MathUtil;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
+import flashbang.core.AppMode;
+
 import flashbang.core.Updatable;
 
 import ggj.GGJ;
@@ -15,8 +17,14 @@ import ggj.game.desc.TileType;
 import ggj.game.view.ActorView;
 import ggj.game.view.DeadActorView;
 
+import react.UnitSignal;
+
 public class Actor extends BattleObject implements Updatable
 {
+    public static function getAll (mode :AppMode) :Array {
+        return mode.getObjectsInGroup(Actor);
+    }
+
     public function Actor (x :Number, y :Number, input :PlayerControl) {
         _input = input;
         _bounds = new Rectangle(
@@ -25,6 +33,14 @@ public class Actor extends BattleObject implements Updatable
             GGJ.ACTOR_WIDTH,
             GGJ.ACTOR_HEIGHT);
         _lastBounds = _bounds.clone();
+    }
+
+    public function get hitVictoryTile () :Boolean {
+        return _hitVictoryTile;
+    }
+
+    override public function get groups () :Array {
+        return [ Actor ].concat(super.groups);
     }
 
     public function die () :void {
@@ -123,6 +139,8 @@ public class Actor extends BattleObject implements Updatable
     protected var _v :Vector2 = new Vector2();
     protected var _onGround :Boolean;
     protected var _jumpButtonReleasedOnGround :Boolean;
+
+    protected var _hitVictoryTile :Boolean;
 
     protected static const JUMP_IMPULSE :Number = -10;
     protected static const GRAVITY :Number = 20;

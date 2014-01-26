@@ -16,6 +16,7 @@ import ggj.desc.GameDesc;
 import ggj.game.control.PlayerControl;
 import ggj.game.object.Actor;
 import ggj.game.object.BattleBoard;
+import ggj.game.object.GameStateMgr;
 
 public class BattleMode extends AppMode
 {
@@ -41,9 +42,9 @@ public class BattleMode extends AppMode
         _modeSprite.addChild(_ctx.boardLayer);
         _modeSprite.addChild(_ctx.uiLayer);
 
-        // setup the board
-        _ctx.board = new BattleBoard(GameDesc.lib.getTome("test-board"));
-        addObject(_ctx.board);
+        // controller objects
+        addObject(_ctx.stateMgr = new GameStateMgr());
+        addObject(_ctx.board = new BattleBoard(GameDesc.lib.getTome("test-board")));
 
         // actors
         var p1 :Actor = new Actor(1, 8, new PlayerControl(Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP,
@@ -55,14 +56,15 @@ public class BattleMode extends AppMode
     }
 
     override protected function update (dt :Number) :void {
-        while (dt > GGJ.FRAMERATE) {
-            super.update(GGJ.FRAMERATE);
-            dt -= GGJ.FRAMERATE;
+        while (dt > 0 && !_ctx.stateMgr.isGameOver) {
+            var thisDt :Number = Math.min(dt, GGJ.FRAMERATE);
+            super.update(thisDt);
+            dt -= thisDt;
         }
-        if (dt > 0) {
-            super.update(dt);
+
+        if (_ctx.stateMgr.isGameOver) {
+            // TODO
         }
-        //_ctx.board.view.updateView();
     }
 
     protected var _ctx :BattleCtx;
