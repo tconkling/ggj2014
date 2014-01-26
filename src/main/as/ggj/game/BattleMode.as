@@ -52,7 +52,7 @@ public class BattleMode extends AppMode
         // boards - separate loops because activeBoard must be valid before adding Actors.
         var active :Boolean = GGJ.RAND.getIntInRange(0, _numPlayers);
         for (var ii :int = 0; ii < _numPlayers; ii++) {
-            var board :BattleBoard = new BattleBoard(GameDesc.lib.getTome("test-board"),
+            var board :BattleBoard = new BattleBoard(GameDesc.lib.getTome(BOARD_NAMES[ii]),
                 PlayerColor.values()[ii]);
             addObject(board);
             if (ii == active) {
@@ -91,6 +91,10 @@ public class BattleMode extends AppMode
             _viewport.pushMode(new GameOverMode(text));
         }
     }
+
+    protected static const BOARD_NAMES :Vector.<String> = new <String>[
+        "rgby_layout_1", "rgby_layout_2"
+    ];
 
     // per player: left move, right move, jump, power
     protected static const CONTROLS :Vector.<uint> = new <uint>[
