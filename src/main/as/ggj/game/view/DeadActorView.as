@@ -18,7 +18,7 @@ import ggj.game.object.Actor;
 public class DeadActorView extends SpriteObject {
     public function DeadActorView (actor :Actor) {
         var bounds :Rectangle = actor.ctx.board.view.boardToViewBounds(actor.bounds);
-        var movie :Movie = MovieResource.createMovie("game/boy");
+        var movie :Movie = MovieResource.createMovie(actor.team.movieName);
         movie.x = (bounds.width * 0.5);
         movie.y = bounds.height;
         _sprite.addChild(movie);

@@ -21,8 +21,8 @@ public class Actor extends BattleObject implements Updatable
         return mode.getObjectsInGroup(Actor);
     }
 
-    public function Actor (name :String, x :Number, y :Number, input :PlayerControl) {
-        _name = name;
+    public function Actor (team :Team, x :Number, y :Number, input :PlayerControl) {
+        _team = team;
         _input = input;
         _bounds = new Rectangle(
             x + ((1 - GGJ.ACTOR_WIDTH) * 0.5),
@@ -32,8 +32,8 @@ public class Actor extends BattleObject implements Updatable
         _lastBounds = _bounds.clone();
     }
 
-    public function get name () :String {
-        return _name;
+    public function get team () :Team {
+        return _team;
     }
 
     public function get hitVictoryTile () :Boolean {
@@ -131,7 +131,7 @@ public class Actor extends BattleObject implements Updatable
         return (_onGround && _jumpButtonReleasedOnGround);
     }
 
-    protected var _name :String;
+    protected var _team :Team;
     protected var _input :PlayerControl;
     protected var _view :ActorView;
 

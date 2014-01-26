@@ -18,6 +18,7 @@ import ggj.game.object.Actor;
 import ggj.game.object.BattleBoard;
 import ggj.game.object.GameState;
 import ggj.game.object.GameStateMgr;
+import ggj.game.object.Team;
 
 public class BattleMode extends AppMode
 {
@@ -48,9 +49,9 @@ public class BattleMode extends AppMode
         addObject(_ctx.board = new BattleBoard(GameDesc.lib.getTome("test-board")));
 
         // actors
-        var p1 :Actor = new Actor("Player 1", 1, 8,
+        var p1 :Actor = new Actor(Team.PLAYER_1, 1, 8,
             new PlayerControl(Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP, Keyboard.R, _keyboardState));
-        var p2 :Actor = new Actor("Player 2", 2, 8,
+        var p2 :Actor = new Actor(Team.PLAYER_2, 2, 8,
             new PlayerControl(Keyboard.A, Keyboard.D, Keyboard.W, Keyboard.SPACE, _keyboardState));
         addObject(p1);
         addObject(p2);
@@ -68,7 +69,7 @@ public class BattleMode extends AppMode
             if (_ctx.stateMgr.state == GameState.EVERYONE_DIED) {
                 text = "Everybody died!";
             } else if (_ctx.stateMgr.state == GameState.HAS_WINNER) {
-                text = "" + _ctx.stateMgr.winner.name;
+                text = "" + _ctx.stateMgr.winner.team.name();
             }
             _viewport.pushMode(new GameOverMode(text));
         }

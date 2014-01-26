@@ -20,9 +20,9 @@ public class ActorView extends BattleSpriteObject implements Updatable
     override protected function added () :void {
         super.added();
         var bounds :Rectangle = _ctx.board.view.boardToViewBounds(_actor.bounds);
-        _sprite.addChild(DisplayUtil.fillRect(bounds.width, bounds.height, 0x0));
+//        _sprite.addChild(DisplayUtil.fillRect(bounds.width, bounds.height, 0x0));
 
-        var movie :Movie = MovieResource.createMovie("game/boy");
+        var movie :Movie = MovieResource.createMovie(_actor.team.movieName);
         movie.x = (bounds.width * 0.5);
         movie.y = bounds.height;
         _sprite.addChild(movie);
