@@ -11,6 +11,7 @@ import ggj.GGJ;
 import ggj.game.desc.BoardDesc;
 import ggj.game.desc.PlayerColor;
 import ggj.game.desc.TileDesc;
+import ggj.game.desc.TileType;
 import ggj.game.view.BattleBoardView;
 import ggj.grid.Grid;
 
@@ -20,7 +21,7 @@ public class BattleBoard extends BattleObject
         _tiles = new Grid(desc.width, desc.height);
         for (var yy :int = 0; yy < _tiles.height; ++yy) {
             for (var xx :int = 0; xx < _tiles.width; ++xx) {
-                _tiles.setCellAt(xx, yy, new Tile(xx, yy, null));
+                _tiles.setCellAt(xx, yy, new Tile(xx, yy, TileType.EMPTY));
             }
         }
         for each (var tile :TileDesc in desc.tiles) {
@@ -59,7 +60,7 @@ public class BattleBoard extends BattleObject
                 xx = xMin;
                 for (yy = yMin; yy <= yMax; ++yy) {
                     tile = getTile(xx, yy);
-                    if (tile.type != null) {
+                    if (tile.type.collides) {
                         return (out || new Collision()).set(xx + 1, tile);
                     }
                 }
@@ -69,7 +70,7 @@ public class BattleBoard extends BattleObject
                 xx = xMax;
                 for (yy = yMin; yy <= yMax; ++yy) {
                     tile = getTile(xx, yy);
-                    if (tile.type != null) {
+                    if (tile.type.collides) {
                         return (out || new Collision).set(xx - bounds.width, tile);
                     }
                 }
@@ -82,7 +83,7 @@ public class BattleBoard extends BattleObject
                 yy = yMin;
                 for (xx = xMin; xx <= xMax; ++xx) {
                     tile = getTile(xx, yy);
-                    if (tile.type != null) {
+                    if (tile.type.collides) {
                         return (out || new Collision).set(yy + 1, tile);
                     }
                 }
@@ -92,7 +93,7 @@ public class BattleBoard extends BattleObject
                 yy = yMax;
                 for (xx = xMin; xx <= xMax; ++xx) {
                     tile = getTile(xx, yy);
-                    if (tile.type != null) {
+                    if (tile.type.collides) {
                         return (out || new Collision()).set(yy - bounds.height, tile);
                     }
                 }

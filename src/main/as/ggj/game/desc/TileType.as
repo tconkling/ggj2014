@@ -8,6 +8,8 @@ import ggj.GGJ;
 
 public final class TileType extends Enum
 {
+    public static const EMPTY :TileType = new TileType("EMPTY", false, false);
+
     // floor/wall/ceiling tile types
     // block (closed in all directions)
     public static const BLOCK :TileType = new TileType("BLOCK");
@@ -87,21 +89,22 @@ public final class TileType extends Enum
         return new Point(x * GGJ.TILE_SIZE_PX, y * GGJ.TILE_SIZE_PX);
     }
 
-    public function get isFloor () :Boolean {
-        return _isFloor;
+    public function get collides () :Boolean {
+        return _collides;
     }
 
     public function get isSpike () :Boolean {
         return _isSpike;
     }
 
-    public function TileType (name :String, isFloor :Boolean = true, isSpike :Boolean = false) {
+    public function TileType (name :String, collides :Boolean = true, isSpike :Boolean = false) {
         super(name);
-        _isFloor = isFloor;
+        // all spikes produce collisions
+        _collides = collides || isSpike;
         _isSpike = isSpike;
     }
 
-    protected var _isFloor :Boolean;
+    protected var _collides :Boolean;
     protected var _isSpike :Boolean;
 }
 }

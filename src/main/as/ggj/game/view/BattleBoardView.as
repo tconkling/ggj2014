@@ -119,7 +119,7 @@ public class BattleBoardView extends BoardView
     public function updateTileView (tile :Tile) :void {
         var tileSprite :Sprite = _tiles.cellAt(tile.x, tile.y);
         tileSprite.removeChildren(0, -1, true);
-        if (tile.type != null) {
+        if (tile.type != TileType.EMPTY) {
             tileSprite.addChild(new Image(getTexture(tile.type)));
         }
         tilesUpdated();
