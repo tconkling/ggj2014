@@ -36,11 +36,11 @@ public class PowerView extends BattleSpriteObject {
         var tex :Texture = ImageResource.createImage("game/tilesheet").texture;
         var size :Number = GGJ.TILE_SHEET_TILE_PX;
         _offImg = new Image(Texture.fromTexture(tex,
-            new Rectangle((OFF_OFFSET.x + _color.ordinal()) * size, OFF_OFFSET.y * size, size, size)));
+            new Rectangle((OFF_OFFSET.x + _color.powerViewIdx) * size, OFF_OFFSET.y * size, size, size)));
         _onImg = new Image(Texture.fromTexture(tex,
-            new Rectangle((ON_OFFSET.x + _color.ordinal()) * size, ON_OFFSET.y * size, size, size)));
+            new Rectangle((ON_OFFSET.x + _color.powerViewIdx) * size, ON_OFFSET.y * size, size, size)));
         _burstImg = new Image(Texture.fromTexture(tex,
-            new Rectangle((BURST_OFFSET.x + _color.ordinal()) * size, BURST_OFFSET.y * size, size, size)));
+            new Rectangle((BURST_OFFSET.x + _color.powerViewIdx) * size, BURST_OFFSET.y * size, size, size)));
 
         _offImg.scaleX = _offImg.scaleY = _onImg.scaleX = _onImg.scaleY = _burstImg.scaleX =
             _burstImg.scaleY = GGJ.TILE_SIZE_PX / GGJ.TILE_SHEET_TILE_PX;
