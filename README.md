@@ -29,3 +29,7 @@ Libraries used in creating this game:
 |Move right|D|H|L|:arrow_right:|
 |Jump|W|T|I|:arrow_up:|
 |Swap|S|G|K|:arrow_down:|
+
+# Demo Build
+
+A playable demo build is currently available at [rgby.roguenet.org](http://rgby.roguenet.org/)
