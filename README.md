@@ -18,6 +18,7 @@ Libraries used in creating this game:
 * [Flashbang](https://github.com/tconkling/flashbang-starling)
 * [Microtome](https://github.com/tconkling/microtome)
 * [Aspire](https://github.com/tconkling/aspire)
+* [React](https://github.com/tconkling/react-as3)
 
 # Controls
 
