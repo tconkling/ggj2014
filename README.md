@@ -34,3 +34,10 @@ Libraries used in creating this game:
 # Demo Build
 
 A playable demo build is currently available at [rgby.roguenet.org](http://rgby.roguenet.org/)
+
+# Credits
+
+* Tim Conkling - Programming - [@timconkling](https://twitter.com/timconkling)
+* Nathan Curtis - Programming - [@roguenet](https://twitter.com/Roguenet)
+* Ian McConville - Art - [@PolygonCherub](https://twitter.com/PolygonCherub)
+* Nick Popovich - Design - [@NickPopovich](https://twitter.com/NickPopovich)
